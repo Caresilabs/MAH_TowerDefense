@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAH_TowerDefense", "MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense.csproj", "{52B47B20-72E3-4861-AE44-4F014903C925}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "MAH_TowerDefenseContent", "MAH_TowerDefense\MAH_TowerDefenseContent\MAH_TowerDefenseContent.contentproj", "{74E6AD63-939E-4E96-9117-5276075DA738}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simon.Mah.Framework", "Simon.Mah.Framework\Simon.Mah.Framework.csproj", "{80422FED-9072-45CE-81BC-D81F8A0A1ED7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{52B47B20-72E3-4861-AE44-4F014903C925}.Debug|x86.ActiveCfg = Debug|x86
+		{52B47B20-72E3-4861-AE44-4F014903C925}.Debug|x86.Build.0 = Debug|x86
+		{52B47B20-72E3-4861-AE44-4F014903C925}.Release|x86.ActiveCfg = Release|x86
+		{52B47B20-72E3-4861-AE44-4F014903C925}.Release|x86.Build.0 = Release|x86
+		{74E6AD63-939E-4E96-9117-5276075DA738}.Debug|x86.ActiveCfg = Debug|x86
+		{74E6AD63-939E-4E96-9117-5276075DA738}.Release|x86.ActiveCfg = Release|x86
+		{80422FED-9072-45CE-81BC-D81F8A0A1ED7}.Debug|x86.ActiveCfg = Debug|x86
+		{80422FED-9072-45CE-81BC-D81F8A0A1ED7}.Debug|x86.Build.0 = Debug|x86
+		{80422FED-9072-45CE-81BC-D81F8A0A1ED7}.Release|x86.ActiveCfg = Release|x86
+		{80422FED-9072-45CE-81BC-D81F8A0A1ED7}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
