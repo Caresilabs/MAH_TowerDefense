@@ -1,0 +1,62 @@
+﻿====STORY====
+
+	TODO
+
+====GAMEPLAY====
+
+
+	@TOWERS{
+		Upgrades {
+			X amount of upgrades
+			then after, you Update stats only
+
+			Upgrades changes appearance, Bullets and does a StatUpdate()
+		}
+
+		Stats [Range, Cost, HP, TypeOfBullets, FireRate, Critchance, DamageModifier]
+		?Powerups (player cast block)?
+	
+	}
+
+
+	@BULLETS/MAGIC{
+		Stats[Speed, DamageDeal, bool crit, TimeAlive]
+		
+		Crit: 150-200%
+		Normal dmg: 50-100%
+
+		HitModifiers {
+			Slow, AoE, Poisioned
+		}
+	}
+
+	@ENEMIES{
+		Stats[Speed, HP, LifeOnPlayersOrb]
+	}
+
+	@MAP{
+		
+		*WAVES
+			Waves spawn in T sec after last wave is cleared
+			Waves can be Fast forwarded
+			Waves can spawned if you don't want to wait
+	
+			[How many, what type, what order]
+
+		Spline movement
+
+		Level Editor {
+			Spline editor
+			Wave editor
+		}
+	}
+
+	@UI/Controlls {
+		Menu bar @ right side
+		Bottom show stats for selected unit
+		Top shows you buy menu and stats
+
+		Mouse for Actions [Selecting tower, ui actions]
+		Mouse for moving the camera
+	
+	}

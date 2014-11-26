@@ -8,3 +8,4 @@ C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefen
 C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\bin\x86\Debug\Content\Graphics\test.xnb
 C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\bin\x86\Debug\Simon.Mah.Framework.dll
 C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\bin\x86\Debug\Simon.Mah.Framework.pdb
+C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\bin\x86\Debug\Content\Font\font.xnb

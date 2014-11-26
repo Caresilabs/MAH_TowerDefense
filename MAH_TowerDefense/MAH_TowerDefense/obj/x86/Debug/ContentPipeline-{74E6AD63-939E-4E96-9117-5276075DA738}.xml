@@ -10,6 +10,15 @@
       <Output>C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\bin\x86\Debug\Content\Graphics\test.xnb</Output>
       <Time>2014-11-26T19:56:10.2486345+01:00</Time>
     </Item>
+    <Item>
+      <Source>Font\font.spritefont</Source>
+      <Name>Font\font</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\bin\x86\Debug\Content\Font\font.xnb</Output>
+      <Time>2014-11-26T20:56:31.2987467+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{74E6AD63-939E-4E96-9117-5276075DA738}</ContentProjectGUID>
