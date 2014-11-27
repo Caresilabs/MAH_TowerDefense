@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\bin\x86\Debug\Content\Graphics\test.xnb</Output>
-      <Time>2014-11-26T19:56:10.2486345+01:00</Time>
+      <Output>C:\Users\Spellabbet\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\bin\x86\Debug\Content\Graphics\test.xnb</Output>
+      <Time>2014-11-27T09:51:09.3101067+01:00</Time>
     </Item>
     <Item>
       <Source>Font\font.spritefont</Source>
@@ -16,8 +16,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\bin\x86\Debug\Content\Font\font.xnb</Output>
-      <Time>2014-11-26T20:56:31.2987467+01:00</Time>
+      <Output>C:\Users\Spellabbet\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\bin\x86\Debug\Content\Font\font.xnb</Output>
+      <Time>2014-11-27T09:51:09.3081049+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -26,10 +26,10 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefenseContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Spellabbet\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefenseContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Spellabbet\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Spellabbet\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Spellabbet\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -58,7 +58,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2014-09-09T14:33:55.0659504+02:00</Value>
+        <Value>2014-08-18T15:31:39.322524+02:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>
