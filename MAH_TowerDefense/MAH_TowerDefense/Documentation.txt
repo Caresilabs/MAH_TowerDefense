@@ -32,6 +32,12 @@
 
 	@ENEMIES{
 		Stats[Speed, HP, LifeOnPlayersOrb]
+		List<HitModifiers> (Such as single damage, time damage or any modifyier, lower armor)
+	}
+
+	@HitModifier {
+		Update (for continious effects)
+		Draw (for particles)
 	}
 
 	@MAP{

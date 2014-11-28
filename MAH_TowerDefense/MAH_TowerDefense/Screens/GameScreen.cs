@@ -8,38 +8,54 @@ using Spline;
 using Microsoft.Xna.Framework.Graphics;
 using Simon.Mah.Framework.Scene2D;
 using Microsoft.Xna.Framework.Input;
+using MAH_TowerDefense.Views;
+using MAH_TowerDefense.Worlds;
 
 namespace MAH_TowerDefense.Screens
 {
     public class GameScreen : Screen
     {
-        SimplePath path;
+        private WorldRenderer renderer;
+        private World world;
+        private HUD hud;
+
+        private float timeModifier;
+
         public override void Init()
         {
-            path = new SimplePath(GetGraphics());
-            path.Clean();
-
-            path.AddPoint(new Vector2(0, 0));
-           // path.AddPoint(new Vector2(120, 300));
-           // path.AddPoint(new Vector2(400, 100));
-            //path.AddPoint(new Vector2(1200, 600));
-
-           // tex = Content.Load<Texture2D>(@"Graphics/test");
+            this.world = new World();
+            this.renderer = new WorldRenderer(world, GetGraphics());
+            this.hud = new HUD(this);
+            this.timeModifier = 1;
         }
 
         public override void Update(float delta)
         {
-            if (InputHandler.Clicked())
-                path.AddPoint(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+            UpdateInput();
+
+            world.Update(delta * timeModifier);
+            hud.Update(delta);
         }
 
-        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch batch)
+        private void UpdateInput()
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                timeModifier = 2;
+            else
+                if (InputHandler.KeyReleased(Keys.Space))
+                    timeModifier = 1;
+        }
+
+        public override void Draw(SpriteBatch batch)
         {
             batch.GraphicsDevice.Clear(Color.Magenta);
 
-            batch.Begin();
+            hud.Draw(batch);
+            renderer.Render(batch);
 
-            int delta = 25;
+            /*
+             * 
+             *  int delta = 25;
             if (path.AntalPunkter >= 4)
             {
                 for (float i = path.beginT + delta; i < path.endT; i += delta)
@@ -56,11 +72,16 @@ namespace MAH_TowerDefense.Screens
                 // TODO: Add your drawing code here
                 path.Draw(batch);
             }
-            batch.End();
+             */
         }
 
         public override void Dispose()
         {
+        }
+
+        public World GetWorld()
+        {
+            return world;
         }
     }
 }
