@@ -29,14 +29,14 @@ namespace Simon.Mah.Framework.Tools
             this.rotation = 0f;
             this.zoom = new Vector2(1, 1);
             this.position = Vector2.Zero;
-            this.Update();
+            this.GetMatrix();
         }
 
         private Camera2D Update()
         {
             zoom.X = graphicsDevice.Viewport.Width / (float)defaultViewPort.X;
             zoom.Y = graphicsDevice.Viewport.Height / (float)defaultViewPort.Y;
-            
+
             return this;
         }
 
@@ -49,8 +49,8 @@ namespace Simon.Mah.Framework.Tools
                 Matrix.CreateTranslation(new Vector3(-position.X, -position.Y, 0)) *
                 Matrix.CreateRotationZ(rotation) *
                 Matrix.CreateScale(new Vector3(zoom.X, zoom.Y, 1));// *
-                //Matrix.CreateTranslation(new Vector3(graphicsDevice.Viewport.Width * 0.5f, graphicsDevice.Viewport.Height * 0.5f, 0));
-           
+            //Matrix.CreateTranslation(new Vector3(graphicsDevice.Viewport.Width * 0.5f, graphicsDevice.Viewport.Height * 0.5f, 0));
+
             return transform;
         }
 
@@ -110,6 +110,16 @@ namespace Simon.Mah.Framework.Tools
         {
             position.X = pos.X;
             position.Y = pos.Y;
+        }
+
+        public bool IsInside(Rectangle r)
+        {
+            if (r.Left < position.X) return false;
+            if (r.Right > position.X + GetWidth()) return false;
+            if (r.Top < position.Y) return false;
+            if (r.Bottom > position.Y + GetHeight()) return false;
+
+            return true;
         }
     }
 }

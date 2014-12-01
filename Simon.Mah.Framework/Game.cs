@@ -13,7 +13,7 @@ namespace Simon.Mah.Framework
     {
         public static string GAME_NAME = "Hello XNA";
 
-        protected static GraphicsDeviceManager graphics;
+        public static GraphicsDeviceManager graphics;
 
         protected SpriteBatch spriteBatch;
         protected Screen currentScreen;
@@ -61,7 +61,7 @@ namespace Simon.Mah.Framework
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            //GraphicsDevice.Clear(Color.Black);
 
             // Draw screen
             currentScreen.Draw(spriteBatch);

@@ -75,7 +75,10 @@ namespace Simon.Mah.Framework
         private void UpdateSizeScale()
         {
             if (Region != null)
+            {
                 this.SizeScale = new Vector2(Size.X / Region.GetSource().Width, Size.Y / Region.GetSource().Height);
+                this.Origin = new Vector2(Region.GetSource().Width / 2, Region.GetSource().Height / 2);
+            }
         }
 
         // ==== HELPERS ==== //
@@ -89,6 +92,7 @@ namespace Simon.Mah.Framework
         public Sprite SetAnimation(string name)
         {
             Animations.SetAnimation(name);
+            SetRegion(Animations.GetRegion());
             return this;
         }
 

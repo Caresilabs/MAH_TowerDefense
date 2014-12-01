@@ -25,6 +25,11 @@ namespace Simon.Mah.Framework.Scene2D
                 return false;
         }
 
+        public static bool IsKeyDown(Keys key)
+        {
+            return Keyboard.GetState().IsKeyDown(key);
+        }
+
         public static bool KeyReleased(Keys key)
         {
             if (Keyboard.GetState().IsKeyUp(key) && oldKeyState.IsKeyDown(key))
@@ -36,6 +41,14 @@ namespace Simon.Mah.Framework.Scene2D
         public static bool Clicked()
         {
             if (Mouse.GetState().LeftButton == ButtonState.Released && oldMouseState.LeftButton == ButtonState.Pressed)
+                return true;
+            else
+                return false;
+        }
+
+        public static bool ClickedDown()
+        {
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
                 return true;
             else
                 return false;

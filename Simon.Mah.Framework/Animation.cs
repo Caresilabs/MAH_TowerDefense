@@ -10,7 +10,7 @@ namespace Simon.Mah.Framework
     public abstract class Animation
     {
         protected int currentFrame;
-        protected int lastFrame;
+        protected int lastFrame = -1;
 
         public abstract void Update(float delta);
 

@@ -78,16 +78,25 @@
   <ItemGroup>
     <Compile Include="Assets.cs" />
     <Compile Include="Entity\Bullets\Bullet.cs" />
+    <Compile Include="Entity\Bullets\HitModifier.cs" />
+    <Compile Include="Entity\Bullets\IntervalHitModifier.cs" />
     <Compile Include="Entity\Enemies\Enemy.cs" />
     <Compile Include="Entity\Enemies\EnemyFactory.cs" />
     <Compile Include="Entity\GameObject.cs" />
-    <Compile Include="Entity\Tower.cs" />
+    <Compile Include="Entity\IHitable.cs" />
+    <Compile Include="Entity\IPlayerUnit.cs" />
+    <Compile Include="Entity\StatsData.cs" />
+    <Compile Include="Entity\Towers\Tower.cs" />
+    <Compile Include="Entity\Towers\TowerFactory.cs" />
+    <Compile Include="Entity\Unit.cs" />
     <Compile Include="HighscoreManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Screens\GameScreen.cs" />
+    <Compile Include="Screens\LevelEditor.cs" />
+    <Compile Include="Screens\MainMenu.cs" />
     <Compile Include="Start.cs" />
-    <Compile Include="Views\HUD.cs" />
+    <Compile Include="Views\UIController.cs" />
     <Compile Include="Views\WorldRenderer.cs" />
     <Compile Include="Levels\World.cs" />
   </ItemGroup>
@@ -131,7 +140,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

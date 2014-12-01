@@ -37,7 +37,8 @@ namespace MAH_TowerDefense
             items = manager.Load<Texture2D>("Graphics/test");
 
             // Entities
-            LoadRegion("Entity", items, 32, 512, 32, 32);
+            LoadRegion("Entity", items, 2, 17, 20, 20);
+            LoadRegion("Pixel", items, 0, 0, 1, 1);
 
             // Load font 
             font = manager.Load<SpriteFont>("Font/font");

@@ -5,7 +5,6 @@ using System.Text;
 
 namespace MAH_TowerDefense.Entity
 {
-    class Tower
-    {
-    }
+    public interface IPlayerUnit { }
+    
 }

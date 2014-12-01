@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MAH_TowerDefense.Worlds;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Simon.Mah.Framework;
 using Simon.Mah.Framework.Scene2D;
@@ -11,7 +12,9 @@ namespace MAH_TowerDefense.Entity
 {
     public abstract class GameObject
     {
-        public Sprite sprite;
+        public readonly Sprite sprite;
+
+        public World world;
 
         protected Rectangle bounds;
         protected Vector2 position;
@@ -22,6 +25,8 @@ namespace MAH_TowerDefense.Entity
             this.position = new Vector2(x, y);
             this.bounds = new Rectangle((int)x, (int)y, (int)width, (int)height);
         }
+
+        public GameObject(float x, float y, float width, float height) : this(null, x, y, width, height) { }
 
         public virtual void Update(float delta)
         {
@@ -46,10 +51,21 @@ namespace MAH_TowerDefense.Entity
             bounds.Y = (int)(position.Y - (bounds.Height / 2));
         }
 
+        public Vector2 GetPosition()
+        {
+            return position;
+        }
+
         public void SetPosition(Vector2 pos)
         {
             position.X = pos.X;
             position.Y = pos.Y;
+        }
+
+        public void SetPosition(float x, float y)
+        {
+            position.X = x;
+            position.Y = y;
         }
 
         public Rectangle GetBounds()

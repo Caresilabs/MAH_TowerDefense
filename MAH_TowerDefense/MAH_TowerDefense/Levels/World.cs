@@ -1,6 +1,13 @@
 ﻿using MAH_TowerDefense.Entity;
+using MAH_TowerDefense.Entity.Enemies;
+using MAH_TowerDefense.Entity.Towers;
 using MAH_TowerDefense.Views;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Simon.Mah.Framework.Scene2D;
+using Simon.Mah.Framework.Tools;
+using Spline;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,48 +17,98 @@ namespace MAH_TowerDefense.Worlds
 {
     public class World
     {
-        public static int WIDTH = 20;
-        public static int HEIGHT = 20;
+        public const int TILES_HORIZONTAL = 20;
 
-        public static float TILE_SIZE = 32;
+        public static float TILE_SIZE;
+        public static int WIDTH;
+        public static int HEIGHT;
 
         private List<GameObject> entities;
+        private List<GameObject> selected;
 
-        public World()
+        private SimplePath road;
+
+        private int lives;
+
+        public World(int width, int height, float tileSize)
         {
+            WIDTH = width;
+            HEIGHT = height;
+            TILE_SIZE = tileSize;
+
             this.entities = new List<GameObject>();
+            this.selected = new List<GameObject>();
+            this.InitLevel();
+        }
+
+        public void InitLevel(int level = 1)
+        {
+            this.lives = 20;
+
+            road = new SimplePath(Start.graphics.GraphicsDevice);
+            road.InsertPoint(new Vector2(0, HEIGHT * TILE_SIZE / 2), 0);
+            road.AddPoint(new Vector2(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE / 2));
+
+            Tower tower = TowerFactory.CreateCannon(500, 500);
+            tower.Place();
+            AddEntity(tower);
+
+            Enemy e = EnemyFactory.CreateGoblin(0, 0);
+            AddEntity(e);
         }
 
         public void Update(float delta)
         {
+            for (int i = 0; i < entities.Count; i++)
+            {
+                GameObject entity = entities[i];
+                entity.Update(delta);
 
+                if (entity is Unit) // Remove unit if dead
+                    if (((Unit)entity).Alive == false)
+                        RemoveEntity(entity);
+            }
         }
 
+        public void AddEntity(GameObject entity)
+        {
+            entity.world = this;
+            entities.Add(entity);
+        }
 
-        /// <summary>
-        /// Return if world space is occupied or not
-        /// </summary>
-        /// <param name="wx">World cord X</param>
-        /// <param name="wy">World cord X</param>
-        public bool CanPlace(GameObject g) {
-            Color[] pixels = new Color[g.sprite.Region.GetTexture().Width * g.sprite.Region.GetTexture().Height];
-            Color[] pixels2 = new Color[g.sprite.Region.GetTexture().Width * g.sprite.Region.GetTexture().Height];
+        public void RemoveEntity(GameObject entity)
+        {
+            entities.Remove(entity);
+        }
 
-            g.sprite.Region.GetTexture().GetData<Color>(pixels2);
+        public List<Enemy> GetEnemies(GameObject entity, float radius)
+        {
+            List<Enemy> enemies = new List<Enemy>();
 
-            WorldRenderer.RenderTarget.GetData(0, g.sprite.Region.GetSource(), pixels, 0, pixels.Length);
-
-            for (int i = 0; i < pixels.Length; ++i)
+            foreach (var enemy in entities.Where(x => x is Enemy))
             {
-                if (pixels[i].A > 0.0f && pixels2[i].A > 0.0f)
-                    return false;
+                if (Vector2.DistanceSquared(entity.GetPosition(), enemy.GetPosition()) < radius * radius)
+                {
+                    enemies.Add((Enemy)enemy);
+                }
             }
-            return true;
+            return enemies;
+        }
+
+        public void Select(Rectangle selection)
+        {
+            selected = entities.Where(x => x.GetBounds().Intersects(selection)).ToList();
+            Console.WriteLine(selected.Count);
         }
 
         public List<GameObject> GetEntities()
         {
             return entities;
+        }
+
+        public SimplePath GetRoad()
+        {
+            return road;
         }
     }
 }
