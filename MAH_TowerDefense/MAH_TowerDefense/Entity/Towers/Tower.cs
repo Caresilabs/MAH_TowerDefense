@@ -3,6 +3,7 @@ using MAH_TowerDefense.Entity.Enemies;
 using MAH_TowerDefense.Worlds;
 using Microsoft.Xna.Framework;
 using Simon.Mah.Framework.Scene2D;
+using Simon.Mah.Framework.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,25 +25,25 @@ namespace MAH_TowerDefense.Entity.Towers
 
         public int Cost { get; set; }
 
-        public Tower(StatsData stats, float x, float y, float width, float height)
+        private float shootTime;
+
+        public Tower(StatsData stats, Type bullet, float x, float y, float width, float height)
             : base(x, y, 64, 64)
         {
             this.Stats = stats;
             this.Placed = false;
-            this.Bullet = typeof(Bullet);
+            this.Bullet = bullet;
+            this.shootTime = 0;
         }
 
-        public Tower(StatsData stats, float x, float y)
-            : this(stats, x, y, World.TILE_SIZE, World.TILE_SIZE)
+        public Tower(StatsData stats, Type bullet, float x, float y)
+            : this(stats, bullet, x, y, World.TILE_SIZE, World.TILE_SIZE)
         {
         }
 
         public override void Update(float delta)
         {
             UpdateShooting(delta);
-
-            if (Placed)
-                sprite.Rotation += delta;
 
             base.Update(delta);
         }
@@ -53,27 +54,42 @@ namespace MAH_TowerDefense.Entity.Towers
 
             if (Target == null)
             {
-                List<Enemy> enemies = world.GetEnemies(this, Stats.ShootRadius);
+                List<Enemy> enemies = world.GetEnemies(this, Stats.Radius);
                 if (enemies.Count != 0)
                 {
                     Target = enemies[0];
-                    Shoot();
+                    Shoot(delta);
                 }
             }
             else
             {
                 // Check if target is still in range
-                if (Vector2.DistanceSquared(position, Target.GetPosition()) < Stats.ShootRadius * Stats.ShootRadius) {
-                    Shoot();
+                if (Target.Alive && Vector2.DistanceSquared(position, Target.GetPosition()) < Stats.Radius * Stats.Radius)
+                {
+                    Shoot(delta);
                 }
                 else
                     Target = null;
             }
         }
 
-        private void Shoot()
+        private void Shoot(float delta)
         {
-            
+            float angle = (float)(Math.Atan2(Target.GetPosition().X - position.X, Target.GetPosition().Y - position.Y));
+            sprite.Rotation = MathUtils.AngleLerp(sprite.Rotation, (float)Math.PI - angle, 8 * delta);
+            // sprite.Rotation = MathHelper.Lerp(sprite.Rotation, (float)Math.PI - angle, 8 * delta);
+
+            if (shootTime <= 0)
+            {
+                // Shoot
+                angle = (float)Math.PI / 2 - angle;
+                shootTime = Stats.Speed;
+                Vector2 velocity = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+                Bullet bullet = (Bullet)Activator.CreateInstance(this.Bullet, position.X, position.Y, new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)));
+                //bullet.FixStat
+                world.AddBullet(bullet);
+            }
+            shootTime -= delta;
         }
 
         public void Place()

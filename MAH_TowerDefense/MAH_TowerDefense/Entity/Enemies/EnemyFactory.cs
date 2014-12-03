@@ -8,14 +8,17 @@ namespace MAH_TowerDefense.Entity.Enemies
 {
     public static class EnemyFactory
     {
-        public static Enemy CreateGoblin(float x, float y)
+        public static Enemy CreateSnail(float offset)
         {
-            StatsData stats = new StatsData();
-            stats.Speed = 100;
+            StatsData stats = new StatsData()
+            {
+                MaxHealth = 100,
+                MaxSpeed = 100,
+                Armor = 70
+            };
 
-            Enemy enemy = new Enemy(stats, x, y);
-
-            enemy.sprite.AddAnimation("normal", new FrameAnimation(Assets.GetRegion("Entity"), 0, 17, 32, 32, 1, 1)).SetAnimation("normal");
+            Enemy enemy = new Enemy(stats, offset, 48, 32);
+            enemy.sprite.AddAnimation("normal", new FrameAnimation(Assets.items, 0, 128, 64, 32, 1, 1)).SetAnimation("normal");
 
             return enemy;
         }

@@ -46,7 +46,7 @@ namespace MAH_TowerDefense.Screens
             hud.Update(delta);
 
             world.Update(delta * timeModifier);
-            renderer.Update(delta);
+            renderer.Update(delta * timeModifier);
 
             UpdatePlacingTower();
         }
@@ -55,10 +55,10 @@ namespace MAH_TowerDefense.Screens
         {
             if (!isPlacing) return;
 
-            Vector2 worldMouse = renderer.GetCamera().Unproject(Mouse.GetState().X, Mouse.GetState().Y);
+            Vector2 worldMouse = renderer.Camera.Unproject(Mouse.GetState().X, Mouse.GetState().Y);
             placingTower.SetPosition(worldMouse.X, worldMouse.Y);
 
-            if (CanPlace(placingTower, renderer.GetCamera()))
+            if (CanPlace(placingTower, renderer.Camera))
             {
                 placingTower.sprite.Color = Color.White;
                 if (InputHandler.Clicked())

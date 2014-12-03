@@ -34,11 +34,12 @@ namespace MAH_TowerDefense
             regions = new Dictionary<string, TextureRegion>();
 
             // load our sprite sheet
-            items = manager.Load<Texture2D>("Graphics/test");
+            items = manager.Load<Texture2D>("Graphics/items");
 
             // Entities
-            LoadRegion("Entity", items, 2, 17, 20, 20);
-            LoadRegion("Pixel", items, 0, 0, 1, 1);
+            LoadRegion("Entity", items, 0, 64, 64, 64);
+            LoadRegion("Grass", items, 0, 0, 64, 64);
+            LoadRegion("Pixel", items, 511, 0, 1, 1);
 
             // Load font 
             font = manager.Load<SpriteFont>("Font/font");

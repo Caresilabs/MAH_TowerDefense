@@ -14,7 +14,7 @@ namespace MAH_TowerDefense.Entity.Bullets
         private float time;
         private float totalTime;
 
-        public IntervalHitModifier(float interval, float totalTime)
+        public IntervalHitModifier(StatsData data, float interval, float totalTime) : base(data)
         {
             this.intervalTime = 0;
             this.interval = interval;
@@ -33,8 +33,13 @@ namespace MAH_TowerDefense.Entity.Bullets
             if (intervalTime >= interval)
             {
                 intervalTime = 0;
-                ((Enemy)entity).Stats -= modifier;
+                DoHit();
             }
+        }
+
+        public override HitModifier Clone()
+        {
+            return new IntervalHitModifier(data, interval, totalTime);
         }
     }
 }

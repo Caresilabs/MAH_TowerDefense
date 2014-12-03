@@ -1,2 +1,2 @@
-Content\Graphics\test.xnb
 Content\Font\font.xnb
+Content\Graphics\items.xnb

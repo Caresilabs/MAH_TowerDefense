@@ -36,7 +36,7 @@ namespace MAH_TowerDefense.Views
 
         public void Update(float delta)
         {
-            Vector2 worldMouse = gameScreen.GetRenderer().GetCamera().Unproject(Mouse.GetState().X, Mouse.GetState().Y);
+            Vector2 worldMouse = gameScreen.GetRenderer().Camera.Unproject(Mouse.GetState().X, Mouse.GetState().Y);
 
             if (!gameScreen.IsPlacing())
                 UpdateSelection();
@@ -46,20 +46,32 @@ namespace MAH_TowerDefense.Views
 
         private void UpdateCameraMovement(float delta, Vector2 worldMouse)
         {
-            Camera2D cam = gameScreen.GetRenderer().GetCamera();
+            Camera2D cam = gameScreen.GetRenderer().Camera;
             float dt = cam.GetWidth() / 40f;
 
             // X
             if (cam.GetPosition().X + dt > worldMouse.X || InputHandler.IsKeyDown(Keys.Left))
+            {
                 cam.SetPosition(cam.GetPosition().X - CAMERA_SPEED, cam.GetPosition().Y);
+                startSelection.X += CAMERA_SPEED;
+            }
             if (cam.GetPosition().X + cam.GetWidth() - dt < worldMouse.X || InputHandler.IsKeyDown(Keys.Right))
+            {
                 cam.SetPosition(cam.GetPosition().X + CAMERA_SPEED, cam.GetPosition().Y);
+                startSelection.X -= CAMERA_SPEED;
+            }
 
             // Y
             if (cam.GetPosition().Y + dt > worldMouse.Y || InputHandler.IsKeyDown(Keys.Up))
+            {
                 cam.SetPosition(cam.GetPosition().X, cam.GetPosition().Y - CAMERA_SPEED);
+                startSelection.Y += CAMERA_SPEED;
+            }
             if (cam.GetPosition().Y + cam.GetHeight() - dt < worldMouse.Y || InputHandler.IsKeyDown(Keys.Down))
+            {
                 cam.SetPosition(cam.GetPosition().X, cam.GetPosition().Y + CAMERA_SPEED);
+                startSelection.Y -= CAMERA_SPEED;
+            }
         }
 
         private void UpdateSelection()
@@ -77,7 +89,10 @@ namespace MAH_TowerDefense.Views
                 if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                 {
                     if ((mouse.X - startSelection.X) >= 0)
+                    {
+                        selection.X = (int)startSelection.X;
                         selection.Width = (int)(mouse.X - selection.X);
+                    }
                     else
                     {
                         selection.X = (int)(mouse.X);
@@ -85,7 +100,10 @@ namespace MAH_TowerDefense.Views
                     }
 
                     if ((mouse.Y - startSelection.Y) >= 0)
+                    {
+                        selection.Y = (int)startSelection.Y;
                         selection.Height = (int)(mouse.Y - selection.Y);
+                    }
                     else
                     {
                         selection.Y = (int)(mouse.Y);
@@ -101,8 +119,8 @@ namespace MAH_TowerDefense.Views
 
         private void Select()
         {
-            Vector2 start = gameScreen.GetRenderer().GetCamera().Unproject(selection.X, selection.Y);
-            Vector2 size = gameScreen.GetRenderer().GetCamera().Unproject(selection.Width, selection.Height);
+            Vector2 start = gameScreen.GetRenderer().Camera.Unproject(selection.X, selection.Y);
+            Vector2 size = gameScreen.GetRenderer().Camera.Unproject(selection.Width, selection.Height);
             world.Select(new Rectangle((int)start.X, (int)start.Y, (int)size.X, (int)size.Y));
             selection = Rectangle.Empty;
         }
@@ -118,7 +136,7 @@ namespace MAH_TowerDefense.Views
                       camera.GetMatrix());
 
             if (selection != null)
-                DrawSelection(batch, selection, 3, Color.Red);
+                DrawSelection(batch, selection, 3, Color.SeaGreen);
 
             DrawUI(batch);
 
@@ -128,27 +146,27 @@ namespace MAH_TowerDefense.Views
 
         private void DrawUI(SpriteBatch batch)
         {
-            batch.Draw(Assets.items, new Rectangle(WIDTH - PANEL_WIDTH, 0, PANEL_WIDTH, HEIGHT), Assets.GetRegion("Pixel"), Color.Gray, 0, Vector2.Zero, SpriteEffects.None, 1);
+            batch.Draw(Assets.items, new Rectangle(WIDTH - PANEL_WIDTH, 0, PANEL_WIDTH, HEIGHT), Assets.GetRegion("Pixel"), Color.Gray, 0, Vector2.Zero, SpriteEffects.None, .95f);
         }
 
         private void DrawSelection(SpriteBatch batch, Rectangle rectangleToDraw, int thicknessOfBorder, Color color)
         {
             // Draw top line
-            batch.Draw(Assets.GetRegion("Pixel"), new Rectangle(rectangleToDraw.X, rectangleToDraw.Y, rectangleToDraw.Width, thicknessOfBorder), Assets.GetRegion("Pixel"), color);
+            batch.Draw(Assets.GetRegion("Pixel"), new Rectangle(rectangleToDraw.X, rectangleToDraw.Y, rectangleToDraw.Width, thicknessOfBorder), Assets.GetRegion("Pixel"), color, 0, Vector2.Zero, SpriteEffects.None, 1);
 
             // Draw left line
-            batch.Draw(Assets.GetRegion("Pixel"), new Rectangle(rectangleToDraw.X, rectangleToDraw.Y, thicknessOfBorder, rectangleToDraw.Height), Assets.GetRegion("Pixel"), color);
+            batch.Draw(Assets.GetRegion("Pixel"), new Rectangle(rectangleToDraw.X, rectangleToDraw.Y, thicknessOfBorder, rectangleToDraw.Height), Assets.GetRegion("Pixel"), color, 0, Vector2.Zero, SpriteEffects.None, 1);
 
             // Draw right line
             batch.Draw(Assets.GetRegion("Pixel"), new Rectangle((rectangleToDraw.X + rectangleToDraw.Width - thicknessOfBorder),
                                             rectangleToDraw.Y,
                                             thicknessOfBorder,
-                                            rectangleToDraw.Height), Assets.GetRegion("Pixel"), color);
+                                            rectangleToDraw.Height), Assets.GetRegion("Pixel"), color, 0, Vector2.Zero, SpriteEffects.None, 1);
             // Draw bottom line
             batch.Draw(Assets.GetRegion("Pixel"), new Rectangle(rectangleToDraw.X,
                                             rectangleToDraw.Y + rectangleToDraw.Height - thicknessOfBorder,
                                             rectangleToDraw.Width,
-                                            thicknessOfBorder), Assets.GetRegion("Pixel"), color);
+                                            thicknessOfBorder), Assets.GetRegion("Pixel"), color, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
 
         public static void drawCenterString(SpriteBatch batch, string text, float y, Color color, float scale = 1)

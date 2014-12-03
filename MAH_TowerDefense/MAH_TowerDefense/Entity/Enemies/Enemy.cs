@@ -1,5 +1,7 @@
 ﻿using MAH_TowerDefense.Entity.Bullets;
 using MAH_TowerDefense.Worlds;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,32 +11,38 @@ namespace MAH_TowerDefense.Entity.Enemies
 {
     public class Enemy : Unit, IHitable
     {
-        public StatsData Stats { get; set; }
+        public const int HEALTH_BAR_HEIGHT = 8;
+
+        private StatsData stats;
 
         public List<HitModifier> HitModifiers { get; set; }
 
         private float walkedDistance;
 
-        public Enemy(StatsData stats, float x, float y, float width, float height)
-            : base(x, y, 64, 64)
+        public Enemy(StatsData stats, float offset, float width, float height)
+            : base(0, 0, width, height)
         {
-            this.Stats = stats;
+            this.stats = stats;
             this.HitModifiers = new List<HitModifier>();
-            this.walkedDistance = 0;
+            this.walkedDistance = offset;
         }
 
-        public Enemy(StatsData stats, float x, float y)
-            : this(stats, x, y, World.TILE_SIZE, World.TILE_SIZE)
+        public Enemy(StatsData stats, float offset)
+            : this(stats, offset, World.TILE_SIZE/2, World.TILE_SIZE/2)
         {}
 
         public override void Update(float delta)
         {
-            walkedDistance += Stats.Speed * delta;
+            stats.Speed += stats.MaxSpeed * delta;
+
+            walkedDistance += stats.Speed * delta;
             SetPosition(world.GetRoad().GetPos(walkedDistance));
 
             if (walkedDistance >= world.GetRoad().endT)
                 Alive = false;
-                
+
+            if (stats.Health <= 0)
+                Kill();
 
             for (int i = 0; i < HitModifiers.Count; i++)
             {
@@ -48,10 +56,29 @@ namespace MAH_TowerDefense.Entity.Enemies
             base.Update(delta);
         }
 
+        public override void Draw(SpriteBatch batch)
+        {
+            base.Draw(batch);
+
+            float width = (float)(stats.Health / stats.MaxHealth ) * bounds.Width;
+            batch.Draw(Assets.items, new Rectangle(bounds.Left, bounds.Top - HEALTH_BAR_HEIGHT, (int)width, HEALTH_BAR_HEIGHT), Assets.GetRegion("Pixel"), Color.Red);
+        }
+
         public bool Hit(HitModifier modifier)
         {
-            //modifier.
+            HitModifiers.Add(modifier.OnHit(this));
             return true;
+        }
+
+        private void Kill()
+        {
+            Alive = false;
+            //TODO world.addscore
+        }
+
+        public StatsData GetStats()
+        {
+            return stats;
         }
     }
 }

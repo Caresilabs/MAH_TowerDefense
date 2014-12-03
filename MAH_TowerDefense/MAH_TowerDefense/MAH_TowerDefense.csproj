@@ -77,9 +77,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets.cs" />
+    <Compile Include="Visuals\DamageText.cs" />
+    <Compile Include="Visuals\IEffect.cs" />
+    <Compile Include="Visuals\EffectManager.cs" />
     <Compile Include="Entity\Bullets\Bullet.cs" />
+    <Compile Include="Entity\Bullets\BulletBank.cs" />
     <Compile Include="Entity\Bullets\HitModifier.cs" />
     <Compile Include="Entity\Bullets\IntervalHitModifier.cs" />
+    <Compile Include="Entity\Enemies\CreepWave.cs" />
     <Compile Include="Entity\Enemies\Enemy.cs" />
     <Compile Include="Entity\Enemies\EnemyFactory.cs" />
     <Compile Include="Entity\GameObject.cs" />
@@ -99,9 +104,11 @@
     <Compile Include="Views\UIController.cs" />
     <Compile Include="Views\WorldRenderer.cs" />
     <Compile Include="Levels\World.cs" />
+    <Compile Include="WaveSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DLL\Spline.dll" />
+    <Content Include="Content Licences.txt" />
     <Content Include="Documentation.txt" />
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png">
