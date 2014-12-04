@@ -26,7 +26,7 @@ namespace MAH_TowerDefense.Screens
         private Tower placingTower;
 
         private float timeModifier;
-        private bool isPlacing = true; //TODO 
+        private bool isPlacing; //TODO 
 
         public override void Init()
         {
@@ -34,10 +34,6 @@ namespace MAH_TowerDefense.Screens
             this.renderer = new WorldRenderer(world, GetGraphics());
             this.hud = new UIController(this);
             this.timeModifier = 1;
-
-            //deubg
-            placingTower = TowerFactory.CreateCannon(200, 200);
-            world.AddEntity(placingTower);
         }
 
         public override void Update(float delta)
@@ -80,6 +76,15 @@ namespace MAH_TowerDefense.Screens
             isPlacing = false;
         }
 
+        private void StartPlacingTower()
+        {
+            if (isPlacing) return;
+            //deubg
+            placingTower = TowerFactory.CreateCannon(200, 200);
+            world.AddEntity(placingTower);
+            isPlacing = true;
+        }
+
         private void UpdateInput()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
@@ -88,8 +93,9 @@ namespace MAH_TowerDefense.Screens
                 if (InputHandler.KeyReleased(Keys.Space)) timeModifier = 1;
 
 
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
+            if (Keyboard.GetState().IsKeyDown(Keys.D1))
             {
+                StartPlacingTower();
             }
         }
 

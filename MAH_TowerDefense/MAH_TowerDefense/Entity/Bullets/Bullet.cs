@@ -22,6 +22,7 @@ namespace MAH_TowerDefense.Entity.Bullets
         public Bullet(TextureRegion region, float x, float y, Vector2 direction, float speed, float radius = DEFAULT_RADIUS)
             : base(region, x, y, radius * 2, radius * 2)
         {
+            this.sprite.ZIndex = .05f;
             this.velocity = direction * speed;
             this.alive = true;
             this.time = 0;

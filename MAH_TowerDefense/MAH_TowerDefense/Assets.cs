@@ -39,7 +39,11 @@ namespace MAH_TowerDefense
             // Entities
             LoadRegion("Entity", items, 0, 64, 64, 64);
             LoadRegion("Grass", items, 0, 0, 64, 64);
+            LoadRegion("Circle", items, 64, 64, 64, 64);
             LoadRegion("Pixel", items, 511, 0, 1, 1);
+
+
+            LoadRegion("Bullet1", items, 64, 0, 64, 64);
 
             // Load font 
             font = manager.Load<SpriteFont>("Font/font");

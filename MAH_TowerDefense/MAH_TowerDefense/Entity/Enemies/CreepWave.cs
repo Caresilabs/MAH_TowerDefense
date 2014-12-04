@@ -7,6 +7,8 @@ namespace MAH_TowerDefense.Entity.Enemies
 {
     public class CreepWave
     {
+        public string Description { get; set; }
+
         private List<Enemy> enemies;
 
         public CreepWave()
