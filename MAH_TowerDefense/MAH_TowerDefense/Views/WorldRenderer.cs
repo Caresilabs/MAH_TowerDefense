@@ -22,16 +22,23 @@ namespace MAH_TowerDefense.Views
 
         public static RenderTarget2D RenderTarget { get; private set; }
 
+        public static RenderTarget2D MiniMap { get; private set; }
+
         public static EffectManager Effects { get; private set; }
 
         public Camera2D Camera { get; private set; }
+
+        public Camera2D MiniMapCamera { get; private set; }
 
         private World World { get; set; }
 
         public WorldRenderer(World world, GraphicsDevice device)
         {
-            RenderTarget = new RenderTarget2D(device, WIDTH, HEIGHT);
             Effects = new EffectManager();
+            RenderTarget = new RenderTarget2D(device, WIDTH, HEIGHT);
+            MiniMap = new RenderTarget2D(device, 480, 320);
+
+            this.MiniMapCamera = new Camera2D(device, World.WIDTH * World.TILE_SIZE, World.HEIGHT * World.TILE_SIZE);
             this.Camera = new Camera2D(device, WIDTH, HEIGHT);
             this.World = world;
         }
@@ -52,7 +59,8 @@ namespace MAH_TowerDefense.Views
         public void Render(SpriteBatch batch)
         {
             // Draw Render Target to texture
-            DrawRenderTarget(batch.GraphicsDevice);
+            DrawRenderTarget(batch.GraphicsDevice, RenderTarget, Camera);
+            DrawRenderTarget(batch.GraphicsDevice, MiniMap, MiniMapCamera);
 
             {
                 // Clear Screen
@@ -84,38 +92,18 @@ namespace MAH_TowerDefense.Views
 
         private void DrawBackground(SpriteBatch batch)
         {
-            for (int j = 0; j < World.HEIGHT; j++)
+            for (float j = Camera.GetPosition().Y - (Camera.GetPosition().Y % World.TILE_SIZE); j < Camera.GetPosition().Y + Camera.GetHeight(); j += World.TILE_SIZE)
             {
-                for (int i = 0; i < World.WIDTH; i++)
+                for (float i = Camera.GetPosition().X - (Camera.GetPosition().X % World.TILE_SIZE); i < Camera.GetPosition().X + Camera.GetWidth(); i += World.TILE_SIZE)
                 {
-                    batch.Draw(Assets.items, new Rectangle((int)(i * World.TILE_SIZE), (int)(j * World.TILE_SIZE), (int)World.TILE_SIZE + 2, (int)World.TILE_SIZE + 2), Assets.GetRegion("Grass"), Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+                    batch.Draw(Assets.items, new Rectangle((int)(i), (int)(j), (int)World.TILE_SIZE + 2, (int)World.TILE_SIZE + 2), Assets.GetRegion("Grass"), Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
                 }
             }
         }
 
         private void DrawRoad(SpriteBatch batch)
         {
-            var path = World.GetRoad();
-            int width = 32;
-            float delta = width * .8f;
-            if (path.AntalPunkter >= 4)
-            {
-                for (float i = path.beginT + delta; i < path.endT; i += delta)
-                {
-                    Vector2 last = path.GetPos(i - delta);
-                    Vector2 pos = path.GetPos(i);
-                    float angle = (float)Math.Atan2(pos.X - last.X, pos.Y - last.Y);
-
-                    Sprite sprite = new Sprite(Assets.GetRegion("Pixel"), pos.X - (float)Math.Cos(Math.PI - angle) * width,
-                        pos.Y - (float)Math.Sin(Math.PI - angle)*width, 64, width);
-                    sprite.ZIndex = .95f;
-                    sprite.Color = Color.SlateGray;
-                    sprite.Rotation = (float)Math.PI - angle;
-
-                    sprite.Draw(batch);
-                }
-                //path.Draw(batch);
-            }
+            World.GetRoad().Render(batch);
         }
 
         private void DrawWorld(SpriteBatch batch)
@@ -131,14 +119,12 @@ namespace MAH_TowerDefense.Views
             }
         }
 
-        private void DrawRenderTarget(GraphicsDevice device)
+        private void DrawRenderTarget(GraphicsDevice device, RenderTarget2D target, Camera2D cam)
         {
             SpriteBatch sb = new SpriteBatch(device);
 
-            device.SetRenderTarget(RenderTarget);
+            device.SetRenderTarget(target);
             device.Clear(Color.Transparent);
-
-            //sb.Begin();
 
             sb.Begin(SpriteSortMode.BackToFront,
                         BlendState.AlphaBlend,
@@ -146,7 +132,7 @@ namespace MAH_TowerDefense.Views
                         null,
                         null,
                         null,
-                        Camera.GetMatrix());
+                        cam.GetMatrix());
 
             foreach (GameObject entity in World.GetEntities().Where(x => x.UsesRenderTarget()))
             {

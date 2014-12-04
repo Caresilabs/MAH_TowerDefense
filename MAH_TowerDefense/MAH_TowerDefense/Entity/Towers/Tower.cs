@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
+using Simon.Mah.Framework;
 
 namespace MAH_TowerDefense.Entity.Towers
 {
@@ -71,6 +73,34 @@ namespace MAH_TowerDefense.Entity.Towers
                 else
                     Target = null;
             }
+        }
+
+        public override void Draw(SpriteBatch batch)
+        {
+            if (Selected)
+            {
+                Vector2 oldScale = sprite.Scale;
+                Color color = sprite.Color;
+                float oldZ = sprite.ZIndex;
+
+                sprite.Scale = oldScale * 1.3f;
+                sprite.Color = Color.Yellow;
+                sprite.ZIndex += .01f;
+                base.Draw(batch);
+
+                sprite.Scale = oldScale;
+                sprite.Color = color;
+                sprite.ZIndex = oldZ;
+            }
+
+            if (!Placed)
+            {
+                Sprite s = new Sprite(Assets.GetRegion("Circle"), position.X, position.Y, Stats.Radius * 2, Stats.Radius * 2);
+                s.Color = sprite.Color;
+                s.Draw(batch);
+            }
+
+            base.Draw(batch);
         }
 
         private void Shoot(float delta)

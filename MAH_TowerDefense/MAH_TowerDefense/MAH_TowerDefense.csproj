@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets.cs" />
+    <Compile Include="Levels\Road.cs" />
     <Compile Include="Visuals\DamageText.cs" />
     <Compile Include="Visuals\IEffect.cs" />
     <Compile Include="Visuals\EffectManager.cs" />

@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MAH_TowerDefense.Levels;
 
 namespace MAH_TowerDefense.Worlds
 {
@@ -29,9 +30,10 @@ namespace MAH_TowerDefense.Worlds
         private List<GameObject> selected;
         private List<Bullet> bullets;
 
-        private SimplePath road;
+        private Road road;
         private GameState state;
         private WaveSystem waves;
+        private CreepWave currentWave;
 
         private float nextWaveTime;
         private int lives;
@@ -60,17 +62,19 @@ namespace MAH_TowerDefense.Worlds
             this.state = GameState.WAITING;
             this.waves = new WaveSystem();
 
-            road = new SimplePath(Start.graphics.GraphicsDevice);
+            road = new Road(Start.graphics.GraphicsDevice);
             road.InsertPoint(new Vector2(0, HEIGHT * TILE_SIZE / 2), 0);
             road.AddPoint(new Vector2(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE / 2));
+
+            road.UpdateParts();
 
             Tower tower = TowerFactory.CreateCannon(600, 600);
             tower.Place();
             AddEntity(tower);
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
-                Enemy e = EnemyFactory.CreateSnail(-MathUtils.Random(0, 400));
+                Enemy e = EnemyFactory.CreateSnail(-MathUtils.Random(0, 1000));
                 AddEntity(e);
             }
          
@@ -126,9 +130,12 @@ namespace MAH_TowerDefense.Worlds
             nextWaveTime = WAVE_COOLDOWN;
             state = GameState.COMBAT;
             CreepWave wave = waves.RequestWave();
-            
-            if (wave!= null)
+
+            if (wave != null)
+            {
+                currentWave = wave;
                 AddEntities(wave.GetEnemies());
+            }
         }
 
         public void EndRound()
@@ -202,7 +209,7 @@ namespace MAH_TowerDefense.Worlds
             return bullets;
         }
 
-        public SimplePath GetRoad()
+        public Road GetRoad()
         {
             return road;
         }

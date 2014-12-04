@@ -78,7 +78,7 @@ namespace MAH_TowerDefense.Views
         {
             Vector2 mouse = camera.Unproject(Mouse.GetState().X, Mouse.GetState().Y);
 
-            if (InputHandler.ClickedDown())
+            if (InputHandler.ClickedDown() && mouse.X < camera.GetWidth() - PANEL_WIDTH)
             {
                 selection = new Rectangle((int)mouse.X, (int)mouse.Y, 0, 0);
                 startSelection = new Vector2(selection.X, selection.Y);
@@ -147,6 +147,9 @@ namespace MAH_TowerDefense.Views
         private void DrawUI(SpriteBatch batch)
         {
             batch.Draw(Assets.items, new Rectangle(WIDTH - PANEL_WIDTH, 0, PANEL_WIDTH, HEIGHT), Assets.GetRegion("Pixel"), Color.Gray, 0, Vector2.Zero, SpriteEffects.None, .95f);
+
+            batch.Draw(Assets.items, new Rectangle(WIDTH - PANEL_WIDTH, 0, PANEL_WIDTH, (int)(PANEL_WIDTH / 1.6f)), Assets.GetRegion("Pixel"), Color.DarkGreen, 0, Vector2.Zero, SpriteEffects.None, .91f);
+            batch.Draw(WorldRenderer.MiniMap, new Rectangle(WIDTH - PANEL_WIDTH, 0, PANEL_WIDTH, (int)(PANEL_WIDTH/1.6f)), null, Color.Cyan, 0, Vector2.Zero, SpriteEffects.None, .9f);
         }
 
         private void DrawSelection(SpriteBatch batch, Rectangle rectangleToDraw, int thicknessOfBorder, Color color)

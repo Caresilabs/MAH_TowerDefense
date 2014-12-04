@@ -11,14 +11,14 @@ namespace MAH_TowerDefense.Entity.Bullets
         public class SniperBullet : Bullet
         {
             public SniperBullet(float x, float y, Vector2 direction)
-                : base(Assets.GetRegion("Pixel"), x, y, direction, 700)
+                : base(Assets.GetRegion("Bullet1"), x, y, direction, 700)
             {
                 StatsData data = new StatsData() { 
-                    Damage = 40,
-                    Radius = 0,
+                    Damage = 20,
+                    Radius = 400,
                     MaxSpeed = 90,
                     CritChance = 25,
-                    Armor = 10
+                    Armor = 2
                 };
 
                 HitModifier modifier = new HitModifier(data);
