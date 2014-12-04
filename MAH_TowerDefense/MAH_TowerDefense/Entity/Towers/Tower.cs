@@ -17,9 +17,10 @@ namespace MAH_TowerDefense.Entity.Towers
     {
         private const float UPGRADE_COST_FACTOR = 1.5f;
 
+        public Enemy Target { get; set; }
+
         public StatsData Stats { get; private set; }
 
-        public Enemy Target { get; private set; }
 
         public Type Bullet { get; private set; }
 
@@ -77,26 +78,12 @@ namespace MAH_TowerDefense.Entity.Towers
 
         public override void Draw(SpriteBatch batch)
         {
-            if (Selected)
-            {
-                Vector2 oldScale = sprite.Scale;
-                Color color = sprite.Color;
-                float oldZ = sprite.ZIndex;
 
-                sprite.Scale = oldScale * 1.3f;
-                sprite.Color = Color.Yellow;
-                sprite.ZIndex += .01f;
-                base.Draw(batch);
-
-                sprite.Scale = oldScale;
-                sprite.Color = color;
-                sprite.ZIndex = oldZ;
-            }
-
-            if (!Placed)
+            if (!Placed || Selected)
             {
                 Sprite s = new Sprite(Assets.GetRegion("Circle"), position.X, position.Y, Stats.Radius * 2, Stats.Radius * 2);
                 s.Color = sprite.Color;
+                s.ZIndex = .8f + (position.X / (World.TILE_SIZE*World.WIDTH) * .1f);
                 s.Draw(batch);
             }
 
@@ -116,7 +103,11 @@ namespace MAH_TowerDefense.Entity.Towers
                 shootTime = Stats.Speed;
                 Vector2 velocity = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
                 Bullet bullet = (Bullet)Activator.CreateInstance(this.Bullet, position.X, position.Y, new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)));
-                //bullet.FixStat
+
+                // Add tower stats
+                bullet.GetHitModifier().GetModifier().Damage += Stats.Damage;
+                bullet.GetHitModifier().GetModifier().CritChance += Stats.CritChance;
+
                 world.AddBullet(bullet);
             }
             shootTime -= delta;

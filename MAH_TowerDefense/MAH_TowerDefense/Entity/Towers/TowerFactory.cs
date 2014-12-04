@@ -14,7 +14,8 @@ namespace MAH_TowerDefense.Entity.Towers
             StatsData stats = new StatsData()
             {
                 Radius = 200,
-                MaxSpeed = .25f
+                MaxSpeed = .5f,
+                Damage = 30
             };
 
             Tower tower = new Tower(stats, typeof(BulletBank.SniperBullet), x, y);

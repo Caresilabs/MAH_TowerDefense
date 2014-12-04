@@ -18,6 +18,7 @@ namespace Simon.Mah.Framework.Tools
 
         private Vector2 position;
         private Vector2 zoom;
+        private Vector2 viewportStretch;
         private Vector2 defaultViewPort;
 
         private float rotation;
@@ -27,6 +28,7 @@ namespace Simon.Mah.Framework.Tools
             this.graphicsDevice = device;
             this.defaultViewPort = new Vector2(width, height);
             this.rotation = 0f;
+            this.viewportStretch = new Vector2(1, 1);
             this.zoom = new Vector2(1, 1);
             this.position = Vector2.Zero;
             this.GetMatrix();
@@ -34,8 +36,8 @@ namespace Simon.Mah.Framework.Tools
 
         private Camera2D Update()
         {
-            zoom.X = graphicsDevice.Viewport.Width / (float)defaultViewPort.X;
-            zoom.Y = graphicsDevice.Viewport.Height / (float)defaultViewPort.Y;
+            viewportStretch.X = graphicsDevice.Viewport.Width / (float)defaultViewPort.X;
+            viewportStretch.Y = graphicsDevice.Viewport.Height / (float)defaultViewPort.Y;
 
             return this;
         }
@@ -48,7 +50,7 @@ namespace Simon.Mah.Framework.Tools
             transform =
                 Matrix.CreateTranslation(new Vector3(-position.X, -position.Y, 0)) *
                 Matrix.CreateRotationZ(rotation) *
-                Matrix.CreateScale(new Vector3(zoom.X, zoom.Y, 1));// *
+                Matrix.CreateScale(new Vector3(viewportStretch.X * zoom.X, viewportStretch.Y * zoom.Y, 1));// *
             //Matrix.CreateTranslation(new Vector3(graphicsDevice.Viewport.Width * 0.5f, graphicsDevice.Viewport.Height * 0.5f, 0));
 
             return transform;
@@ -61,13 +63,13 @@ namespace Simon.Mah.Framework.Tools
 
         public Vector2 GetZoom()
         {
-            return zoom;
+            return viewportStretch;
         }
 
-        public void SetZoom(float width, float height)
+        public void SetZoom(float value)
         {
-            this.zoom.X = width;
-            this.zoom.Y = height;
+            this.zoom.X = value;
+            this.zoom.Y = value;
         }
 
         public float GetRotation()
@@ -104,6 +106,12 @@ namespace Simon.Mah.Framework.Tools
         {
             position.X = x;
             position.Y = y;
+        }
+
+        public void Translate(float x, float y)
+        {
+            position.X += x;
+            position.Y += y;
         }
 
         public void SetPosition(Vector2 pos)

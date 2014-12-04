@@ -14,10 +14,10 @@ namespace MAH_TowerDefense.Entity.Bullets
                 : base(Assets.GetRegion("Bullet1"), x, y, direction, 700)
             {
                 StatsData data = new StatsData() { 
-                    Damage = 20,
-                    Radius = 400,
-                    MaxSpeed = 90,
-                    CritChance = 25,
+                    Damage = 10,
+                    Radius = 0,
+                    MaxSpeed = 0,
+                    CritChance = 50,
                     Armor = 2
                 };
 

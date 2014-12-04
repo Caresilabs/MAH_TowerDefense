@@ -36,9 +36,13 @@ namespace MAH_TowerDefense.Views
         {
             Effects = new EffectManager();
             RenderTarget = new RenderTarget2D(device, WIDTH, HEIGHT);
-            MiniMap = new RenderTarget2D(device, 480, 320);
 
-            this.MiniMapCamera = new Camera2D(device, World.WIDTH * World.TILE_SIZE, World.HEIGHT * World.TILE_SIZE);
+            // MiniMap
+            MiniMap = new RenderTarget2D(device, 480, 320); //0.5625
+            float miniMapWidth = Math.Max(World.WIDTH, World.HEIGHT) * World.TILE_SIZE;
+            this.MiniMapCamera = new Camera2D(device, miniMapWidth, miniMapWidth * 0.5625f);
+            this.MiniMapCamera.SetPosition(-miniMapWidth / 2 + (World.WIDTH * World.TILE_SIZE) / 2, 0);// -MiniMapCamera.GetHeight() / 2 - (World.HEIGHT * World.TILE_SIZE) / 2);
+            
             this.Camera = new Camera2D(device, WIDTH, HEIGHT);
             this.World = world;
         }
@@ -110,7 +114,8 @@ namespace MAH_TowerDefense.Views
         {
             foreach (GameObject entity in World.GetEntities())
             {
-                entity.Draw(batch);
+                if (entity.GetPosition().X > 0 && entity.GetPosition().Y > 0)
+                    entity.Draw(batch);
             }
 
             foreach (Bullet bullet in World.GetBullets())

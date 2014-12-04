@@ -36,6 +36,8 @@ namespace MAH_TowerDefense.Views
 
         public void Update(float delta)
         {
+            dt = delta; //for fps
+
             Vector2 worldMouse = gameScreen.GetRenderer().Camera.Unproject(Mouse.GetState().X, Mouse.GetState().Y);
 
             if (!gameScreen.IsPlacing())
@@ -144,12 +146,18 @@ namespace MAH_TowerDefense.Views
 
         }
 
+        float dt = 0;
         private void DrawUI(SpriteBatch batch)
         {
+            // Draw ui bar
             batch.Draw(Assets.items, new Rectangle(WIDTH - PANEL_WIDTH, 0, PANEL_WIDTH, HEIGHT), Assets.GetRegion("Pixel"), Color.Gray, 0, Vector2.Zero, SpriteEffects.None, .95f);
 
+            // Draw miniMap
             batch.Draw(Assets.items, new Rectangle(WIDTH - PANEL_WIDTH, 0, PANEL_WIDTH, (int)(PANEL_WIDTH / 1.6f)), Assets.GetRegion("Pixel"), Color.DarkGreen, 0, Vector2.Zero, SpriteEffects.None, .91f);
             batch.Draw(WorldRenderer.MiniMap, new Rectangle(WIDTH - PANEL_WIDTH, 0, PANEL_WIDTH, (int)(PANEL_WIDTH/1.6f)), null, Color.Cyan, 0, Vector2.Zero, SpriteEffects.None, .9f);
+
+            //Draw fps
+            batch.DrawString(Assets.font, "fps:" + (int)(1 / dt), new Vector2(0, 0), Color.White);
         }
 
         private void DrawSelection(SpriteBatch batch, Rectangle rectangleToDraw, int thicknessOfBorder, Color color)
@@ -183,6 +191,32 @@ namespace MAH_TowerDefense.Views
         public static void drawCenterString(SpriteBatch batch, string text, float y, float scale = 1)
         {
             drawCenterString(batch, text, y, Color.Black, scale);
+        }
+
+        public static string WrapText(string text, float maxLineWidth)
+        {
+            string[] words = text.Split(' ');
+            StringBuilder sb = new StringBuilder();
+            float lineWidth = 0f;
+            float spaceWidth = Assets.font.MeasureString(" ").X;
+
+            foreach (string word in words)
+            {
+                Vector2 size = Assets.font.MeasureString(word);
+
+                if (lineWidth + size.X < maxLineWidth)
+                {
+                    sb.Append(word + " ");
+                    lineWidth += size.X + spaceWidth;
+                }
+                else
+                {
+                    sb.Append("\n" + word + " ");
+                    lineWidth = size.X + spaceWidth;
+                }
+            }
+
+            return sb.ToString();
         }
     }
 }

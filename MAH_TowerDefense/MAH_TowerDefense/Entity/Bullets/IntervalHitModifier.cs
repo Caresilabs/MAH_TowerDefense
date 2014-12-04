@@ -16,7 +16,7 @@ namespace MAH_TowerDefense.Entity.Bullets
 
         public IntervalHitModifier(StatsData data, float interval, float totalTime) : base(data)
         {
-            this.intervalTime = 0;
+            this.intervalTime = interval;
             this.interval = interval;
             this.time = 0;
             this.totalTime = totalTime;

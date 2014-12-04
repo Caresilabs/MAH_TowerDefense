@@ -20,3 +20,6 @@ C:\Users\Spellabbet\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_Tower
 C:\Users\Spellabbet\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\obj\x86\Debug\MAH_TowerDefense.pdb
 C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\bin\x86\Debug\Content\Graphics\items.xnb
 C:\Users\Spellabbet\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\bin\x86\Debug\Content\Graphics\items.xnb
+C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\obj\x86\Debug\MAH_TowerDefense.csproj.GenerateResource.Cache
+C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\obj\x86\Debug\MAH_TowerDefense.LevelEditor.LevelEditorForm.resources
+C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\obj\x86\Debug\MAH_TowerDefense.LevelEditor.NewLevelForm.resources

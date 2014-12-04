@@ -30,7 +30,7 @@ namespace MAH_TowerDefense.Screens
 
         public override void Init()
         {
-            this.world = new World(35, 20, WorldRenderer.WIDTH / World.TILES_HORIZONTAL);
+            this.world = new World(35, 19, WorldRenderer.WIDTH / World.TILES_HORIZONTAL);
             this.renderer = new WorldRenderer(world, GetGraphics());
             this.hud = new UIController(this);
             this.timeModifier = 1;
@@ -79,7 +79,8 @@ namespace MAH_TowerDefense.Screens
         private void StartPlacingTower()
         {
             if (isPlacing) return;
-            //deubg
+
+            world.Deselect();
             placingTower = TowerFactory.CreateCannon(200, 200);
             world.AddEntity(placingTower);
             isPlacing = true;

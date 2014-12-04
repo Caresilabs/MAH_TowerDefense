@@ -27,7 +27,7 @@ namespace MAH_TowerDefense.Worlds
         public static int HEIGHT;
 
         private List<GameObject> entities;
-        private List<GameObject> selected;
+        private List<Unit> selected;
         private List<Bullet> bullets;
 
         private Road road;
@@ -50,7 +50,7 @@ namespace MAH_TowerDefense.Worlds
             TILE_SIZE = tileSize;
 
             this.entities = new List<GameObject>();
-            this.selected = new List<GameObject>();
+            this.selected = new List<Unit>();
             this.bullets = new List<Bullet>();
             this.InitLevel();
         }
@@ -63,8 +63,14 @@ namespace MAH_TowerDefense.Worlds
             this.waves = new WaveSystem();
 
             road = new Road(Start.graphics.GraphicsDevice);
+            road.Clean();
             road.InsertPoint(new Vector2(0, HEIGHT * TILE_SIZE / 2), 0);
-            road.AddPoint(new Vector2(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE / 2));
+
+            // Temp
+            for (float i = 0; i < WIDTH * TILE_SIZE; i+=TILE_SIZE*4)
+            {
+                road.AddPoint(new Vector2((i), (HEIGHT/2 * TILE_SIZE) + (float)Math.Sin(i)*TILE_SIZE*4));//
+            }
 
             road.UpdateParts();
 
@@ -72,7 +78,7 @@ namespace MAH_TowerDefense.Worlds
             tower.Place();
             AddEntity(tower);
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Enemy e = EnemyFactory.CreateSnail(-MathUtils.Random(0, 1000));
                 AddEntity(e);
@@ -195,8 +201,29 @@ namespace MAH_TowerDefense.Worlds
 
         public void Select(Rectangle selection)
         {
-            selected = entities.Where(x => x.GetBounds().Intersects(selection)).ToList();
-            Console.WriteLine(selected.Count);
+            List<Unit> newSelection = entities.Where(x => x.GetBounds().Intersects(selection) && x is Unit).Cast<Unit>().ToList();
+
+            // If single Click
+            if (newSelection.Count == 1)
+            {
+                if (newSelection[0] is Enemy)
+                {
+                    selected.Where(x => x is Tower).Cast<Tower>().ToList().ForEach(x => x.Target = (Enemy)newSelection[0]);
+                }
+            }
+            
+            // deselect old
+            Deselect();
+
+            selected.AddRange(newSelection);
+            selected.ForEach(x => x.Selected = true);
+        }
+
+        public void Deselect()
+        {
+            selected.ForEach(x => x.Selected = false);
+
+            selected.Clear();
         }
 
         public List<GameObject> GetEntities()

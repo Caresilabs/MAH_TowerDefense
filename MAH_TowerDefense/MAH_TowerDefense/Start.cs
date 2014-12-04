@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Simon.Mah.Framework;
 using MAH_TowerDefense.Screens;
+using MAH_TowerDefense.LevelEditor;
 
 namespace MAH_TowerDefense
 {
@@ -29,6 +30,8 @@ namespace MAH_TowerDefense
 
             GAME_NAME = "Ninja Bob breakerz";
             Window.Title = GAME_NAME + " by [Simon Bothen]"; //  set title to our game name
+
+            new NewLevelForm().Show();
         }
 
         protected override void LoadContent()

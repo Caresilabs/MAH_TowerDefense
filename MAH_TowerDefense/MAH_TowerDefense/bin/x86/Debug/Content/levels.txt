@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-16"?>
+<LevelModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Waves>
+    <WaveModel>
+      <Name>Wave #1</Name>
+    </WaveModel>
+    <WaveModel>
+      <Name>Wave #2</Name>
+    </WaveModel>
+    <WaveModel>
+      <Name>Wave #3</Name>
+      <Enemies>awfwafa</Enemies>
+    </WaveModel>
+    <WaveModel>
+      <Name>Wave #4</Name>
+      <Enemies>afawfaw</Enemies>
+    </WaveModel>
+  </Waves>
+  <PathPoints>
+    <Vector2>
+      <X>-100</X>
+      <Y>7.5</Y>
+    </Vector2>
+    <Vector2>
+      <X>-70</X>
+      <Y>2.5</Y>
+    </Vector2>
+    <Vector2>
+      <X>-30</X>
+      <Y>7.5</Y>
+    </Vector2>
+    <Vector2>
+      <X>0</X>
+      <Y>7.5</Y>
+    </Vector2>
+    <Vector2>
+      <X>100</X>
+      <Y>7.5</Y>
+    </Vector2>
+    <Vector2>
+      <X>184.91803</X>
+      <Y>335.448273</Y>
+    </Vector2>
+    <Vector2>
+      <X>478.0328</X>
+      <Y>809.1954</Y>
+    </Vector2>
+    <Vector2>
+      <X>247.868851</X>
+      <Y>132.413788</Y>
+    </Vector2>
+    <Vector2>
+      <X>1257.04919</X>
+      <Y>1156.41382</Y>
+    </Vector2>
+    <Vector2>
+      <X>49.18033</X>
+      <Y>23.54023</Y>
+    </Vector2>
+  </PathPoints>
+  <LevelIndex>0</LevelIndex>
+  <Width>20</Width>
+  <Height>15</Height>
+</LevelModel>

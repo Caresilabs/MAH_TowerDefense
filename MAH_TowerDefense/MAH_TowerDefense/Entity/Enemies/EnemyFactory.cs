@@ -12,9 +12,9 @@ namespace MAH_TowerDefense.Entity.Enemies
         {
             StatsData stats = new StatsData()
             {
-                MaxHealth = 100,
+                MaxHealth = 400,
                 MaxSpeed = 100,
-                Armor = 25
+                Armor = 5
             };
 
             Enemy enemy = new Enemy(stats, offset, 48, 32);

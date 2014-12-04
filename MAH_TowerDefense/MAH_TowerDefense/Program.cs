@@ -1,4 +1,5 @@
 using System;
+using System.Windows.Forms;
 
 namespace MAH_TowerDefense
 {
@@ -10,6 +11,8 @@ namespace MAH_TowerDefense
         /// </summary>
         static void Main(string[] args)
         {
+            Application.EnableVisualStyles();
+
             using (Start game = new Start())
             {
                 game.Run();
