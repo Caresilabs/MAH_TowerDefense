@@ -88,7 +88,7 @@ namespace MAH_TowerDefense.Screens
             isPlacing = false;
         }
 
-        private void StartPlacingTower(string tower)
+        public void StartPlacingTower(string tower)
         {
             if (isPlacing) return;
 
@@ -97,6 +97,8 @@ namespace MAH_TowerDefense.Screens
             placingTower = (Tower)typeof(TowerFactory)
                         .GetMethod("Create" + (tower.Substring(0, 1).ToUpper() + tower.Substring(1, tower.Length - 1).ToLower()))
                             .Invoke(null, new object[] { -100, -100 }); //TowerFactory.CreateCannon(-100, -100);
+
+            if (placingTower.Cost > world.GetGold()) return;
 
             world.AddEntity(placingTower);
             isPlacing = true;
@@ -109,11 +111,6 @@ namespace MAH_TowerDefense.Screens
             else
                 if (InputHandler.KeyReleased(Keys.Space)) timeModifier = 1;
 
-
-            if (Keyboard.GetState().IsKeyDown(Keys.D1))
-            {
-                StartPlacingTower("Cannon");
-            }
 
             if (Keyboard.GetState().IsKeyDown(Keys.M))
                 SetScreen(new MainMenuScreen());

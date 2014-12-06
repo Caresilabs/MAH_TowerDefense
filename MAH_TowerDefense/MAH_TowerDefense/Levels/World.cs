@@ -24,6 +24,7 @@ namespace MAH_TowerDefense.Worlds
 
         public const int START_GOLD = 500;
         public const int START_LIVES = 20;
+        public const int END_ROUND_GOLD = 300;
 
         public static float TILE_SIZE;
         public static int WIDTH;
@@ -85,6 +86,8 @@ namespace MAH_TowerDefense.Worlds
             AddEntity(tower);
 
             EndRound();
+
+            GC.Collect();
         }
 
         public void Update(float delta)
@@ -146,6 +149,9 @@ namespace MAH_TowerDefense.Worlds
 
         public void EndRound()
         {
+            if (waves.GetCurrentWave() != 0)
+                AddGold(END_ROUND_GOLD);
+
             if (waves.IsAllCleared())
             {
                 state = GameState.WIN;

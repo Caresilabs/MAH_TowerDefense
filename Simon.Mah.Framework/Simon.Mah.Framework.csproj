@@ -75,6 +75,7 @@
     <Compile Include="Scene2D\UIImage.cs" />
     <Compile Include="Scene2D\UISpriteButton.cs" />
     <Compile Include="Scene2D\UIText.cs" />
+    <Compile Include="Scene2D\UIGroup.cs" />
     <Compile Include="Scene2D\UIWindow.cs" />
     <Compile Include="Screen.cs" />
     <Compile Include="Sprite.cs" />

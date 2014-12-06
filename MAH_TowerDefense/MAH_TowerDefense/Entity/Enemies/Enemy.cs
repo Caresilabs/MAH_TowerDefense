@@ -17,16 +17,15 @@ namespace MAH_TowerDefense.Entity.Enemies
 
         private float walkedDistance;
 
-        public Enemy(StatsData stats, float offset, float width, float height)
+        public Enemy(float offset, float width, float height)
             : base(0, 0, width, height)
         {
-            this.Stats = stats;
             this.HitModifiers = new List<HitModifier>();
             this.walkedDistance = offset;
         }
 
-        public Enemy(StatsData stats, float offset)
-            : this(stats, offset, World.TILE_SIZE/2, World.TILE_SIZE/2)
+        public Enemy(float offset)
+            : this(offset, World.TILE_SIZE/2, World.TILE_SIZE/2)
         {}
 
         public override void Update(float delta)

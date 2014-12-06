@@ -68,7 +68,7 @@ namespace MAH_TowerDefense.Views
 
             {
                 // Clear Screen
-                batch.GraphicsDevice.Clear(Color.SkyBlue);
+                batch.GraphicsDevice.Clear(Color.Green);
 
                 // Draw World
                 batch.Begin(SpriteSortMode.BackToFront,

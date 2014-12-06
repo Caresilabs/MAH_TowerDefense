@@ -8,20 +8,25 @@ namespace MAH_TowerDefense.Entity.Enemies
 {
     public static class EnemyFactory
     {
-        public static Enemy CreateSnail(float offset)
+        //public static Enemy CreateSnail(float offset)
+        public class SnailEnemy : Enemy
         {
-            StatsData stats = new StatsData()
+            public SnailEnemy(float offset)
+                : base(offset, 48, 32)
             {
-                MaxHealth = 400,
-                MaxSpeed = 100,
-                Armor = 5,
-                Gold = 5
-            };
+                StatsData stats = new StatsData()
+                {
+                    MaxHealth = 400,
+                    MaxSpeed = 100,
+                    Armor = 5,
+                    Gold = 10
+                };
+                Stats = stats;
 
-            Enemy enemy = new Enemy(stats, offset, 48, 32);
-            enemy.sprite.AddAnimation("normal", new FrameAnimation(Assets.items, 0, 128, 64, 32, 1, 1)).SetAnimation("normal");
-
-            return enemy;
+                //Enemy enemy = new Enemy(stats, offset, 48, 32);
+                sprite.AddAnimation("normal", new FrameAnimation(Assets.items, 0, 128, 64, 32, 1, 1)).SetAnimation("normal");
+                //return enemy;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MAH_TowerDefense.Entity;
+using MAH_TowerDefense.Entity.Towers;
 using MAH_TowerDefense.Screens;
 using MAH_TowerDefense.Worlds;
 using Microsoft.Xna.Framework;
@@ -13,7 +14,7 @@ using System.Text;
 
 namespace MAH_TowerDefense.Views
 {
-    public class UIController
+    public class UIController : EventListener
     {
         public const int WIDTH = 1280;
         public const int HEIGHT = 720;
@@ -26,6 +27,10 @@ namespace MAH_TowerDefense.Views
         private Camera2D camera;
         private Rectangle selection;
         private Vector2 startSelection;
+        private Scene scene;
+        private UIGroup buyGroup;
+        private UIGroup upgradeGroup;
+        private UIButton upgrade;
 
         public UIController(GameScreen gameScreen)
         {
@@ -33,10 +38,34 @@ namespace MAH_TowerDefense.Views
             this.world = gameScreen.GetWorld();
             this.camera = new Camera2D(gameScreen.GetGraphics(), WIDTH, HEIGHT);
             this.selection = Rectangle.Empty;
+            this.scene = new Scene(camera, this);
+
+            InitUI();
+        }
+
+        private void InitUI()
+        {
+            this.buyGroup = new UIGroup();
+            scene.Add("buy", buyGroup);
+
+            // 1
+            UIButton buy1 = new UIButton("Cannon(" + TowerFactory.CreateCannon(0, 0).Cost + ")", WIDTH - PANEL_WIDTH + 64 + 0, 500);
+            buyGroup.Add("buyCannon", buy1);
+
+            // 2
+            UIButton buy2 = new UIButton("Rocket(" + TowerFactory.CreateRocket(0,0).Cost + ")", buy1.GetBounds().Right + buy1.GetBounds().Width + 20, 500);
+            buyGroup.Add("buyRocket", buy2);
+
+            // Upgrade
+            this.upgradeGroup = new UIGroup();
+            scene.Add("upgradeGroup", upgradeGroup);
+            upgrade = new UIButton("Upgrade", WIDTH - PANEL_WIDTH/2, 600);
+            upgradeGroup.Add("upgrade", upgrade);
         }
 
         public void Update(float delta)
         {
+            scene.Update(delta);
             dt = delta; //for fps
 
             Vector2 worldMouse = gameScreen.GetRenderer().Camera.Unproject(Mouse.GetState().X, Mouse.GetState().Y);
@@ -143,6 +172,8 @@ namespace MAH_TowerDefense.Views
 
             DrawUI(batch);
 
+            scene.Draw(batch, false);
+
             batch.End();
 
         }
@@ -187,17 +218,23 @@ namespace MAH_TowerDefense.Views
             // Action bg
             batch.Draw(Assets.items, new Rectangle(WIDTH - PANEL_WIDTH, HEIGHT - (int)(PANEL_WIDTH / 1.25f), PANEL_WIDTH, (int)(PANEL_WIDTH / 1.25f)), Assets.GetRegion("Pixel"), Color.DarkBlue, 0, Vector2.Zero, SpriteEffects.None, .91f);
 
-            // TODO
+            buyGroup.Enabled = false;
+            upgradeGroup.Enabled = false;
+
             if (world.GetSelected().Count == 0)
             {
                 // Draw buy menu
                 if (gameScreen.IsPlacing())
-                {
                     DrawStats(batch, gameScreen.GetPlacingTower().Stats);
-                }
+                else
+                    buyGroup.Enabled = true;
             }
             else
             {
+                upgradeGroup.Enabled = true;
+                int cost = world.GetSelected().Cast<Tower>().Sum(x => x.Cost);
+                upgrade.SetText("Upgrade (" + cost + ")");
+
                 // Draw info and upgrade
                 if (world.GetSelected().Count == 1)
                 {
@@ -222,7 +259,7 @@ namespace MAH_TowerDefense.Views
             "Speed: " + (int)stats.Speed + "\n" +
             "Armor: " + (int)stats.Armor + "\n" +
             "Range: " + (int)stats.Radius + "\n" +
-            "Crit Chance: " + (int)stats.CritChance + "\n", 0, 500, .55f);
+            "Crit Chance: " + (int)stats.CritChance + "\n", 65, 500, .55f);
         }
 
         private void DrawSelection(SpriteBatch batch, Rectangle rectangleToDraw, int thicknessOfBorder, Color color)
@@ -286,6 +323,26 @@ namespace MAH_TowerDefense.Views
             }
 
             return sb.ToString();
+        }
+
+        public void EventCalled(Events e, Actor actor)
+        {
+            if (e == Events.TouchUp)
+            {
+                if (actor.Name.StartsWith("buy"))
+                    gameScreen.StartPlacingTower(actor.Name.Substring(3));
+
+                if (actor.Name.Equals("upgrade"))
+                {
+                    int cost = world.GetSelected().Cast<Tower>().Sum(x => x.Cost);
+                    if (world.GetGold() >= cost)
+                    {
+                        // Buy!
+                        world.WithdrawGold(cost);
+                        world.GetSelected().Cast<Tower>().ToList().ForEach(x => x.Upgrade());
+                    }
+                }
+            }
         }
     }
 }

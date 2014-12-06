@@ -121,10 +121,10 @@ namespace MAH_TowerDefense.Entity.Towers
             Update();
         }
 
-        public virtual void Update()
+        protected virtual void Update()
         {
             this.Cost = (int)(Cost * UPGRADE_COST_FACTOR);
-            Stats *= 1.2f;
+            Stats *= 1.35f;
         }
     }
 }

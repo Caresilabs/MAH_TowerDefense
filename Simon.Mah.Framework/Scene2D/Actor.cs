@@ -34,9 +34,13 @@ namespace Simon.Mah.Framework.Scene2D
 
     public class Actor : TouchListener
     {
-        public TouchListener listener;
-        public bool isTouched;
-        public string name;
+        public TouchListener Listener { get; private set; }
+
+        public bool IsTouched { get; private set; }
+
+        public bool Enabled { get; set; }
+
+        public string Name { get; private set; }
 
         private Dictionary<string, Actor> actors;
         private Scene scene;
@@ -48,7 +52,8 @@ namespace Simon.Mah.Framework.Scene2D
         {
             this.bounds = new Rectangle((int)x, (int)y, (int)width, (int)height);
             this.actors = new Dictionary<string, Actor>();
-            this.isTouched = false;
+            this.IsTouched = false;
+            this.Enabled = true;
         }
 
         public Actor()
@@ -60,6 +65,8 @@ namespace Simon.Mah.Framework.Scene2D
 
         public void Update(float delta)
         {
+            if (!Enabled) return;
+
             UpdateInput();
 
            
@@ -83,7 +90,7 @@ namespace Simon.Mah.Framework.Scene2D
                     TouchDown(mouse);
             }
 
-            if (isTouched)
+            if (IsTouched)
             {
                 if (!bounds.Contains((int)mouse.X, (int)mouse.Y))
                     TouchLeave(mouse);
@@ -99,6 +106,8 @@ namespace Simon.Mah.Framework.Scene2D
 
         public virtual void Draw(SpriteBatch batch)
         {
+            if (!Enabled) return;
+
             foreach (var actor in actors)
             {
                 actor.Value.Draw(batch);
@@ -108,7 +117,7 @@ namespace Simon.Mah.Framework.Scene2D
         public void Add(string name, Actor actor)
         {
             actor.SetScene(GetScene());
-            actor.name = name;
+            actor.Name = name;
             actor.SetParent(this);
             actor.Init();
             actors.Add(name, actor);
@@ -174,19 +183,19 @@ namespace Simon.Mah.Framework.Scene2D
         // INPUT
         public virtual void TouchDown(Vector2 mouse)
         {
-            isTouched = true;
+            IsTouched = true;
             scene.CallEvent(Events.TouchDown, this);
         }
 
         public virtual void TouchUp(Vector2 mouse)
         {
-            isTouched = false;
+            IsTouched = false;
             scene.CallEvent(Events.TouchUp, this);
         }
 
         public virtual void TouchLeave(Vector2 mouse)
         {
-            isTouched = false;
+            IsTouched = false;
             scene.CallEvent(Events.TouchLeave, this);
         }
 
@@ -207,7 +216,7 @@ namespace Simon.Mah.Framework.Scene2D
 
         public void Remove(string p)
         {
-            actors.Remove(name);
+            actors.Remove(Name);
         }
     }
 }

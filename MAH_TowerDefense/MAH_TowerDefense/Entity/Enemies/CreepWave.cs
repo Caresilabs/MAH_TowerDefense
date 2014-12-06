@@ -35,9 +35,11 @@ namespace MAH_TowerDefense.Entity.Enemies
 
                 while (num > 0)
                 {
-                    Enemy e = (Enemy)typeof(EnemyFactory)
-                        .GetMethod("Create" + (enemy.Substring(0, 1).ToUpper() + enemy.Substring(1, enemy.Length - 1).ToLower()))
-                            .Invoke(null, new object[] { offset });
+                    string nameSpace = "MAH_TowerDefense.Entity.Enemies.EnemyFactory" + "+"; 
+                    string name = (enemy.Substring(0, 1).ToUpper() + enemy.Substring(1, enemy.Length - 1).ToLower()) + "Enemy";
+                    var objType = Type.GetType(nameSpace + name, true);
+                    Enemy e = (Enemy)Activator.CreateInstance(objType, offset);
+                    
                     this.enemies.Add(e);
                     num--;
                     offset -= World.TILE_SIZE;

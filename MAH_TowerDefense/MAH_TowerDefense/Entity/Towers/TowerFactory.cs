@@ -13,7 +13,7 @@ namespace MAH_TowerDefense.Entity.Towers
         {
             StatsData stats = new StatsData()
             {
-                Radius = 200,
+                Radius = 100,
                 MaxSpeed = .5f,
                 Damage = 30,
                 CritChance = 20
@@ -21,8 +21,25 @@ namespace MAH_TowerDefense.Entity.Towers
 
             Tower tower = new Tower(stats, typeof(BulletBank.SniperBullet), x, y);
             tower.Cost = 100;
-            tower.sprite.AddAnimation("normal", new FrameAnimation(Assets.GetRegion("Entity"), 0, 65, 64, 64, 1, 1)).SetAnimation("normal");
+            tower.sprite.AddAnimation("normal", new FrameAnimation(Assets.items, 0, 65, 64, 64, 1, 1)).SetAnimation("normal");
             
+            return tower;
+        }
+
+        public static Tower CreateRocket(float x, float y)
+        {
+            StatsData stats = new StatsData()
+            {
+                Radius = 400,
+                MaxSpeed = 3f,
+                Damage = 150,
+                CritChance = 35
+            };
+
+            Tower tower = new Tower(stats, typeof(BulletBank.SniperBullet), x, y);
+            tower.Cost = 200;
+            tower.sprite.AddAnimation("normal", new FrameAnimation(Assets.items, 0, 65, 32, 32, 1, 1)).SetAnimation("normal");
+
             return tower;
         }
     }

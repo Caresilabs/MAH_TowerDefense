@@ -64,13 +64,13 @@ namespace MAH_TowerDefense.Screens
         {
             if (e == Events.TouchUp)
             {
-                if (actor.name == "start")
+                if (actor.Name == "start")
                 {
                     if (LevelIO.LevelCount() == 0) { Console.WriteLine("No levels are created!"); return; }
                     
                     SetScreen(new GameScreen());
                 }
-                if (actor.name == "editor")
+                if (actor.Name == "editor")
                 {
                     new LevelEditorForm(0).Show();
                 }

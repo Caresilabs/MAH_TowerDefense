@@ -28,18 +28,20 @@ namespace Simon.Mah.Framework.Scene2D
             root.Update(delta);
         }
 
-        public void Draw(SpriteBatch batch)
+        public void Draw(SpriteBatch batch, bool newBatch = true)
         {
-            batch.Begin(SpriteSortMode.Deferred,
-                      BlendState.AlphaBlend,
-                      SamplerState.LinearClamp,
-                      null,
-                      null,
-                      null,
-                      camera.GetMatrix());
+            if (newBatch)
+                batch.Begin(SpriteSortMode.Deferred,
+                          BlendState.AlphaBlend,
+                          SamplerState.LinearClamp,
+                          null,
+                          null,
+                          null,
+                          camera.GetMatrix());
 
             root.Draw(batch);
 
+            if (newBatch)
             batch.End();
         }
 
@@ -65,7 +67,7 @@ namespace Simon.Mah.Framework.Scene2D
 
         public void Remove(Actor actor)
         {
-            root.Remove(actor.name);
+            root.Remove(actor.Name);
         }
 
         public Vector2 Unproject(int x, int y)

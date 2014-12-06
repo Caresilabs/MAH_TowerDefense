@@ -66,8 +66,12 @@ namespace Simon.Mah.Framework.Scene2D
         public void SetText(string text)
         {
             this.text = text;
-            this.bounds = new Rectangle((int)startPos.X - (int)(UIConfig.DEFAULT_FONT.MeasureString(text).Length() / 2 * scale * UIConfig.DEFAULT_FONT_SCALE),
-                (int)startPos.Y, (int)(UIConfig.DEFAULT_FONT.MeasureString(text).Length() * scale * UIConfig.DEFAULT_FONT_SCALE), (int)UIConfig.DEFAULT_FONT.MeasureString(text).Y);
+
+            this.textSize = (UIConfig.DEFAULT_FONT.MeasureString(text));
+            textSize = Vector2.Multiply(textSize, (scale * UIConfig.DEFAULT_FONT_SCALE));
+
+            this.bounds = new Rectangle((int)startPos.X - (int)(textSize.X)/2,
+                (int)startPos.Y, (int)(textSize.X), (int)textSize.Y); // height = UIConfig.DEFAULT_FONT.MeasureString(text).Y
 
             SetPosition(bounds.X - 20, bounds.Y - 10);
             SetSize(bounds.Width + 30, bounds.Height + 30);
