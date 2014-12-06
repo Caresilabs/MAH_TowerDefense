@@ -63,7 +63,7 @@ namespace Simon.Mah.Framework.Tools
 
         public Vector2 GetZoom()
         {
-            return viewportStretch;
+            return zoom;
         }
 
         public void SetZoom(float value)

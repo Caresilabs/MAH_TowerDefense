@@ -9,8 +9,6 @@ namespace MAH_TowerDefense.LevelEditor
     {
         public string Name { get; set; }
 
-        public string Description { get; set; }
-
         public string Enemies { get; set; }
 
         public override string ToString()

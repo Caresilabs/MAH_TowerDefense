@@ -160,7 +160,9 @@
             this.Controls.Add(this.createButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "NewLevelForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "New Level";
+            this.Load += new System.EventHandler(this.NewLevelForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLevel)).EndInit();

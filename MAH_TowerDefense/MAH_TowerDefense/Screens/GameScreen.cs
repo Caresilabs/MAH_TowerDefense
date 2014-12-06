@@ -30,7 +30,7 @@ namespace MAH_TowerDefense.Screens
 
         public override void Init()
         {
-            this.world = new World(35, 19, WorldRenderer.WIDTH / World.TILES_HORIZONTAL);
+            this.world = new World(WorldRenderer.WIDTH / World.TILES_HORIZONTAL);
             this.renderer = new WorldRenderer(world, GetGraphics());
             this.hud = new UIController(this);
             this.timeModifier = 1;
@@ -45,6 +45,14 @@ namespace MAH_TowerDefense.Screens
             renderer.Update(delta * timeModifier);
 
             UpdatePlacingTower();
+
+            if (world.GetState() == World.GameState.WIN)
+            {
+                //if (world.HasNextLevel())
+                    //world = new World(WorldRenderer.WIDTH / World.TILES_HORIZONTAL);
+                //else
+                    SetScreen(new MainMenuScreen());
+            }
         }
 
         private void UpdatePlacingTower()
@@ -69,19 +77,27 @@ namespace MAH_TowerDefense.Screens
         private void PlaceTowerAction(bool success = true)
         {
             if (success)
+            {
                 placingTower.Place();
+                world.WithdrawGold(placingTower.Cost);
+            }
             else
                 world.RemoveEntity(placingTower);
+
             placingTower = null;
             isPlacing = false;
         }
 
-        private void StartPlacingTower()
+        private void StartPlacingTower(string tower)
         {
             if (isPlacing) return;
 
             world.Deselect();
-            placingTower = TowerFactory.CreateCannon(200, 200);
+
+            placingTower = (Tower)typeof(TowerFactory)
+                        .GetMethod("Create" + (tower.Substring(0, 1).ToUpper() + tower.Substring(1, tower.Length - 1).ToLower()))
+                            .Invoke(null, new object[] { -100, -100 }); //TowerFactory.CreateCannon(-100, -100);
+
             world.AddEntity(placingTower);
             isPlacing = true;
         }
@@ -96,8 +112,11 @@ namespace MAH_TowerDefense.Screens
 
             if (Keyboard.GetState().IsKeyDown(Keys.D1))
             {
-                StartPlacingTower();
+                StartPlacingTower("Cannon");
             }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.M))
+                SetScreen(new MainMenuScreen());
         }
 
         public override void Draw(SpriteBatch batch)
@@ -168,6 +187,11 @@ namespace MAH_TowerDefense.Screens
         public bool IsPlacing()
         {
             return isPlacing;
+        }
+
+        public Tower GetPlacingTower()
+        {
+            return placingTower;
         }
     }
 }

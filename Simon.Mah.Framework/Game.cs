@@ -47,6 +47,11 @@ namespace Simon.Mah.Framework
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
+            if (!IsActive)
+            {
+            }
+                //return;
+
             // get second between last frame and current frame, used for fair physics manipulation and not based on frames
             float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
 

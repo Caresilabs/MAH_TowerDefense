@@ -22,6 +22,9 @@ namespace MAH_TowerDefense.Worlds
         public const int TILES_HORIZONTAL = 20;
         public const int WAVE_COOLDOWN = 15;
 
+        public const int START_GOLD = 500;
+        public const int START_LIVES = 20;
+
         public static float TILE_SIZE;
         public static int WIDTH;
         public static int HEIGHT;
@@ -37,53 +40,51 @@ namespace MAH_TowerDefense.Worlds
 
         private float nextWaveTime;
         private int lives;
+        private int gold;
 
         public enum GameState
         {
-            WAITING, COMBAT
+            WAITING, COMBAT, WIN
         }
 
-        public World(int width, int height, float tileSize)
+        public World(float tileSize, int level = 1)
         {
-            WIDTH = width;
-            HEIGHT = height;
             TILE_SIZE = tileSize;
 
             this.entities = new List<GameObject>();
             this.selected = new List<Unit>();
             this.bullets = new List<Bullet>();
-            this.InitLevel();
+            this.InitLevel(level);
         }
 
-        public void InitLevel(int level = 1)
+        public void InitLevel(int level)
         {
-            this.lives = 20;
+            this.lives = START_LIVES;
+            this.gold = START_GOLD;
             this.nextWaveTime = WAVE_COOLDOWN;
-            this.state = GameState.WAITING;
-            this.waves = new WaveSystem();
+
+            LevelEditor.LevelModel.SingleLevel loadedMap = LevelIO.LoadLevel(level);
+
+            WIDTH = loadedMap.Width;
+            HEIGHT = loadedMap.Height;
+
+            waves = new WaveSystem(loadedMap.Waves);
 
             road = new Road(Start.graphics.GraphicsDevice);
             road.Clean();
-            road.InsertPoint(new Vector2(0, HEIGHT * TILE_SIZE / 2), 0);
 
-            // Temp
-            for (float i = 0; i < WIDTH * TILE_SIZE; i+=TILE_SIZE*4)
+            foreach (var pt in loadedMap.PathPoints)
             {
-                road.AddPoint(new Vector2((i), (HEIGHT/2 * TILE_SIZE) + (float)Math.Sin(i)*TILE_SIZE*4));//
+                 road.AddPoint(new Vector2(pt.X * TILE_SIZE, pt.Y * TILE_SIZE));
             }
-
             road.UpdateParts();
+
 
             Tower tower = TowerFactory.CreateCannon(600, 600);
             tower.Place();
             AddEntity(tower);
 
-            for (int i = 0; i < 10; i++)
-            {
-                Enemy e = EnemyFactory.CreateSnail(-MathUtils.Random(0, 1000));
-                AddEntity(e);
-            }
-         
+            EndRound();
         }
 
         public void Update(float delta)
@@ -96,6 +97,8 @@ namespace MAH_TowerDefense.Worlds
                         NextWave();
                     break;
                 case GameState.COMBAT:
+                    if (entities.Where(x => x is Enemy).Count() == 0)
+                        EndRound();
                     break;
                 default:
                     break;
@@ -131,22 +134,29 @@ namespace MAH_TowerDefense.Worlds
             }
         }
 
-        private void NextWave()
+        public void NextWave()
         {
             nextWaveTime = WAVE_COOLDOWN;
             state = GameState.COMBAT;
-            CreepWave wave = waves.RequestWave();
-
-            if (wave != null)
+            if (currentWave != null)
             {
-                currentWave = wave;
-                AddEntities(wave.GetEnemies());
+                AddEntities(currentWave.GetEnemies());
             }
         }
 
         public void EndRound()
         {
-            state = GameState.WAITING;
+            if (waves.IsAllCleared())
+            {
+                state = GameState.WIN;
+            }
+            else
+            {
+                state = GameState.WAITING;
+                CreepWave wave = waves.RequestWave();
+                if (wave != null)
+                    currentWave = wave;
+            }
         }
 
         private void UpdateEntities(float delta)
@@ -211,6 +221,14 @@ namespace MAH_TowerDefense.Worlds
                     selected.Where(x => x is Tower).Cast<Tower>().ToList().ForEach(x => x.Target = (Enemy)newSelection[0]);
                 }
             }
+            else
+            {
+                // If more than half towers, select only towers OR NOT TODO
+                //if (newSelection.Where(x => x is Tower).Count() > newSelection.Count / 2)
+                {
+                    newSelection = newSelection.Where(x => x is Tower).ToList();
+                }
+            }
             
             // deselect old
             Deselect();
@@ -226,6 +244,18 @@ namespace MAH_TowerDefense.Worlds
             selected.Clear();
         }
 
+        public void WithdrawGold(int ammount)
+        {
+            this.gold -= ammount;
+        }
+
+        public void AddGold(int ammount)
+        {
+            this.gold += ammount;
+        }
+
+        // ====== GETTERS AND SETTERS ===== ///
+
         public List<GameObject> GetEntities()
         {
             return entities;
@@ -236,9 +266,44 @@ namespace MAH_TowerDefense.Worlds
             return bullets;
         }
 
+        public CreepWave GetWave()
+        {
+            return currentWave;
+        }
+
+        public float GetWaitTime()
+        {
+            return this.nextWaveTime;
+        }
+
+        public int GetWavesLeft()
+        {
+            return waves.GetWavesLeft();
+        }
+
+        public int GetGold()
+        {
+            return gold;
+        }
+
+        public int GetLives()
+        {
+            return lives;
+        }
+
+        public GameState GetState()
+        {
+            return state;
+        }
+
         public Road GetRoad()
         {
             return road;
+        }
+
+        public List<Unit> GetSelected()
+        {
+            return selected;
         }
     }
 }

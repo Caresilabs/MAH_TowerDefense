@@ -51,7 +51,7 @@ namespace MAH_TowerDefense
 
             // UI Config
             UIConfig.DEFAULT_FONT = font;
-            UIConfig.DEFAULT_BUTTON = GetRegion("button");
+            UIConfig.DEFAULT_BUTTON = GetRegion("Pixel");
 
             LoadSound();
         }

@@ -18,10 +18,12 @@ namespace MAH_TowerDefense
     {
         private float aspectRatio;
 
-        public Start() : base()
+        public Start()
+            : base()
         {
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferMultiSampling = true;
 
             aspectRatio = graphics.PreferredBackBufferWidth / (float)graphics.PreferredBackBufferHeight;
 
@@ -30,8 +32,6 @@ namespace MAH_TowerDefense
 
             GAME_NAME = "Ninja Bob breakerz";
             Window.Title = GAME_NAME + " by [Simon Bothen]"; //  set title to our game name
-
-            new NewLevelForm().Show();
         }
 
         protected override void LoadContent()
@@ -50,7 +50,7 @@ namespace MAH_TowerDefense
 
         public override Screen GetStartScreen()
         {
-            return new GameScreen();
+            return new MainMenuScreen();
         }
     }
 }

@@ -27,6 +27,8 @@ namespace MAH_TowerDefense.Entity
 
         public float Radius { get; set; }
 
+        public int Gold { get; set; }
+
         public static StatsData operator -(StatsData stats1, StatsData stats2)
         {
             stats1.Health -= stats2.Health;

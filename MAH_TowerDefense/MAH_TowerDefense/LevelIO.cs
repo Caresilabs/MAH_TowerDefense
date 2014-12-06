@@ -18,15 +18,20 @@ namespace MAH_TowerDefense
             LevelModel allLevels = ReadFile();
 
             // clamp level
-            level.LevelIndex = 1 + (int)MathHelper.Clamp(level.LevelIndex, 0, allLevels.levels.Count);
+            //level.LevelIndex = 1 + (int)MathHelper.Clamp(level.LevelIndex, 0, allLevels.levels.Count);
 
             if (insert)
             {
                 allLevels.levels.Where(x => x.LevelIndex >= level.LevelIndex).ToList().ForEach(x => x.LevelIndex++);
-                allLevels.levels.Insert(level.LevelIndex, level);
+                allLevels.levels.Insert(level.LevelIndex - 1, level);
             }
             else
-                allLevels.levels.Add(level);
+            {
+                if (level.LevelIndex > allLevels.levels.Count)
+                    allLevels.levels.Add(level);
+                else
+                    allLevels.levels[level.LevelIndex -1] = level;
+            }
 
             xmlSerializer.Serialize(textWriter, allLevels);
             System.IO.File.WriteAllText("Content/levels.txt", textWriter.ToString());
@@ -37,9 +42,19 @@ namespace MAH_TowerDefense
         {
             string xml = System.IO.File.ReadAllText("Content/levels.txt");
 
+            if (xml == "")
+            {
+                return new LevelModel() { levels = new List<LevelModel.SingleLevel>() };
+            }
+
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(LevelModel));
             StringReader textReader = new StringReader(xml);
             return (LevelModel)xmlSerializer.Deserialize(textReader);
+        }
+
+        public static int LevelCount()
+        {
+            return ReadFile().levels.Count;
         }
 
         public static LevelModel.SingleLevel LoadLevel(int index)

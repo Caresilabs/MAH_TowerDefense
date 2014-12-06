@@ -1,4 +1,5 @@
 ﻿using MAH_TowerDefense.Views;
+using MAH_TowerDefense.Worlds;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +16,32 @@ namespace MAH_TowerDefense.Entity.Enemies
         public CreepWave(string description, string[] enemies)
         {
             this.enemies = new List<Enemy>();
-            this.Description = UIController.WrapText(description, UIController.PANEL_WIDTH);
-            InitWave(enemies);
+            this.Description = description;
+            this.InitWave(enemies);
         }
 
         private void InitWave(string[] enemies)
         {
-            foreach (var enemy in enemies)
+            for (int i = 0; i < enemies.Length; i++)
             {
-                Enemy e = (Enemy)typeof(EnemyFactory).GetMethod("Create" + enemy).Invoke(null, new object[] {1, 0});
-                this.enemies.Add(e);
+                string enemy = enemies[i];
+                int num = 1;
+                float offset = -World.TILE_SIZE;
+                if (enemy.Contains("*"))
+                {
+                    num = int.Parse(enemy.Split('*')[1]); // TODO error catching
+                    enemy = enemy.Split('*')[0];
+                }
+
+                while (num > 0)
+                {
+                    Enemy e = (Enemy)typeof(EnemyFactory)
+                        .GetMethod("Create" + (enemy.Substring(0, 1).ToUpper() + enemy.Substring(1, enemy.Length - 1).ToLower()))
+                            .Invoke(null, new object[] { offset });
+                    this.enemies.Add(e);
+                    num--;
+                    offset -= World.TILE_SIZE;
+                }
             }
         }
 

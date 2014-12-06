@@ -7,6 +7,8 @@ namespace MAH_TowerDefense.Entity
 {
     public class Unit : GameObject
     {
+        public StatsData Stats { get; protected set; }
+
         public bool Selected { get; set; }
 
         public string Description { get; set; }

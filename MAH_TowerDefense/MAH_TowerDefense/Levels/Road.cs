@@ -27,13 +27,13 @@ namespace MAH_TowerDefense.Levels
         {
             roadParts.Clear();
             
-            int width = 48;
-            float delta = width * .9f;
+            int width = 42;
+            float delta = width * .61f;
             if (AntalPunkter >= 3)
             {
                 for (float i = beginT + delta; i < endT; i += delta)
                 {
-                    Vector2 last = GetPos(i - delta*.5f);
+                    Vector2 last = GetPos(i - delta*.2f);
                     Vector2 pos = GetPos(i);
                     float angle = (float)Math.Atan2(pos.X - last.X, pos.Y - last.Y);
 
@@ -51,13 +51,14 @@ namespace MAH_TowerDefense.Levels
             }
         }
 
-        public void Render(SpriteBatch batch)
+        public void Render(SpriteBatch batch, bool debug = false)
         {
             foreach (var part in roadParts)
             {
                 part.Draw(batch);
             }
-            //Draw(batch);
+            if (debug && AntalPunkter >= 3)
+                Draw(batch);
         }
     }
 }

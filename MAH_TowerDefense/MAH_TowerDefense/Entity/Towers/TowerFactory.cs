@@ -15,11 +15,12 @@ namespace MAH_TowerDefense.Entity.Towers
             {
                 Radius = 200,
                 MaxSpeed = .5f,
-                Damage = 30
+                Damage = 30,
+                CritChance = 20
             };
 
             Tower tower = new Tower(stats, typeof(BulletBank.SniperBullet), x, y);
-
+            tower.Cost = 100;
             tower.sprite.AddAnimation("normal", new FrameAnimation(Assets.GetRegion("Entity"), 0, 65, 64, 64, 1, 1)).SetAnimation("normal");
             
             return tower;

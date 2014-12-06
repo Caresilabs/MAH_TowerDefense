@@ -19,9 +19,6 @@ namespace MAH_TowerDefense.Entity.Towers
 
         public Enemy Target { get; set; }
 
-        public StatsData Stats { get; private set; }
-
-
         public Type Bullet { get; private set; }
 
         public bool Placed { get; private set; }
@@ -34,6 +31,7 @@ namespace MAH_TowerDefense.Entity.Towers
             : base(x, y, 64, 64)
         {
             this.Stats = stats;
+            this.Stats.MaxHealth = 100;
             this.Placed = false;
             this.Bullet = bullet;
             this.shootTime = 0;

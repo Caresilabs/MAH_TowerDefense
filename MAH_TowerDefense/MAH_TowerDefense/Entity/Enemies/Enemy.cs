@@ -13,8 +13,6 @@ namespace MAH_TowerDefense.Entity.Enemies
     {
         public const int HEALTH_BAR_HEIGHT = 8;
 
-        private StatsData stats;
-
         public List<HitModifier> HitModifiers { get; set; }
 
         private float walkedDistance;
@@ -22,7 +20,7 @@ namespace MAH_TowerDefense.Entity.Enemies
         public Enemy(StatsData stats, float offset, float width, float height)
             : base(0, 0, width, height)
         {
-            this.stats = stats;
+            this.Stats = stats;
             this.HitModifiers = new List<HitModifier>();
             this.walkedDistance = offset;
         }
@@ -33,15 +31,15 @@ namespace MAH_TowerDefense.Entity.Enemies
 
         public override void Update(float delta)
         {
-            stats.Speed += stats.MaxSpeed * delta;
+            Stats.Speed += Stats.MaxSpeed * delta;
 
-            walkedDistance += stats.Speed * delta;
+            walkedDistance += Stats.Speed * delta;
             SetPosition(world.GetRoad().GetPos(walkedDistance));
 
             if (walkedDistance >= world.GetRoad().endT)
                 Alive = false;
 
-            if (stats.Health <= 0)
+            if (Stats.Health <= 0)
                 Kill();
 
             for (int i = 0; i < HitModifiers.Count; i++)
@@ -60,7 +58,7 @@ namespace MAH_TowerDefense.Entity.Enemies
         {
             base.Draw(batch);
 
-            float width = (float)(stats.Health / stats.MaxHealth ) * bounds.Width;
+            float width = (float)(Stats.Health / Stats.MaxHealth) * bounds.Width;
             batch.Draw(Assets.items, new Rectangle(bounds.Left, bounds.Top - HEALTH_BAR_HEIGHT, (int)width, HEALTH_BAR_HEIGHT), Assets.GetRegion("Pixel"), Color.Red);
         }
 
@@ -73,12 +71,13 @@ namespace MAH_TowerDefense.Entity.Enemies
         private void Kill()
         {
             Alive = false;
-            //TODO world.addscore
+            //TODO world.addscore /gold
+            world.AddGold(Stats.Gold);
         }
 
         public StatsData GetStats()
         {
-            return stats;
+            return Stats;
         }
     }
 }
