@@ -10,12 +10,13 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Simon.Mah.Framework;
+using MAH_TowerDefense.Views;
 
 namespace MAH_TowerDefense.Entity.Towers
 {
     public class Tower : Unit, IPlayerUnit
     {
-        private const float UPGRADE_COST_FACTOR = 1.5f;
+        private const float UPGRADE_COST_FACTOR = 2.0f;
 
         public Enemy Target { get; set; }
 
@@ -23,22 +24,24 @@ namespace MAH_TowerDefense.Entity.Towers
 
         public bool Placed { get; private set; }
 
-        public int Cost { get; set; }
+        public int Cost { get; protected set; }
+
+        public int Level { get; private set; }
 
         private float shootTime;
 
-        public Tower(StatsData stats, Type bullet, float x, float y, float width, float height)
-            : base(x, y, 64, 64)
+        public Tower(Type bullet, float width, float height)
+            : base(-1000, -1000, 64, 64)
         {
-            this.Stats = stats;
-            this.Stats.MaxHealth = 100;
             this.Placed = false;
             this.Bullet = bullet;
             this.shootTime = 0;
+            this.Level = 1;
+            this.sprite.ZIndex = .05f;
         }
 
-        public Tower(StatsData stats, Type bullet, float x, float y)
-            : this(stats, bullet, x, y, World.TILE_SIZE, World.TILE_SIZE)
+        public Tower(Type bullet)
+            : this(bullet, World.TILE_SIZE, World.TILE_SIZE)
         {
         }
 
@@ -81,9 +84,11 @@ namespace MAH_TowerDefense.Entity.Towers
             {
                 Sprite s = new Sprite(Assets.GetRegion("Circle"), position.X, position.Y, Stats.Radius * 2, Stats.Radius * 2);
                 s.Color = sprite.Color;
-                s.ZIndex = .8f + (position.X / (World.TILE_SIZE*World.WIDTH) * .1f);
+                s.ZIndex = .8f + (position.X / (World.TILE_SIZE * World.WIDTH) * .1f);
                 s.Draw(batch);
             }
+
+            batch.DrawString(Assets.font, Level.ToString(), GetPosition(), Color.White, 0, new Vector2(-bounds.Width / 2.3f, -bounds.Height / 2.3f), .38f, SpriteEffects.None, 0);
 
             base.Draw(batch);
         }
@@ -114,17 +119,20 @@ namespace MAH_TowerDefense.Entity.Towers
         public void Place()
         {
             this.Placed = true;
+            WorldRenderer.Effects.SpawnSmoke(GetPosition());
         }
 
-        public virtual void Upgrade()
+        public void Upgrade()
         {
-            Update();
+            WorldRenderer.Effects.SpawnSmoke(GetPosition());
+            Level++;
+            OnUpdate();
         }
 
-        protected virtual void Update()
+        protected virtual void OnUpdate()
         {
             this.Cost = (int)(Cost * UPGRADE_COST_FACTOR);
-            Stats *= 1.35f;
+            Stats *= 1.28f;
         }
     }
 }

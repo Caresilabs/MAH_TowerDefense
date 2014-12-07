@@ -14,6 +14,7 @@ using System.IO;
 using MAH_TowerDefense.Entity.Towers;
 using MAH_TowerDefense.Entity;
 using Simon.Mah.Framework.Tools;
+using MAH_Platformer.Screens;
 
 namespace MAH_TowerDefense.Screens
 {
@@ -26,11 +27,17 @@ namespace MAH_TowerDefense.Screens
         private Tower placingTower;
 
         private float timeModifier;
-        private bool isPlacing; //TODO 
+        private bool isPlacing;
+        private int level;
+
+        public GameScreen(int level = 1)
+        {
+            this.level = level;
+        }
 
         public override void Init()
         {
-            this.world = new World(WorldRenderer.WIDTH / World.TILES_HORIZONTAL);
+            this.world = new World(WorldRenderer.WIDTH / World.TILES_HORIZONTAL, level);
             this.renderer = new WorldRenderer(world, GetGraphics());
             this.hud = new UIController(this);
             this.timeModifier = 1;
@@ -45,13 +52,24 @@ namespace MAH_TowerDefense.Screens
             renderer.Update(delta * timeModifier);
 
             UpdatePlacingTower();
+            UpdateStates();
+        }
 
-            if (world.GetState() == World.GameState.WIN)
+        private void UpdateStates()
+        {
+            switch (world.GetState())
             {
-                //if (world.HasNextLevel())
-                    //world = new World(WorldRenderer.WIDTH / World.TILES_HORIZONTAL);
-                //else
+                case World.GameState.WIN:
+                    if (LevelIO.LevelCount() >= level + 1)
+                        SetScreen(new NextLevelScreen(level + 1));
+                    else
+                        SetScreen(new MainMenuScreen());
+                    break;
+                case World.GameState.DEAD:
                     SetScreen(new MainMenuScreen());
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -94,9 +112,10 @@ namespace MAH_TowerDefense.Screens
 
             world.Deselect();
 
-            placingTower = (Tower)typeof(TowerFactory)
-                        .GetMethod("Create" + (tower.Substring(0, 1).ToUpper() + tower.Substring(1, tower.Length - 1).ToLower()))
-                            .Invoke(null, new object[] { -100, -100 }); //TowerFactory.CreateCannon(-100, -100);
+            string nameSpace = "MAH_TowerDefense.Entity.Towers.TowerFactory" + "+";
+            string name = tower + "Tower";
+            var objType = Type.GetType(nameSpace + name, true);
+            placingTower = (Tower)Activator.CreateInstance(objType);
 
             if (placingTower.Cost > world.GetGold()) return;
 
@@ -111,6 +130,8 @@ namespace MAH_TowerDefense.Screens
             else
                 if (InputHandler.KeyReleased(Keys.Space)) timeModifier = 1;
 
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                world.NextWave();
 
             if (Keyboard.GetState().IsKeyDown(Keys.M))
                 SetScreen(new MainMenuScreen());

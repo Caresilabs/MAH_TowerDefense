@@ -94,6 +94,7 @@
     </Compile>
     <Compile Include="LevelIO.cs" />
     <Compile Include="Levels\Road.cs" />
+    <Compile Include="Screens\NextLevelScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
     <Compile Include="Visuals\DamageText.cs" />
     <Compile Include="Visuals\IEffect.cs" />
@@ -136,6 +137,7 @@
     </Compile>
     <Compile Include="LevelEditor\LevelModel.cs" />
     <Compile Include="LevelEditor\WaveModel.cs" />
+    <Compile Include="Visuals\Particle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DLL\Spline.dll" />

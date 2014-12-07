@@ -8,14 +8,14 @@
           <Enemies>DUDE AWESOME
 #####
 
-SnaiL*4</Enemies>
+SnaiL*5</Enemies>
         </WaveModel>
         <WaveModel>
           <Name>Wave #2</Name>
           <Enemies>DUDE AWESOME
 #####
 
-SnaiL*1
+Blob*3
 </Enemies>
         </WaveModel>
         <WaveModel>
@@ -23,8 +23,29 @@ SnaiL*1
           <Enemies>FINAL WAVE
 #####
 
-SnaiL*10
+SnaiL*5
+Blob*2
+Snail*5
+Panda
 </Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #4</Name>
+          <Enemies>yeah
+###
+
+Panda*2
+snail * 10</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #5</Name>
+          <Enemies>BOSS FIGHT
+###
+panda*6
+snail*20
+panda*2
+blob*15
+panda</Enemies>
         </WaveModel>
       </Waves>
       <PathPoints>

@@ -41,10 +41,17 @@ namespace MAH_TowerDefense
             LoadRegion("Grass", items, 0, 0, 64, 64);
             LoadRegion("Path", items, 64, 0, 96, 96);
             LoadRegion("Circle", items, 161, 0, 160, 160);
+
+            // Particles
             LoadRegion("Pixel", items, 511, 0, 1, 1);
+            LoadRegion("pCircle", items, 320, 0, 32, 32);
+            LoadRegion("pBlood", items, 352, 0, 32, 32);
 
-
-            LoadRegion("Bullet1", items, 64, 96, 32, 32);
+            // Bullets
+            LoadRegion("CannonBullet", items, 64, 96, 32, 32);
+            LoadRegion("IceBullet", items, 96, 96, 32, 32);
+            LoadRegion("SunBullet", items, 128, 96, 32, 32);
+            LoadRegion("NuclearBullet", items, 0, 64, 32, 32);
 
             // Load font 
             font = manager.Load<SpriteFont>("Font/font");

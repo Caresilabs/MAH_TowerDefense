@@ -38,6 +38,9 @@ namespace Simon.Mah.Framework
 
         public void AddAnimation(string name, Animation animation)
         {
+            if (animations.ContainsKey(name))
+                animations.Remove(name);
+
             animations.Add(name, animation);
         }
 

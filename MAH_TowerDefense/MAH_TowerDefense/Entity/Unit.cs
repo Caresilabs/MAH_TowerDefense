@@ -11,8 +11,6 @@ namespace MAH_TowerDefense.Entity
 
         public bool Selected { get; set; }
 
-        public string Description { get; set; }
-
         public Unit(float x, float y, float width, float height) : base(x, y, width, height)
         {
             this.Alive = true;

@@ -49,7 +49,7 @@ namespace MAH_TowerDefense.Screens
             if (e.KeyCode == System.Windows.Forms.Keys.Space)
                 FinishDrawing();
 
-            float speed = 10f;
+            float speed = 20f;
             if (e.KeyCode == System.Windows.Forms.Keys.A)
                 camera.Translate(-speed, 0);
             if (e.KeyCode == System.Windows.Forms.Keys.D)
@@ -138,7 +138,11 @@ namespace MAH_TowerDefense.Screens
             }
             else
             {
-
+                AddPoint(new Vector2(width / 2, -1.5f));
+                AddPoint(new Vector2( -.2f + width / 2, -.6f));
+                AddPoint(new Vector2( -.1f + width / 2, -.2f));
+                AddPoint(new Vector2(width / 2, 0));
+                AddPoint(new Vector2(width / 2, 1));
             }
             road.UpdateParts();
         }

@@ -24,7 +24,7 @@ namespace MAH_TowerDefense.Entity.Enemies
         {
             for (int i = 0; i < enemies.Length; i++)
             {
-                string enemy = enemies[i];
+                string enemy = enemies[i].Replace(" ", "");
                 int num = 1;
                 float offset = -World.TILE_SIZE;
                 if (enemy.Contains("*"))

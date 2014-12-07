@@ -63,8 +63,8 @@ namespace MAH_TowerDefense.Views
         public void Render(SpriteBatch batch)
         {
             // Draw Render Target to texture
-            DrawRenderTarget(batch.GraphicsDevice, RenderTarget, Camera);
-            DrawRenderTarget(batch.GraphicsDevice, MiniMap, MiniMapCamera);
+            DrawRenderTarget(batch, RenderTarget, Camera);
+            DrawRenderTarget(batch, MiniMap, MiniMapCamera);
 
             {
                 // Clear Screen
@@ -124,14 +124,12 @@ namespace MAH_TowerDefense.Views
             }
         }
 
-        private void DrawRenderTarget(GraphicsDevice device, RenderTarget2D target, Camera2D cam)
+        private void DrawRenderTarget(SpriteBatch batch, RenderTarget2D target, Camera2D cam)
         {
-            SpriteBatch sb = new SpriteBatch(device);
+            batch.GraphicsDevice.SetRenderTarget(target);
+            batch.GraphicsDevice.Clear(Color.Transparent);
 
-            device.SetRenderTarget(target);
-            device.Clear(Color.Transparent);
-
-            sb.Begin(SpriteSortMode.BackToFront,
+            batch.Begin(SpriteSortMode.BackToFront,
                         BlendState.AlphaBlend,
                         SamplerState.LinearClamp,
                         null,
@@ -139,19 +137,19 @@ namespace MAH_TowerDefense.Views
                         null,
                         cam.GetMatrix());
 
+            DrawRoad(batch);
+
             foreach (GameObject entity in World.GetEntities().Where(x => x.UsesRenderTarget()))
             {
                 // Only draw placed towers
                 if (entity is Tower) if (((Tower)entity).Placed == false) continue;
 
-                DrawRoad(sb);
-
-                entity.Draw(sb);
+                entity.Draw(batch);
             }
 
-            sb.End();
+            batch.End();
 
-            device.SetRenderTarget(null);
+            batch.GraphicsDevice.SetRenderTarget(null);
         }
     }
 }

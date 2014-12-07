@@ -63,8 +63,8 @@ namespace MAH_TowerDefense.Entity
             stats1.Armor *= factor;
             stats1.CritChance *= factor;
             stats1.Radius *= factor;
-            stats1.Speed *= factor;
-            stats1.MaxSpeed *= factor;
+            stats1.Speed = stats1.Speed / factor;
+            stats1.MaxSpeed = stats1.MaxSpeed / factor;
             return stats1;
         }
     }

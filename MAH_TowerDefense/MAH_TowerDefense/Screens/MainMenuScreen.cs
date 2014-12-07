@@ -72,6 +72,9 @@ namespace MAH_TowerDefense.Screens
                 }
                 if (actor.Name == "editor")
                 {
+                    var form = (System.Windows.Forms.Form)System.Windows.Forms.Form.FromHandle(GetGame().Window.Handle);
+                    form.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+
                     new LevelEditorForm(0).Show();
                 }
             }

@@ -22,7 +22,7 @@ namespace MAH_TowerDefense.Worlds
         public const int TILES_HORIZONTAL = 20;
         public const int WAVE_COOLDOWN = 15;
 
-        public const int START_GOLD = 500;
+        public const int START_GOLD = 700;
         public const int START_LIVES = 20;
         public const int END_ROUND_GOLD = 300;
 
@@ -45,7 +45,7 @@ namespace MAH_TowerDefense.Worlds
 
         public enum GameState
         {
-            WAITING, COMBAT, WIN
+            WAITING, COMBAT, WIN, DEAD
         }
 
         public World(float tileSize, int level = 1)
@@ -80,13 +80,7 @@ namespace MAH_TowerDefense.Worlds
             }
             road.UpdateParts();
 
-
-            Tower tower = TowerFactory.CreateCannon(600, 600);
-            tower.Place();
-            AddEntity(tower);
-
             EndRound();
-
             GC.Collect();
         }
 
@@ -139,6 +133,8 @@ namespace MAH_TowerDefense.Worlds
 
         public void NextWave()
         {
+            if (state != GameState.WAITING) return;
+
             nextWaveTime = WAVE_COOLDOWN;
             state = GameState.COMBAT;
             if (currentWave != null)
@@ -230,7 +226,7 @@ namespace MAH_TowerDefense.Worlds
             else
             {
                 // If more than half towers, select only towers OR NOT TODO
-                //if (newSelection.Where(x => x is Tower).Count() > newSelection.Count / 2)
+                if (newSelection.Where(x => x is Tower).Count() > newSelection.Count / 2)
                 {
                     newSelection = newSelection.Where(x => x is Tower).ToList();
                 }
@@ -258,6 +254,14 @@ namespace MAH_TowerDefense.Worlds
         public void AddGold(int ammount)
         {
             this.gold += ammount;
+        }
+
+        public void Hurt(float damage)
+        {
+            lives -= (int)damage;
+
+            if (lives <= 0)
+                state = GameState.DEAD;
         }
 
         // ====== GETTERS AND SETTERS ===== ///

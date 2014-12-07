@@ -1,4 +1,5 @@
 ﻿using MAH_TowerDefense.Entity.Bullets;
+using MAH_TowerDefense.Views;
 using MAH_TowerDefense.Worlds;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -36,7 +37,10 @@ namespace MAH_TowerDefense.Entity.Enemies
             SetPosition(world.GetRoad().GetPos(walkedDistance));
 
             if (walkedDistance >= world.GetRoad().endT)
+            {
                 Alive = false;
+                world.Hurt(Stats.Damage);
+            }
 
             if (Stats.Health <= 0)
                 Kill();
@@ -57,8 +61,9 @@ namespace MAH_TowerDefense.Entity.Enemies
         {
             base.Draw(batch);
 
+            Color color = Selected ? Color.Blue : Color.Red;
             float width = (float)(Stats.Health / Stats.MaxHealth) * bounds.Width;
-            batch.Draw(Assets.items, new Rectangle(bounds.Left, bounds.Top - HEALTH_BAR_HEIGHT, (int)width, HEALTH_BAR_HEIGHT), Assets.GetRegion("Pixel"), Color.Red);
+            batch.Draw(Assets.items, new Rectangle(bounds.Left, bounds.Top - HEALTH_BAR_HEIGHT, (int)width, HEALTH_BAR_HEIGHT), Assets.GetRegion("Pixel"), color);
         }
 
         public bool Hit(HitModifier modifier)
@@ -69,6 +74,8 @@ namespace MAH_TowerDefense.Entity.Enemies
 
         private void Kill()
         {
+            WorldRenderer.Effects.SpawnBlood(position);
+
             Alive = false;
             //TODO world.addscore /gold
             world.AddGold(Stats.Gold);

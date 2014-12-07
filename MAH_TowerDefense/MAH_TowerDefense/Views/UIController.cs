@@ -10,6 +10,7 @@ using Simon.Mah.Framework.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace MAH_TowerDefense.Views
@@ -30,7 +31,12 @@ namespace MAH_TowerDefense.Views
         private Scene scene;
         private UIGroup buyGroup;
         private UIGroup upgradeGroup;
+        private UIGroup tabGroup;
         private UIButton upgrade;
+
+        private int tabState;
+        private string toolTip;
+        private float dt = 0;
 
         public UIController(GameScreen gameScreen)
         {
@@ -39,6 +45,7 @@ namespace MAH_TowerDefense.Views
             this.camera = new Camera2D(gameScreen.GetGraphics(), WIDTH, HEIGHT);
             this.selection = Rectangle.Empty;
             this.scene = new Scene(camera, this);
+            this.toolTip = "";
 
             InitUI();
         }
@@ -49,22 +56,49 @@ namespace MAH_TowerDefense.Views
             scene.Add("buy", buyGroup);
 
             // 1
-            UIButton buy1 = new UIButton("Cannon(" + TowerFactory.CreateCannon(0, 0).Cost + ")", WIDTH - PANEL_WIDTH + 64 + 0, 500);
+            UIButton buy1 = new UIButton("Cannon(" + new TowerFactory.CannonTower().Cost + ")", WIDTH - PANEL_WIDTH + 80 + 0, 500);
             buyGroup.Add("buyCannon", buy1);
 
             // 2
-            UIButton buy2 = new UIButton("Rocket(" + TowerFactory.CreateRocket(0,0).Cost + ")", buy1.GetBounds().Right + buy1.GetBounds().Width + 20, 500);
-            buyGroup.Add("buyRocket", buy2);
+            UIButton buy2 = new UIButton("Frost(" + new TowerFactory.FrostTower().Cost + ")", buy1.GetX() + buy1.GetBounds().Width / 2 + buy1.GetBounds().Width + 10, 500);
+            buyGroup.Add("buyFrost", buy2);
+
+            // 3
+            UIButton buy3 = new UIButton("Nuclear(" + new TowerFactory.NuclearTower().Cost + ")", WIDTH - PANEL_WIDTH + 85 + 0, 580);
+            buyGroup.Add("buyNuclear", buy3);
+
+            // 4
+            UIButton buy4 = new UIButton("Fire(" + new TowerFactory.SunTower().Cost + ")", buy1.GetX() + buy1.GetBounds().Width / 2 + buy1.GetBounds().Width + 17, 580);
+            buyGroup.Add("buySun", buy4);
+
+            // 5
+            //UIButton buy5 = new UIButton("Cannon(" + new TowerFactory.CannonTower().Cost + ")", WIDTH - PANEL_WIDTH + 80 + 0, 660);
+           // buyGroup.Add("buyCannon5", buy5);
+
+            // 6
+           // UIButton buy6 = new UIButton("Rocket(" + new TowerFactory.RocketTower().Cost + ")", buy1.GetX() + buy1.GetBounds().Width / 2 + buy1.GetBounds().Width + 10, 660);
+            //buyGroup.Add("buyRocket6", buy6);
 
             // Upgrade
             this.upgradeGroup = new UIGroup();
             scene.Add("upgradeGroup", upgradeGroup);
-            upgrade = new UIButton("Upgrade", WIDTH - PANEL_WIDTH/2, 600);
+            upgrade = new UIButton("Upgrade", WIDTH - PANEL_WIDTH / 2, 580);
             upgradeGroup.Add("upgrade", upgrade);
+
+            // Tab
+            this.tabState = 0;
+            this.tabGroup = new UIGroup();
+            scene.Add("tabGroup", tabGroup);
+            UIButton tab1 = new UIButton("i", WIDTH - PANEL_WIDTH + 29, 480);
+            tabGroup.Add("infoTab", tab1);
+
+            UIButton tab2 = new UIButton("u", WIDTH - PANEL_WIDTH + 72, 480);
+            tabGroup.Add("upgradeTab", tab2);
         }
 
         public void Update(float delta)
         {
+            toolTip = "";
             scene.Update(delta);
             dt = delta; //for fps
 
@@ -112,7 +146,7 @@ namespace MAH_TowerDefense.Views
 
             if (InputHandler.ClickedDown() && mouse.X < camera.GetWidth() - PANEL_WIDTH)
             {
-                selection = new Rectangle((int)mouse.X, (int)mouse.Y, 0, 0);
+                selection = new Rectangle((int)mouse.X, (int)mouse.Y, 1, 1);
                 startSelection = new Vector2(selection.X, selection.Y);
             }
 
@@ -152,8 +186,12 @@ namespace MAH_TowerDefense.Views
         private void Select()
         {
             Vector2 start = gameScreen.GetRenderer().Camera.Unproject(selection.X, selection.Y);
-            Vector2 size = gameScreen.GetRenderer().Camera.Unproject(selection.Width, selection.Height);
-            world.Select(new Rectangle((int)start.X, (int)start.Y, (int)size.X, (int)size.Y));
+            Vector2 end = gameScreen.GetRenderer().Camera.Unproject(selection.X + selection.Width, selection.Y + selection.Height);
+
+            start *= camera.GetViewPortScale();
+            end *= camera.GetViewPortScale();
+
+            world.Select(new Rectangle((int)start.X, (int)start.Y, Math.Max(1, (int)(end.X - start.X)), Math.Max(1, (int)(end.Y - start.Y))));
             selection = Rectangle.Empty;
         }
 
@@ -174,22 +212,21 @@ namespace MAH_TowerDefense.Views
 
             scene.Draw(batch, false);
 
+            // debug Draw fps
+            batch.DrawString(Assets.font, "fps: " + (int)(1 + 1 / dt), new Vector2(0, -3), Color.White, 0, Vector2.Zero, .4f, SpriteEffects.None, 0);
+
             batch.End();
 
         }
 
-        float dt = 0;
         private void DrawUI(SpriteBatch batch)
         {
             // Draw ui bar
             batch.Draw(Assets.items, new Rectangle(WIDTH - PANEL_WIDTH, 0, PANEL_WIDTH, HEIGHT), Assets.GetRegion("Pixel"), Color.Gray, 0, Vector2.Zero, SpriteEffects.None, .95f);
 
             // Draw miniMap
-            batch.Draw(Assets.items, new Rectangle(WIDTH - PANEL_WIDTH, 0, PANEL_WIDTH, (int)(PANEL_WIDTH / 1.6f)), Assets.GetRegion("Pixel"), Color.DarkOliveGreen, 0, Vector2.Zero, SpriteEffects.None, .91f);
-            batch.Draw(WorldRenderer.MiniMap, new Rectangle(WIDTH - PANEL_WIDTH, 0, PANEL_WIDTH, (int)(PANEL_WIDTH / 1.6f)), null, Color.Cyan, 0, Vector2.Zero, SpriteEffects.None, .9f);
-
-            //Draw fps
-            batch.DrawString(Assets.font, "fps:" + (int)(1 / dt), new Vector2(0, -3), Color.White);
+            batch.Draw(Assets.items, new Rectangle(WIDTH - PANEL_WIDTH, 0, PANEL_WIDTH, (int)(PANEL_WIDTH / 1.6f)), Assets.GetRegion("Pixel"), Color.DarkOliveGreen, 0, Vector2.Zero, SpriteEffects.None, .92f);
+            batch.Draw(WorldRenderer.MiniMap, new Rectangle(WIDTH - PANEL_WIDTH, 0, PANEL_WIDTH, (int)(PANEL_WIDTH / 1.6f)), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
 
             // Waves stats
             DrawFromContainer(batch, "Wave Info:", 0, 220, .48f);
@@ -198,12 +235,9 @@ namespace MAH_TowerDefense.Views
 
             if (world.GetState() == World.GameState.WAITING)
             {
-                DrawFromContainer(batch, "Next: " + (int)world.GetWaitTime(), PANEL_WIDTH / 2, 370, .55f);
-                //TODO Button
-                if (1 == 0)
-                {
-                    world.NextWave();
-                }
+                DrawFromContainer(batch, "Next: " + (int)world.GetWaitTime(), PANEL_WIDTH / 2, 370, .55f, world.GetWaitTime() <= 5 ? Color.Red : Color.White);
+                if (world.GetState() == World.GameState.WAITING)
+                    DrawFromContainer(batch, "Press Enter for Next Wave", -600, 5, .5f);
             }
 
             // Gold and lives
@@ -211,15 +245,26 @@ namespace MAH_TowerDefense.Views
             DrawFromContainer(batch, "Life: " + world.GetLives(), PANEL_WIDTH / 2, 400, .55f);
 
             DrawActionsPanel(batch);
+            DrawToolTip(batch);
+        }
+
+        private void DrawToolTip(SpriteBatch batch)
+        {
+            DrawFromContainer(batch, toolTip, -5, 640, .55f);
         }
 
         private void DrawActionsPanel(SpriteBatch batch)
         {
             // Action bg
             batch.Draw(Assets.items, new Rectangle(WIDTH - PANEL_WIDTH, HEIGHT - (int)(PANEL_WIDTH / 1.25f), PANEL_WIDTH, (int)(PANEL_WIDTH / 1.25f)), Assets.GetRegion("Pixel"), Color.DarkBlue, 0, Vector2.Zero, SpriteEffects.None, .91f);
+            
+            // Draw splitter
+            batch.Draw(Assets.items, new Rectangle(WIDTH - PANEL_WIDTH - 3 , 0, 3, HEIGHT), Assets.GetRegion("Pixel"), Color.Black, 0, Vector2.Zero, SpriteEffects.None, .89f);
+
 
             buyGroup.Enabled = false;
             upgradeGroup.Enabled = false;
+            tabGroup.Enabled = false;
 
             if (world.GetSelected().Count == 0)
             {
@@ -231,23 +276,35 @@ namespace MAH_TowerDefense.Views
             }
             else
             {
-                upgradeGroup.Enabled = true;
-                int cost = world.GetSelected().Cast<Tower>().Sum(x => x.Cost);
-                upgrade.SetText("Upgrade (" + cost + ")");
+                int cost = world.GetSelected().Where(x => x is Tower).Cast<Tower>().Sum(x => x.Cost);
+                if (cost != 0)
+                    upgrade.SetText("Upgrade (" + cost + ")");
 
                 // Draw info and upgrade
                 if (world.GetSelected().Count == 1)
                 {
                     // Draw single Stats
-                    StatsData stats = world.GetSelected()[0].Stats;
-                    if (world.GetSelected()[0].Alive)
+                    if (world.GetSelected()[0] is Tower)
                     {
-                        DrawStats(batch, stats);
+                        tabGroup.Enabled = true;
+                        if (tabState == 0)
+                            DrawStats(batch, world.GetSelected()[0].Stats);
+                        else
+                            upgradeGroup.Enabled = true;
+                    }
+                    else
+                    {
+                        // Enemy
+                        upgradeGroup.Enabled = true;
+                        StatsData stats = world.GetSelected()[0].Stats;
+                        if (world.GetSelected()[0].Alive)
+                            DrawStats(batch, stats);
                     }
                 }
                 else
                 {
                     // Draw upgrade all
+                    upgradeGroup.Enabled = true;
                 }
             }
         }
@@ -256,10 +313,10 @@ namespace MAH_TowerDefense.Views
         {
             DrawFromContainer(batch, "Damage: " + (int)stats.Damage + "\n" +
                 "Health: " + (int)stats.Health + "\n" +
-            "Speed: " + (int)stats.Speed + "\n" +
+            "Speed: " + Math.Round(stats.Speed, 2) + "\n" +
             "Armor: " + (int)stats.Armor + "\n" +
             "Range: " + (int)stats.Radius + "\n" +
-            "Crit Chance: " + (int)stats.CritChance + "\n", 65, 500, .55f);
+            "Crit Chance: " + (int)stats.CritChance + "\n", 65, 513, .55f);
         }
 
         private void DrawSelection(SpriteBatch batch, Rectangle rectangleToDraw, int thicknessOfBorder, Color color)
@@ -282,20 +339,12 @@ namespace MAH_TowerDefense.Views
                                             thicknessOfBorder), Assets.GetRegion("Pixel"), color, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
 
-        //public static void DrawCenterString(SpriteBatch batch, string text, float y, Color color, float scale = 1)
-        //{
-        //    batch.DrawString(Assets.font, text,
-        //            new Vector2(
-        //                 batch.GraphicsDevice.Viewport.Width / 2 - ((Assets.font.MeasureString(text).Length() / 2) * scale), y),
-        //                 color, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
-        //}
-
-        public void DrawFromContainer(SpriteBatch batch, string text, float offset, float y, float scale = 1)
+        public void DrawFromContainer(SpriteBatch batch, string text, float offset, float y, float scale = 1, Color? color = null)
         {
             text = WrapText(text, PANEL_WIDTH * .94f, scale);
             batch.DrawString(Assets.font, text,
                     new Vector2(offset + camera.GetWidth() - PANEL_WIDTH + PANEL_WIDTH * .06f, y),
-                         Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+                         color ?? Color.White, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
         }
 
         public static string WrapText(string text, float maxLineWidth, float scale = 1)
@@ -334,13 +383,27 @@ namespace MAH_TowerDefense.Views
 
                 if (actor.Name.Equals("upgrade"))
                 {
-                    int cost = world.GetSelected().Cast<Tower>().Sum(x => x.Cost);
+                    int cost = world.GetSelected().Where(x => x is Tower).Cast<Tower>().Sum(x => x.Cost);
                     if (world.GetGold() >= cost)
                     {
                         // Buy!
                         world.WithdrawGold(cost);
-                        world.GetSelected().Cast<Tower>().ToList().ForEach(x => x.Upgrade());
+                        world.GetSelected().Where(x => x is Tower).Cast<Tower>().ToList().ForEach(x => x.Upgrade());
                     }
+                }
+
+                // Tabs
+                if (actor.Name.Equals("infoTab"))
+                    tabState = 0;
+                if (actor.Name.Equals("upgradeTab"))
+                    tabState = 1;
+            }
+            else if (e == Events.MouseHover)
+            {
+                if (actor.Name.StartsWith("buy"))
+                {
+                    Type type = Type.GetType("MAH_TowerDefense.Entity.Towers.TowerFactory+" + actor.Name.Substring(3) + "Tower");
+                    toolTip = type.GetField("Description", BindingFlags.Public | BindingFlags.Static).GetValue(null).ToString();
                 }
             }
         }

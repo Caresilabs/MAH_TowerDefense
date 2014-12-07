@@ -24,7 +24,7 @@ namespace Simon.Mah.Framework.Scene2D
 
     public enum Events
     {
-        TouchDown, TouchUp, TouchLeave, KeyDown, KeyUp
+        TouchDown, TouchUp, TouchLeave, KeyDown, KeyUp, MouseHover
     }
 
     public interface EventListener
@@ -88,6 +88,11 @@ namespace Simon.Mah.Framework.Scene2D
             {
                 if (bounds.Contains((int)mouse.X, (int)mouse.Y))
                     TouchDown(mouse);
+            }
+            else
+            {
+                if (bounds.Contains((int)mouse.X, (int)mouse.Y))
+                    MouseHover(mouse);
             }
 
             if (IsTouched)
@@ -197,6 +202,11 @@ namespace Simon.Mah.Framework.Scene2D
         {
             IsTouched = false;
             scene.CallEvent(Events.TouchLeave, this);
+        }
+
+        public virtual void MouseHover(Vector2 mouse)
+        {
+            scene.CallEvent(Events.MouseHover, this);
         }
 
         public virtual void KeyDown(Keys key)

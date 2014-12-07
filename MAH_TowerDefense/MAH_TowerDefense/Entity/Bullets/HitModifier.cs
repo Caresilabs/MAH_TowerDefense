@@ -44,7 +44,7 @@ namespace MAH_TowerDefense.Entity.Bullets
             else
                 damageMultiplier = MathUtils.Random(.5f, 1f);
 
-            enemy.GetStats().Armor -= MathHelper.Clamp(data.Armor, 0, data.Armor);
+            enemy.GetStats().Armor = MathHelper.Clamp(enemy.GetStats().Armor - data.Armor, 0, data.Armor);
             enemy.GetStats().Speed -= MathUtils.Random(0, data.Speed);
 
             float damage = MathHelper.Clamp(((data.Damage - enemy.GetStats().Armor) * damageMultiplier), 0, float.MaxValue);
