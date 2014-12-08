@@ -63,6 +63,7 @@ namespace MAH_TowerDefense.Worlds
             this.lives = START_LIVES;
             this.gold = START_GOLD;
             this.nextWaveTime = WAVE_COOLDOWN;
+            this.state = GameState.COMBAT;
 
             LevelEditor.LevelModel.SingleLevel loadedMap = LevelIO.LoadLevel(level);
 
@@ -145,6 +146,8 @@ namespace MAH_TowerDefense.Worlds
 
         public void EndRound()
         {
+            if (state != GameState.COMBAT) return;
+
             if (waves.GetCurrentWave() != 0)
                 AddGold(END_ROUND_GOLD);
 
@@ -156,8 +159,7 @@ namespace MAH_TowerDefense.Worlds
             {
                 state = GameState.WAITING;
                 CreepWave wave = waves.RequestWave();
-                if (wave != null)
-                    currentWave = wave;
+                currentWave = wave;
             }
         }
 
@@ -260,8 +262,8 @@ namespace MAH_TowerDefense.Worlds
         {
             lives -= (int)damage;
 
-            if (lives <= 0)
-                state = GameState.DEAD;
+            //if (lives <= 0)
+              //  state = GameState.DEAD;
         }
 
         // ====== GETTERS AND SETTERS ===== ///

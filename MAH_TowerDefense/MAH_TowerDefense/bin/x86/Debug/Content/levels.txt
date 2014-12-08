@@ -16,6 +16,7 @@ SnaiL*5</Enemies>
 #####
 
 Blob*3
+Ghost*3
 </Enemies>
         </WaveModel>
         <WaveModel>
@@ -25,7 +26,7 @@ Blob*3
 
 SnaiL*5
 Blob*2
-Snail*5
+Snail*3
 Panda
 </Enemies>
         </WaveModel>
@@ -41,11 +42,34 @@ snail * 10</Enemies>
           <Name>Wave #5</Name>
           <Enemies>BOSS FIGHT
 ###
-panda*6
+panda*3
 snail*20
-panda*2
-blob*15
-panda</Enemies>
+panda*1
+blob*10</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #6</Name>
+          <Enemies>Ghost*5
+Panda*15</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #7</Name>
+          <Enemies>Snail*30
+Blob*10
+Ghost*10</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #8</Name>
+          <Enemies>Snail*50
+Panda*5</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #9</Name>
+          <Enemies>Panda*20</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #10</Name>
+          <Enemies>Blob*40</Enemies>
         </WaveModel>
       </Waves>
       <PathPoints>

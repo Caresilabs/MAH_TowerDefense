@@ -14,7 +14,6 @@ using System.IO;
 using MAH_TowerDefense.Entity.Towers;
 using MAH_TowerDefense.Entity;
 using Simon.Mah.Framework.Tools;
-using MAH_Platformer.Screens;
 
 namespace MAH_TowerDefense.Screens
 {
@@ -66,7 +65,7 @@ namespace MAH_TowerDefense.Screens
                         SetScreen(new MainMenuScreen());
                     break;
                 case World.GameState.DEAD:
-                    SetScreen(new MainMenuScreen());
+                    SetScreen(new DeathScreen());
                     break;
                 default:
                     break;

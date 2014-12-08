@@ -34,7 +34,7 @@ namespace MAH_TowerDefense.Entity.Enemies
             {
                 StatsData stats = new StatsData()
                 {
-                    MaxHealth = 2000,
+                    MaxHealth = 3000,
                     MaxSpeed = 80,
                     Armor = 150,
                     Gold = 150,
@@ -49,12 +49,12 @@ namespace MAH_TowerDefense.Entity.Enemies
         public class GhostEnemy : Enemy
         {
             public GhostEnemy(float offset)
-                : base(offset, 42, 64)
+                : base(offset, 64, 64)
             {
                 StatsData stats = new StatsData()
                 {
-                    MaxHealth = 600,
-                    MaxSpeed = 250,
+                    MaxHealth = 800,
+                    MaxSpeed = 150,
                     Armor = 7,
                     Gold = 30,
                     Damage = 3
@@ -73,7 +73,7 @@ namespace MAH_TowerDefense.Entity.Enemies
                 StatsData stats = new StatsData()
                 {
                     MaxHealth = 300,
-                    MaxSpeed = 250,
+                    MaxSpeed = 220,
                     Armor = 40,
                     Gold = 20,
                     Damage = 3

@@ -10,7 +10,7 @@ using MAH_TowerDefense.Screens;
 using MAH_TowerDefense;
 using Simon.Mah.Framework.Tools;
 
-namespace MAH_Platformer.Screens
+namespace MAH_TowerDefense.Screens
 {
     public class NextLevelScreen : Screen
     {

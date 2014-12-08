@@ -96,6 +96,8 @@
     <Compile Include="Levels\Road.cs" />
     <Compile Include="Screens\NextLevelScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
+    <Compile Include="Screens\DeathScreen.cs" />
+    <Compile Include="Screens\WinScreen.cs" />
     <Compile Include="Visuals\DamageText.cs" />
     <Compile Include="Visuals\IEffect.cs" />
     <Compile Include="Visuals\EffectManager.cs" />
