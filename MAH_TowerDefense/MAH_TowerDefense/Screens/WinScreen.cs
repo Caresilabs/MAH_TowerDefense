@@ -10,25 +10,15 @@ using Simon.Mah.Framework.Scene2D;
 
 namespace MAH_TowerDefense.Screens
 {
-    /**
-     * A game screen that manages the world, renderer and input and put them togheter in a convenient way
-     */
     public class WinScreen : Screen
     {
-        private int score;
-
-        public WinScreen(int score)
-        {
-            this.score = score;
-        }
-
         public override void Init()
         {
         }
 
         public override void Update(float delta)
         {
-            if (InputHandler.KeyReleased(Keys.M))
+            if (InputHandler.KeyReleased(Keys.M) || InputHandler.Clicked())
                 SetScreen(new MainMenuScreen());
         }
 
@@ -38,17 +28,11 @@ namespace MAH_TowerDefense.Screens
 
             batch.Begin();
 
-            // draw bg
-            //  batch.Draw(Assets.GetRegion("bg1"),
-            //    new Rectangle(0, 0, batch.GraphicsDevice.Viewport.Width, batch.GraphicsDevice.Viewport.Height),
-            //      Assets.GetRegion("bg1"), Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
-
             // Draw title
-            DrawCenterString(batch, GetGraphics().Viewport.Width, "You slayed King Wasp!!", 180, Color.YellowGreen, 1.4f);
-            DrawCenterString(batch, GetGraphics().Viewport.Width, "Congratulations!", 250, Color.YellowGreen);
+            DrawCenterString(batch, GetGraphics().Viewport.Width, "Good Job!", 180, Color.YellowGreen, 1.4f);
+            DrawCenterString(batch, GetGraphics().Viewport.Width, "Not many people made it this far!", 250, Color.YellowGreen);
 
-            DrawCenterString(batch, GetGraphics().Viewport.Width,
-                "The kingdom gave you the Score: " + score, .5f * GetGraphics().Viewport.Height + 10, Color.White);
+            DrawCenterString(batch, GetGraphics().Viewport.Width, "You recieved the Badge of Glory", 450, Color.YellowGreen);
 
             batch.End();
         }
@@ -68,7 +52,6 @@ namespace MAH_TowerDefense.Screens
 
         public override void Dispose()
         {
-
         }
     }
 }

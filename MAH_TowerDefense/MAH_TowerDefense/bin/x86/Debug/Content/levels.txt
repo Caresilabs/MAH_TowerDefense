@@ -166,21 +166,93 @@ Snail*20</Enemies>
       <Waves>
         <WaveModel>
           <Name>Wave #1</Name>
-          <Enemies>Cool
-
-####
-Snail*5
-Ghost*2</Enemies>
+          <Enemies>Feel the Snail Power
+###
+SnaiL*1
+Snail*2</Enemies>
         </WaveModel>
         <WaveModel>
           <Name>Wave #2</Name>
-          <Enemies>Blob
-Panda
-</Enemies>
+          <Enemies>Kill the Ghost!
+##
+Ghost*1
+snail*2</Enemies>
         </WaveModel>
         <WaveModel>
           <Name>Wave #3</Name>
-          <Enemies>Snail*10</Enemies>
+          <Enemies>Mixed wave
+##
+Snail*3
+blob
+ghost</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #4</Name>
+          <Enemies>Panda is getting ready!
+####
+snail*3
+Panda*1
+snail*2</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #5</Name>
+          <Enemies>More pandas...lots..
+###
+Panda*1
+panda*1
+snail*2</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #6</Name>
+          <Enemies>Get ready for swarm!
+####
+snail*10
+blob*2
+panda*2
+snail*7</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #7</Name>
+          <Enemies>Panda swarm!
+###
+panda*2
+ghost*5
+panda*1
+snail*2
+panda*1</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #8</Name>
+          <Enemies>Almost done!
+###
+snail*35
+blob*4
+ghost*7
+panda*5
+snail*10</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #9</Name>
+          <Enemies>Just one more!
+###
+Final Wave!
+#####
+snail*40
+panda*5
+snail*10
+blob*6</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #10</Name>
+          <Enemies>Final Wave!
+#####
+ghost*25
+snail*20
+panda*10
+snail*15
+blob*5
+ghost*10
+blob*20</Enemies>
         </WaveModel>
       </Waves>
       <PathPoints>
@@ -205,53 +277,33 @@ Panda
           <Y>1</Y>
         </Vector2>
         <Vector2>
-          <X>8.44458</X>
-          <Y>6.39493132</Y>
+          <X>5.171233</X>
+          <Y>8.137592</Y>
         </Vector2>
         <Vector2>
-          <X>7.024354</X>
-          <Y>8.431787</Y>
+          <X>3.63013721</X>
+          <Y>10.5586357</Y>
         </Vector2>
         <Vector2>
-          <X>4.244338</X>
-          <Y>11.7603083</Y>
+          <X>3.73287678</X>
+          <Y>15.5133295</Y>
         </Vector2>
         <Vector2>
-          <X>3.36802816</X>
-          <Y>18.08812</Y>
+          <X>10.787672</X>
+          <Y>17.9906769</Y>
         </Vector2>
         <Vector2>
-          <X>5.4530406</X>
-          <Y>20.373373</Y>
-        </Vector2>
-        <Vector2>
-          <X>11.2564554</X>
-          <Y>20.0211678</Y>
-        </Vector2>
-        <Vector2>
-          <X>15.4869146</X>
-          <Y>17.785593</Y>
-        </Vector2>
-        <Vector2>
-          <X>16.6376438</X>
-          <Y>25.0710278</Y>
-        </Vector2>
-        <Vector2>
-          <X>12.286314</X>
-          <Y>30.482357</Y>
-        </Vector2>
-        <Vector2>
-          <X>9.294775</X>
-          <Y>34.7547874</Y>
+          <X>10.5098934</X>
+          <Y>24.1356583</Y>
         </Vector2>
         <Vector2>
           <X>10</X>
-          <Y>42</Y>
+          <Y>32</Y>
         </Vector2>
       </PathPoints>
       <LevelIndex>2</LevelIndex>
       <Width>20</Width>
-      <Height>40</Height>
+      <Height>30</Height>
     </SingleLevel>
   </levels>
 </LevelModel>

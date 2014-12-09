@@ -31,7 +31,7 @@ namespace MAH_TowerDefense.Entity.Enemies
 
         public void Spawned()
         {
-            Stats *= MathHelper.Clamp(1 + (world.GetWave().Number / 4.1f), 1, 3.2f);
+            Stats *= MathHelper.Clamp(1 + (world.GetWave().Number / 4.15f), 1, 3.0f);
         }
 
         public override void Update(float delta)

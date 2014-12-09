@@ -54,7 +54,7 @@ namespace MAH_TowerDefense.Entity.Bullets
             // Effect
             WorldRenderer.Effects.AddEffect(new DamageText(((int)damage).ToString(),
                 enemy.GetPosition().X, enemy.GetPosition().Y - enemy.GetBounds().Height,
-                    0, -70, damageMultiplier > 1 ? Color.Red : Color.White, damageMultiplier > 1 ? .73f : .5f));
+                    MathUtils.Random(-10, 10), damageMultiplier > 1 ? -90 : -70, damageMultiplier > 1 ? Color.Red : Color.White, damageMultiplier > 1 ? .73f : .5f));
         }
 
         public bool IsAlive()
