@@ -13,14 +13,14 @@ namespace Simon.Mah.Framework
     {
         public static string GAME_NAME = "Hello XNA";
 
-        public static GraphicsDeviceManager graphics;
+        public static GraphicsDeviceManager Graphics;
 
         protected SpriteBatch spriteBatch;
         protected Screen currentScreen;
 
         public Game()
         {
-            graphics = new GraphicsDeviceManager(this);
+            Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
 

@@ -84,7 +84,7 @@ namespace MAH_TowerDefense.Entity.Towers
             {
                 Sprite s = new Sprite(Assets.GetRegion("Circle"), position.X, position.Y, Stats.Radius * 2, Stats.Radius * 2);
                 s.Color = sprite.Color;
-                s.ZIndex = .8f + (position.X / (World.TILE_SIZE * World.WIDTH) * .1f);
+                s.ZIndex = .65f + (position.X / (World.TILE_SIZE * World.WIDTH) * .1f);
                 s.Draw(batch);
             }
 
@@ -132,7 +132,7 @@ namespace MAH_TowerDefense.Entity.Towers
         protected virtual void OnUpdate()
         {
             this.Cost = (int)(Cost * UPGRADE_COST_FACTOR);
-            Stats *= 1.28f;
+            Stats *= 1.2f;
         }
     }
 }

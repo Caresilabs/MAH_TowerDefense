@@ -22,7 +22,7 @@ namespace Simon.Mah.Framework.Scene2D
         {
             this.text = text;
             this.scale = scale;
-            this.color = Color.SlateBlue;
+            this.color = Color.Purple;
             this.startPos = new Vector2(x, y);
             this.bounds = new Rectangle((int)x - (int)(UIConfig.DEFAULT_FONT.MeasureString(text).Length() / 2 * (scale * UIConfig.DEFAULT_FONT_SCALE)), (int)y,
                 (int)(UIConfig.DEFAULT_FONT.MeasureString(text).Length() * (scale * UIConfig.DEFAULT_FONT_SCALE)), (int)(UIConfig.DEFAULT_FONT.MeasureString(text).Y * (scale * UIConfig.DEFAULT_FONT_SCALE)));
@@ -41,16 +41,28 @@ namespace Simon.Mah.Framework.Scene2D
             color = Color.Red;
         }
 
+        public override void MouseHover(Vector2 mouse)
+        {
+            base.MouseHover(mouse);
+            color = Color.YellowGreen;
+        }
+
+        public override void MouseLeave(Vector2 mouse)
+        {
+            base.MouseLeave(mouse);
+            color = Color.Purple;
+        }
+
         public override void TouchUp(Vector2 mouse)
         {
             base.TouchUp(mouse);
-            color = Color.SlateBlue;
+            color = Color.Purple;
         }
 
         public override void TouchLeave(Vector2 mouse)
         {
             base.TouchLeave(mouse);
-            color = Color.SlateBlue;
+            color = Color.Purple;
         }
 
         public override void Draw(SpriteBatch batch)

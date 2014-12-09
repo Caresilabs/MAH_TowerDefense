@@ -93,6 +93,8 @@ namespace Simon.Mah.Framework.Scene2D
             {
                 if (bounds.Contains((int)mouse.X, (int)mouse.Y))
                     MouseHover(mouse);
+                else
+                    MouseLeave(mouse);
             }
 
             if (IsTouched)
@@ -106,7 +108,6 @@ namespace Simon.Mah.Framework.Scene2D
                 if (InputHandler.KeyDown(key))
                     KeyDown(key);
             }
-
         }
 
         public virtual void Draw(SpriteBatch batch)
@@ -207,6 +208,11 @@ namespace Simon.Mah.Framework.Scene2D
         public virtual void MouseHover(Vector2 mouse)
         {
             scene.CallEvent(Events.MouseHover, this);
+        }
+
+        public virtual void MouseLeave(Vector2 mouse)
+        {
+           //scene.CallEvent(Events.MouseHover, this); // TODO add event
         }
 
         public virtual void KeyDown(Keys key)

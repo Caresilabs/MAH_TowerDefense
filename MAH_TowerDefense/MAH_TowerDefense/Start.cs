@@ -21,17 +21,17 @@ namespace MAH_TowerDefense
         public Start()
             : base()
         {
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
-            graphics.PreferMultiSampling = true;
+            Graphics.PreferredBackBufferWidth = 1280;
+            Graphics.PreferredBackBufferHeight = 720;
+            Graphics.PreferMultiSampling = true;
 
-            aspectRatio = graphics.PreferredBackBufferWidth / (float)graphics.PreferredBackBufferHeight;
+            aspectRatio = Graphics.PreferredBackBufferWidth / (float)Graphics.PreferredBackBufferHeight;
 
             IsMouseVisible = true;
             Window.AllowUserResizing = true;
 
-            GAME_NAME = "Ninja Bob breakerz";
-            Window.Title = GAME_NAME + " by [Simon Bothen]"; //  set title to our game name
+            GAME_NAME = "Totem of Magic";
+            Window.Title = GAME_NAME + " by [Simon Bothen]"; // set title to our game name
         }
 
         protected override void LoadContent()

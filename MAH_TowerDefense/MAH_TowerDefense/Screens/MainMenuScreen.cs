@@ -21,18 +21,18 @@ namespace MAH_TowerDefense.Screens
 
         public override void Init()
         {
-            this.scene = new Scene(new Camera2D(GetGraphics(),1280, 720), this);
+            this.scene = new Scene(new Camera2D(GetGraphics(), 1280, 720), this);
 
-            UIButton button = new UIButton("Play!", scene.GetWidth()/2, 320, 2.5f);
+            UIButton button = new UIButton("Play!", scene.GetWidth() / 2, 300, 2.5f);
             scene.Add("start", button);
 
-            UIButton highscores = new UIButton("Level Editor", scene.GetWidth() / 2, 500, 2.5f);
+            UIButton highscores = new UIButton("Level Editor", scene.GetWidth() / 2, 440, 2.5f);
             scene.Add("editor", highscores);
 
-            //UIButton exit = new UIButton("Level Editor", scene.GetWidth() / 2, 550, 2.5f);
-            //scene.Add("editor", exit);
+            UIButton exit = new UIButton("Exit", scene.GetWidth() / 2, 560, 2.5f);
+            scene.Add("exit", exit);
 
-            UIImage title = new UIImage(Assets.GetRegion("Pixel"), scene.GetWidth() / 2, 140, 1.5f);
+            UIImage title = new UIImage(Assets.GetRegion("Title"), scene.GetWidth() / 2, 160, 1.5f);
             scene.Add("title", title);
         }
 
@@ -47,9 +47,9 @@ namespace MAH_TowerDefense.Screens
             GetGraphics().Clear(Color.Black);
 
             batch.Begin();
-            batch.Draw(Assets.items, 
+            batch.Draw(Assets.bg,
                 new Rectangle(0, 0, batch.GraphicsDevice.Viewport.Width, batch.GraphicsDevice.Viewport.Height),
-                    Assets.GetRegion("Pixel"), Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+                    null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
             batch.End();
 
             scene.Draw(batch);
@@ -67,15 +67,19 @@ namespace MAH_TowerDefense.Screens
                 if (actor.Name == "start")
                 {
                     if (LevelIO.LevelCount() == 0) { Console.WriteLine("No levels are created!"); return; }
-                    
+
                     SetScreen(new GameScreen());
                 }
-                if (actor.Name == "editor")
+                else if (actor.Name == "editor")
                 {
                     var form = (System.Windows.Forms.Form)System.Windows.Forms.Form.FromHandle(GetGame().Window.Handle);
                     form.WindowState = System.Windows.Forms.FormWindowState.Minimized;
 
                     new LevelEditorForm(0).Show();
+                }
+                else if (actor.Name == "exit")
+                {
+                    System.Windows.Forms.Application.Exit();
                 }
             }
         }

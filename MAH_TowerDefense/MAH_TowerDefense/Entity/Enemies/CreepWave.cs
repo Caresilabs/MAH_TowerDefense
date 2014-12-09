@@ -11,10 +11,13 @@ namespace MAH_TowerDefense.Entity.Enemies
     {
         public string Description { get; private set; }
 
+        public int Number { get; private set; }
+
         private List<Enemy> enemies;
 
-        public CreepWave(string description, string[] enemies)
+        public CreepWave(int num, string description, string[] enemies)
         {
+            this.Number = num;
             this.enemies = new List<Enemy>();
             this.Description = description;
             this.InitWave(enemies);
@@ -24,13 +27,21 @@ namespace MAH_TowerDefense.Entity.Enemies
         {
             for (int i = 0; i < enemies.Length; i++)
             {
-                string enemy = enemies[i].Replace(" ", "");
+                string enemy = enemies[i].Replace(" ", "").Replace("\n", "");
                 int num = 1;
                 float offset = -World.TILE_SIZE;
                 if (enemy.Contains("*"))
                 {
-                    num = int.Parse(enemy.Split('*')[1]); // TODO error catching
-                    enemy = enemy.Split('*')[0];
+                    if (int.TryParse(enemy.Split('*')[1], out num))
+                    {
+                        //num = int.Parse(enemy.Split('*')[1]); // TODO error catching
+                        enemy = enemy.Split('*')[0];
+                    }
+                    else
+                    {
+                        Console.WriteLine("Bad integer after *. Error at enemy num: " + i);
+                        continue;
+                    }
                 }
 
                 while (num > 0)
@@ -47,9 +58,9 @@ namespace MAH_TowerDefense.Entity.Enemies
             }
         }
 
-        public List<GameObject> GetEnemies()
+        public List<Enemy> GetEnemies()
         {
-            return enemies.ToList<GameObject>();
+            return enemies.ToList<Enemy>();
         }
     }
 }

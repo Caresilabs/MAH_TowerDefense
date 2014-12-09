@@ -38,10 +38,14 @@ namespace MAH_TowerDefense.Views
             RenderTarget = new RenderTarget2D(device, WIDTH, HEIGHT);
 
             // MiniMap
-            MiniMap = new RenderTarget2D(device, 480, 320); //0.5625
-            float miniMapWidth = Math.Max(World.WIDTH, World.HEIGHT) * World.TILE_SIZE;
-            this.MiniMapCamera = new Camera2D(device, miniMapWidth, miniMapWidth * 0.5625f);
-            this.MiniMapCamera.SetPosition(-miniMapWidth / 2 + (World.WIDTH * World.TILE_SIZE) / 2, 0);// -MiniMapCamera.GetHeight() / 2 - (World.HEIGHT * World.TILE_SIZE) / 2);
+            MiniMap = new RenderTarget2D(device, 480, 320); 
+           
+            if (World.WIDTH > World.HEIGHT)
+                this.MiniMapCamera = new Camera2D(device, World.WIDTH * World.TILE_SIZE, World.WIDTH * World.TILE_SIZE * 0.666f);
+            else
+                this.MiniMapCamera = new Camera2D(device, World.HEIGHT * World.TILE_SIZE * 1.5f, World.HEIGHT * World.TILE_SIZE);
+
+            this.MiniMapCamera.SetPosition(-MiniMapCamera.GetWidth() / 2 + (World.WIDTH * World.TILE_SIZE) / 2, 0);
             
             this.Camera = new Camera2D(device, WIDTH, HEIGHT);
             this.World = world;
@@ -96,11 +100,12 @@ namespace MAH_TowerDefense.Views
 
         private void DrawBackground(SpriteBatch batch)
         {
-            for (float j = Camera.GetPosition().Y - (Camera.GetPosition().Y % World.TILE_SIZE); j < Camera.GetPosition().Y + Camera.GetHeight(); j += World.TILE_SIZE)
+            int scale = 2;
+            for (float j = Camera.GetPosition().Y - (Camera.GetPosition().Y % (World.TILE_SIZE * scale)); j < Camera.GetPosition().Y + Camera.GetHeight(); j += World.TILE_SIZE * scale)
             {
-                for (float i = Camera.GetPosition().X - (Camera.GetPosition().X % World.TILE_SIZE); i < Camera.GetPosition().X + Camera.GetWidth(); i += World.TILE_SIZE)
+                for (float i = Camera.GetPosition().X - (Camera.GetPosition().X % (World.TILE_SIZE * scale)); i < Camera.GetPosition().X + Camera.GetWidth(); i += World.TILE_SIZE * scale)
                 {
-                    batch.Draw(Assets.items, new Rectangle((int)(i), (int)(j), (int)World.TILE_SIZE + 2, (int)World.TILE_SIZE + 2), Assets.GetRegion("Grass"), Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+                    batch.Draw(Assets.items, new Rectangle((int)(i), (int)(j), scale * (int)World.TILE_SIZE + 2, scale * (int)World.TILE_SIZE + 2), Assets.GetRegion("Grass"), Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
                 }
             }
         }

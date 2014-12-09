@@ -64,8 +64,8 @@ namespace MAH_TowerDefense.Visuals
         {
             for (int i = 0; i < 1; i++)
             {
-                Particle p = new Particle(Assets.GetRegion("pBlood"), pos, new Vector2(0, 0), Color.White, MathUtils.Random(1.4f, 3.9f), 20, true);
-                p.ZIndex = .7f;
+                Particle p = new Particle(Assets.GetRegion("pBlood"), pos, new Vector2(0, 0), Color.White, MathUtils.Random(1.4f, 3.9f), 30, true);
+                p.ZIndex = .8f;
                 AddEffect(p);
             }
         }

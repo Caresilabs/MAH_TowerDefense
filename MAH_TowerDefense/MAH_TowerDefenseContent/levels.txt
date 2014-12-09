@@ -1,1 +1,257 @@
-﻿
+﻿<?xml version="1.0" encoding="utf-16"?>
+<LevelModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <levels>
+    <SingleLevel>
+      <Waves>
+        <WaveModel>
+          <Name>Wave #1</Name>
+          <Enemies>Snail Wave! They die from anything!
+#####
+
+SnaiL*5</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #2</Name>
+          <Enemies>SCARY Ghost, but he doesnt like fire..
+#####
+Ghost*1
+Snail*5
+</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #3</Name>
+          <Enemies>Blobs have have armor and speed. Take down its armor first.
+#####
+
+SnaiL*4
+Blob*2
+Snail*3</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #4</Name>
+          <Enemies>Big @ss panda is here!
+###
+
+Panda*1
+snail * 17</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #5</Name>
+          <Enemies>Mixed wave! Get ready!
+###
+panda*3
+snail*20
+panda*1
+blob*10</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #6</Name>
+          <Enemies>Prepare for fast ghosts!
+##
+Ghost*15
+Panda*4
+Snail*12
+Ghost*10
+Snail*10</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #7</Name>
+          <Enemies>Be careful! Swarm wave inc!
+##
+Snail*35
+Blob*5
+Ghost*6</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #8</Name>
+          <Enemies>More swarm! Be sure to splash them!
+###
+Snail*50
+Panda*10</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #9</Name>
+          <Enemies>Panda Run!
+###
+Panda*20</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #10</Name>
+          <Enemies>Final Wave!
+##
+Snail*50
+Panda*25
+Snail*20</Enemies>
+        </WaveModel>
+      </Waves>
+      <PathPoints>
+        <Vector2>
+          <X>-1.5</X>
+          <Y>5.5</Y>
+        </Vector2>
+        <Vector2>
+          <X>-0.6</X>
+          <Y>5.3</Y>
+        </Vector2>
+        <Vector2>
+          <X>-0.2</X>
+          <Y>5.4</Y>
+        </Vector2>
+        <Vector2>
+          <X>0</X>
+          <Y>5.5</Y>
+        </Vector2>
+        <Vector2>
+          <X>1</X>
+          <Y>5.5</Y>
+        </Vector2>
+        <Vector2>
+          <X>2.28056836</X>
+          <Y>4.05999851</Y>
+        </Vector2>
+        <Vector2>
+          <X>3.41070533</X>
+          <Y>3.32805514</Y>
+        </Vector2>
+        <Vector2>
+          <X>5.32851362</X>
+          <Y>4.003695</Y>
+        </Vector2>
+        <Vector2>
+          <X>5.70522642</X>
+          <Y>5.918009</Y>
+        </Vector2>
+        <Vector2>
+          <X>7.31481552</X>
+          <Y>6.42473841</Y>
+        </Vector2>
+        <Vector2>
+          <X>9.26687</X>
+          <Y>6.76255846</Y>
+        </Vector2>
+        <Vector2>
+          <X>10.8422127</X>
+          <Y>5.41127872</Y>
+        </Vector2>
+        <Vector2>
+          <X>11.6298838</X>
+          <Y>4.285212</Y>
+        </Vector2>
+        <Vector2>
+          <X>14.3011169</X>
+          <Y>3.947392</Y>
+        </Vector2>
+        <Vector2>
+          <X>15.5580931</X>
+          <Y>6.03061533</Y>
+        </Vector2>
+        <Vector2>
+          <X>17.1334362</X>
+          <Y>6.143222</Y>
+        </Vector2>
+        <Vector2>
+          <X>18.126585</X>
+          <Y>9.070995</Y>
+        </Vector2>
+        <Vector2>
+          <X>22</X>
+          <Y>5.5</Y>
+        </Vector2>
+      </PathPoints>
+      <LevelIndex>1</LevelIndex>
+      <Width>20</Width>
+      <Height>11</Height>
+    </SingleLevel>
+    <SingleLevel>
+      <Waves>
+        <WaveModel>
+          <Name>Wave #1</Name>
+          <Enemies>Cool
+
+####
+Snail*5
+Ghost*2</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #2</Name>
+          <Enemies>Blob
+Panda
+</Enemies>
+        </WaveModel>
+        <WaveModel>
+          <Name>Wave #3</Name>
+          <Enemies>Snail*10</Enemies>
+        </WaveModel>
+      </Waves>
+      <PathPoints>
+        <Vector2>
+          <X>10</X>
+          <Y>-1.5</Y>
+        </Vector2>
+        <Vector2>
+          <X>9.8</X>
+          <Y>-0.6</Y>
+        </Vector2>
+        <Vector2>
+          <X>9.9</X>
+          <Y>-0.2</Y>
+        </Vector2>
+        <Vector2>
+          <X>10</X>
+          <Y>0</Y>
+        </Vector2>
+        <Vector2>
+          <X>10</X>
+          <Y>1</Y>
+        </Vector2>
+        <Vector2>
+          <X>8.44458</X>
+          <Y>6.39493132</Y>
+        </Vector2>
+        <Vector2>
+          <X>7.024354</X>
+          <Y>8.431787</Y>
+        </Vector2>
+        <Vector2>
+          <X>4.244338</X>
+          <Y>11.7603083</Y>
+        </Vector2>
+        <Vector2>
+          <X>3.36802816</X>
+          <Y>18.08812</Y>
+        </Vector2>
+        <Vector2>
+          <X>5.4530406</X>
+          <Y>20.373373</Y>
+        </Vector2>
+        <Vector2>
+          <X>11.2564554</X>
+          <Y>20.0211678</Y>
+        </Vector2>
+        <Vector2>
+          <X>15.4869146</X>
+          <Y>17.785593</Y>
+        </Vector2>
+        <Vector2>
+          <X>16.6376438</X>
+          <Y>25.0710278</Y>
+        </Vector2>
+        <Vector2>
+          <X>12.286314</X>
+          <Y>30.482357</Y>
+        </Vector2>
+        <Vector2>
+          <X>9.294775</X>
+          <Y>34.7547874</Y>
+        </Vector2>
+        <Vector2>
+          <X>10</X>
+          <Y>42</Y>
+        </Vector2>
+      </PathPoints>
+      <LevelIndex>2</LevelIndex>
+      <Width>20</Width>
+      <Height>40</Height>
+    </SingleLevel>
+  </levels>
+</LevelModel>

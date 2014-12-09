@@ -17,7 +17,16 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\bin\x86\Debug\Content\Graphics\items.xnb</Output>
-      <Time>2014-12-07T17:25:00.422066+01:00</Time>
+      <Time>2014-12-09T16:30:10.9155397+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\background.png</Source>
+      <Name>Graphics\background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\bin\x86\Debug\Content\Graphics\background.xnb</Output>
+      <Time>2014-12-09T15:45:40.7228134+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

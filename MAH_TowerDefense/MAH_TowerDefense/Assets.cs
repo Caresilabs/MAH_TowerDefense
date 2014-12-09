@@ -22,6 +22,7 @@ namespace MAH_TowerDefense
         private static ContentManager manager;
 
         public static Texture2D items;
+        public static Texture2D bg;
 
         public static SpriteFont font;
 
@@ -35,11 +36,13 @@ namespace MAH_TowerDefense
 
             // load our sprite sheet
             items = manager.Load<Texture2D>("Graphics/items");
+            bg = manager.Load<Texture2D>("Graphics/background");
 
             // Entities
             LoadRegion("Entity", items, 0, 64, 64, 64);
-            LoadRegion("Grass", items, 0, 0, 64, 64);
-            LoadRegion("Path", items, 64, 0, 96, 96);
+            //LoadRegion("Grass", items, 0, 0, 64, 64);
+            LoadRegion("Grass", items, 320, 160, 96, 96);
+            LoadRegion("Path", items, 64, 8, 96, 48);
             LoadRegion("Circle", items, 161, 0, 160, 160);
 
             // Particles
@@ -53,12 +56,16 @@ namespace MAH_TowerDefense
             LoadRegion("SunBullet", items, 128, 96, 32, 32);
             LoadRegion("NuclearBullet", items, 0, 64, 32, 32);
 
+            // UI
+            LoadRegion("Button", items, 320, 64, 192, 96);
+            LoadRegion("Title", items, 160, 288, 352, 64);
+
             // Load font 
             font = manager.Load<SpriteFont>("Font/font");
 
             // UI Config
             UIConfig.DEFAULT_FONT = font;
-            UIConfig.DEFAULT_BUTTON = GetRegion("Pixel");
+            UIConfig.DEFAULT_BUTTON = GetRegion("Button");
 
             LoadSound();
         }

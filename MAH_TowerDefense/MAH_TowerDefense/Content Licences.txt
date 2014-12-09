@@ -1,3 +1,10 @@
 ﻿Grass:
 http://opengameart.org/content/grassy-carpet-texture
 
+background:
+http://opengameart.org/content/large-nature-background
+
+
+Other art:
+Simon Bothen. You are allowed to use my sprites in non-commercial project only.
+

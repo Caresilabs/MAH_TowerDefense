@@ -14,7 +14,7 @@ namespace MAH_TowerDefense.Entity.Bullets
                 : base(Assets.GetRegion("CannonBullet"), x, y, direction, 700)
             {
                 StatsData data = new StatsData() { 
-                    Damage = 10,
+                    Damage = 15,
                     Radius = 0,
                     MaxSpeed = 0,
                     CritChance = 15,
@@ -33,10 +33,10 @@ namespace MAH_TowerDefense.Entity.Bullets
             {
                 StatsData data = new StatsData() { 
                     Damage = 5,
-                    Radius = 100,
-                    MaxSpeed = 200,
+                    Radius = 80,
+                    MaxSpeed = 230,
                     CritChance = 5,
-                    Armor = 3
+                    Armor = 2
                 };
 
                 HitModifier modifier = new HitModifier(data);
@@ -51,9 +51,9 @@ namespace MAH_TowerDefense.Entity.Bullets
             {
                 StatsData data = new StatsData()
                 {
-                    Damage = 20,
+                    Damage = 10,
                     Radius = 100,
-                    MaxSpeed = 0,
+                    MaxSpeed = 1,
                     CritChance = 10,
                     Armor = 10
                 };
@@ -71,7 +71,7 @@ namespace MAH_TowerDefense.Entity.Bullets
                 StatsData data = new StatsData()
                 {
                     Damage = 10,
-                    Radius = 320,
+                    Radius = 230,
                     MaxSpeed = 5,
                     CritChance = 20,
                     Armor = 1

@@ -24,7 +24,7 @@ namespace MAH_TowerDefense.Worlds
 
         public const int START_GOLD = 700;
         public const int START_LIVES = 20;
-        public const int END_ROUND_GOLD = 300;
+        public const int END_ROUND_GOLD = 350;
 
         public static float TILE_SIZE;
         public static int WIDTH;
@@ -65,23 +65,24 @@ namespace MAH_TowerDefense.Worlds
             this.nextWaveTime = WAVE_COOLDOWN;
             this.state = GameState.COMBAT;
 
-            LevelEditor.LevelModel.SingleLevel loadedMap = LevelIO.LoadLevel(level);
+            var loadedMap = LevelIO.LoadLevel(level);
 
             WIDTH = loadedMap.Width;
             HEIGHT = loadedMap.Height;
 
-            waves = new WaveSystem(loadedMap.Waves);
+            this.waves = new WaveSystem(loadedMap.Waves);
 
-            road = new Road(Start.graphics.GraphicsDevice);
-            road.Clean();
+            this.road = new Road(Start.Graphics.GraphicsDevice);
+            this.road.Clean();
 
+            // Load Road
             foreach (var pt in loadedMap.PathPoints)
             {
                  road.AddPoint(new Vector2(pt.X * TILE_SIZE, pt.Y * TILE_SIZE));
             }
-            road.UpdateParts();
+            this.road.UpdateParts();
+            this.EndRound();
 
-            EndRound();
             GC.Collect();
         }
 
@@ -140,7 +141,8 @@ namespace MAH_TowerDefense.Worlds
             state = GameState.COMBAT;
             if (currentWave != null)
             {
-                AddEntities(currentWave.GetEnemies());
+                AddEntities(currentWave.GetEnemies().Cast<GameObject>().ToList());
+                currentWave.GetEnemies().ForEach(x => x.Spawned());
             }
         }
 
@@ -262,8 +264,8 @@ namespace MAH_TowerDefense.Worlds
         {
             lives -= (int)damage;
 
-            //if (lives <= 0)
-              //  state = GameState.DEAD;
+            if (lives <= 0)
+                state = GameState.DEAD;
         }
 
         // ====== GETTERS AND SETTERS ===== ///

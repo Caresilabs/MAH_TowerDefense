@@ -24,3 +24,4 @@ C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefen
 C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\obj\x86\Debug\MAH_TowerDefense.LevelEditor.LevelEditorForm.resources
 C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\obj\x86\Debug\MAH_TowerDefense.LevelEditor.NewLevelForm.resources
 C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\obj\x86\Debug\MAH_TowerDefense.LevelEditor.OpenLevelForm.resources
+C:\Users\Simon\Documents\GitHub\MAH_TowerDefense\MAH_TowerDefense\MAH_TowerDefense\bin\x86\Debug\Content\Graphics\background.xnb

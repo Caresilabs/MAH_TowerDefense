@@ -62,5 +62,18 @@ namespace MAH_TowerDefense
             return ReadFile().levels.First(x => x.LevelIndex == index);
         }
 
+
+        public static void DeleteLevel(int level)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(LevelModel));
+            StringWriter textWriter = new StringWriter();
+
+            LevelModel allLevels = ReadFile();
+
+            allLevels.levels.RemoveAt(level - 1);
+
+            xmlSerializer.Serialize(textWriter, allLevels);
+            System.IO.File.WriteAllText("Content/levels.txt", textWriter.ToString());
+        }
     }
 }

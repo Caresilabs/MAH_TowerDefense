@@ -134,6 +134,14 @@ namespace MAH_TowerDefense.Screens
 
             if (Keyboard.GetState().IsKeyDown(Keys.M))
                 SetScreen(new MainMenuScreen());
+
+            //Cheat
+            if (Keyboard.GetState().IsKeyDown(Keys.D1)) {
+                if (LevelIO.LevelCount() >= level + 1)
+                    SetScreen(new NextLevelScreen(level + 1));
+                else
+                    SetScreen(new MainMenuScreen());
+            }
         }
 
         public override void Draw(SpriteBatch batch)

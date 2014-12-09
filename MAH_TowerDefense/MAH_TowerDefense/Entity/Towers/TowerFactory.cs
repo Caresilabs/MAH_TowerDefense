@@ -20,9 +20,9 @@ namespace MAH_TowerDefense.Entity.Towers
                 StatsData stats = new StatsData()
                 {
                     Radius = 200,
-                    MaxSpeed = .5f,
-                    Damage = 10,
-                    CritChance = 10
+                    MaxSpeed = .4f,
+                    Damage = 15,
+                    CritChance = 5
                 };
 
                 Stats = stats;
@@ -49,8 +49,8 @@ namespace MAH_TowerDefense.Entity.Towers
 
                 StatsData stats = new StatsData()
                 {
-                    Radius = 250,
-                    MaxSpeed = 1f,
+                    Radius = 230,
+                    MaxSpeed = 1.7f,
                     Damage = 25,
                     CritChance = 10
                 };
@@ -75,13 +75,13 @@ namespace MAH_TowerDefense.Entity.Towers
             public SunTower()
                 : base(typeof(BulletBank.SunBullet))
             {
-                Description = "Burn baby burn! Yeah, they're at fire! Burns Armor";
+                Description = "Burn baby burn! Yeah, they're on fire! Burns Armor";
 
                 StatsData stats = new StatsData()
                 {
-                    Radius = 300,
+                    Radius = 270,
                     MaxSpeed = 3f,
-                    Damage = 20,
+                    Damage = 13,
                     CritChance = 15
                 };
 
@@ -109,10 +109,10 @@ namespace MAH_TowerDefense.Entity.Towers
 
                 StatsData stats = new StatsData()
                 {
-                    Radius = 350,
+                    Radius = 320,
                     MaxSpeed = 4f,
-                    Damage = 50,
-                    CritChance = 25
+                    Damage = 75,
+                    CritChance = 20
                 };
 
                 Stats = stats;

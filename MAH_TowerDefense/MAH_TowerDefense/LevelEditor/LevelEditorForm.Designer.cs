@@ -98,6 +98,7 @@
             this.deleteLevelToolStripMenuItem.Name = "deleteLevelToolStripMenuItem";
             this.deleteLevelToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.deleteLevelToolStripMenuItem.Text = "Delete Level";
+            this.deleteLevelToolStripMenuItem.Click += new System.EventHandler(this.deleteLevelToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 

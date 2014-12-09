@@ -15,10 +15,10 @@ namespace MAH_TowerDefense.Entity.Enemies
             {
                 StatsData stats = new StatsData()
                 {
-                    MaxHealth = 500,
-                    MaxSpeed = 100,
-                    Armor = 5,
-                    Gold = 40,
+                    MaxHealth = 600,
+                    MaxSpeed = 120,
+                    Armor = 7,
+                    Gold = 35,
                     Damage = 1
                 };
                 Stats = stats;
@@ -34,9 +34,9 @@ namespace MAH_TowerDefense.Entity.Enemies
             {
                 StatsData stats = new StatsData()
                 {
-                    MaxHealth = 3000,
-                    MaxSpeed = 80,
-                    Armor = 150,
+                    MaxHealth = 3200,
+                    MaxSpeed = 110,
+                    Armor = 200,
                     Gold = 150,
                     Damage = 5
                 };
@@ -53,10 +53,10 @@ namespace MAH_TowerDefense.Entity.Enemies
             {
                 StatsData stats = new StatsData()
                 {
-                    MaxHealth = 800,
+                    MaxHealth = 650,
                     MaxSpeed = 150,
                     Armor = 7,
-                    Gold = 30,
+                    Gold = 40,
                     Damage = 3
                 };
                 Stats = stats;
@@ -72,11 +72,11 @@ namespace MAH_TowerDefense.Entity.Enemies
             {
                 StatsData stats = new StatsData()
                 {
-                    MaxHealth = 300,
-                    MaxSpeed = 220,
-                    Armor = 40,
-                    Gold = 20,
-                    Damage = 3
+                    MaxHealth = 350,
+                    MaxSpeed = 230,
+                    Armor = 50,
+                    Gold = 40,
+                    Damage = 2
                 };
                 Stats = stats;
 

@@ -71,14 +71,6 @@ namespace MAH_TowerDefense.Views
             UIButton buy4 = new UIButton("Fire(" + new TowerFactory.SunTower().Cost + ")", buy1.GetX() + buy1.GetBounds().Width / 2 + buy1.GetBounds().Width + 17, 580);
             buyGroup.Add("buySun", buy4);
 
-            // 5
-            //UIButton buy5 = new UIButton("Cannon(" + new TowerFactory.CannonTower().Cost + ")", WIDTH - PANEL_WIDTH + 80 + 0, 660);
-           // buyGroup.Add("buyCannon5", buy5);
-
-            // 6
-           // UIButton buy6 = new UIButton("Rocket(" + new TowerFactory.RocketTower().Cost + ")", buy1.GetX() + buy1.GetBounds().Width / 2 + buy1.GetBounds().Width + 10, 660);
-            //buyGroup.Add("buyRocket6", buy6);
-
             // Upgrade
             this.upgradeGroup = new UIGroup();
             scene.Add("upgradeGroup", upgradeGroup);
@@ -94,6 +86,9 @@ namespace MAH_TowerDefense.Views
 
             UIButton tab2 = new UIButton("u", WIDTH - PANEL_WIDTH + 72, 480);
             tabGroup.Add("upgradeTab", tab2);
+
+            UIButton sell = new UIButton("Sell", WIDTH - 47, 480);
+            tabGroup.Add("sellButton", sell);
         }
 
         public void Update(float delta)
@@ -185,13 +180,10 @@ namespace MAH_TowerDefense.Views
 
         private void Select()
         {
-            Vector2 start = gameScreen.GetRenderer().Camera.Unproject(selection.X, selection.Y);
-            Vector2 end = gameScreen.GetRenderer().Camera.Unproject(selection.X + selection.Width, selection.Y + selection.Height);
+            Vector2 start = gameScreen.GetRenderer().Camera.Unproject(selection.X * camera.GetViewPortScale().X, selection.Y * camera.GetViewPortScale().Y);
+            Vector2 end = gameScreen.GetRenderer().Camera.Unproject((selection.X + selection.Width) * camera.GetViewPortScale().X, (selection.Y + selection.Height) *camera.GetViewPortScale().Y);
 
-            start *= camera.GetViewPortScale();
-            end *= camera.GetViewPortScale();
-
-            world.Select(new Rectangle((int)start.X, (int)start.Y, Math.Max(1, (int)(end.X - start.X)), Math.Max(1, (int)(end.Y - start.Y))));
+            world.Select(new Rectangle((int)start.X, (int)start.Y, Math.Max(7, (int)(end.X - start.X)), Math.Max(7, (int)(end.Y - start.Y))));
             selection = Rectangle.Empty;
         }
 
@@ -206,7 +198,7 @@ namespace MAH_TowerDefense.Views
                       camera.GetMatrix());
 
             if (selection != null)
-                DrawSelection(batch, selection, 3, Color.SeaGreen);
+                DrawSelection(batch, selection, 3, Color.Red);
 
             DrawUI(batch);
 
@@ -225,7 +217,7 @@ namespace MAH_TowerDefense.Views
             batch.Draw(Assets.items, new Rectangle(WIDTH - PANEL_WIDTH, 0, PANEL_WIDTH, HEIGHT), Assets.GetRegion("Pixel"), Color.Gray, 0, Vector2.Zero, SpriteEffects.None, .95f);
 
             // Draw miniMap
-            batch.Draw(Assets.items, new Rectangle(WIDTH - PANEL_WIDTH, 0, PANEL_WIDTH, (int)(PANEL_WIDTH / 1.6f)), Assets.GetRegion("Pixel"), Color.DarkOliveGreen, 0, Vector2.Zero, SpriteEffects.None, .92f);
+            batch.Draw(Assets.items, new Rectangle(WIDTH - PANEL_WIDTH, 0, PANEL_WIDTH, (int)(PANEL_WIDTH / 1.6f)), Assets.GetRegion("Pixel"), Color.DarkGreen, 0, Vector2.Zero, SpriteEffects.None, .92f);
             batch.Draw(WorldRenderer.MiniMap, new Rectangle(WIDTH - PANEL_WIDTH, 0, PANEL_WIDTH, (int)(PANEL_WIDTH / 1.6f)), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, .9f);
 
             // Waves stats
@@ -295,7 +287,7 @@ namespace MAH_TowerDefense.Views
                     else
                     {
                         // Enemy
-                        upgradeGroup.Enabled = true;
+                        upgradeGroup.Enabled = false;
                         StatsData stats = world.GetSelected()[0].Stats;
                         if (world.GetSelected()[0].Alive)
                             DrawStats(batch, stats);
@@ -304,6 +296,7 @@ namespace MAH_TowerDefense.Views
                 else
                 {
                     // Draw upgrade all
+                    if (world.GetSelected().Any(x => x is Tower))
                     upgradeGroup.Enabled = true;
                 }
             }
@@ -397,6 +390,14 @@ namespace MAH_TowerDefense.Views
                     tabState = 0;
                 if (actor.Name.Equals("upgradeTab"))
                     tabState = 1;
+                if (actor.Name.Equals("sellButton"))
+                {
+                    // Sell entity
+                    WorldRenderer.Effects.SpawnSmoke(world.GetSelected()[0].GetPosition());
+                    world.RemoveEntity(world.GetSelected()[0]);
+                    world.AddGold(((Tower)(world.GetSelected()[0])).Cost / 10);
+                    world.Deselect();
+                }
             }
             else if (e == Events.MouseHover)
             {

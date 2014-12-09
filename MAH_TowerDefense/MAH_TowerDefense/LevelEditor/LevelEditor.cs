@@ -32,7 +32,7 @@ namespace MAH_TowerDefense.Screens
             this.batch = new SpriteBatch(GraphicsDevice);
             this.points = new List<Vector2>();
             this.texture = manager.Load<Texture2D>("Graphics/items");
-            this.road = new Road(GraphicsDevice, new TextureRegion(texture, 64, 0, 96, 96));
+            this.road = new Road(GraphicsDevice, new TextureRegion(texture, 64, 8, 96, 48));
             this.camera = new Camera2D(GraphicsDevice, 1080, 1280);
             this.tileSize = camera.GetWidth() / 20;
             this.drawLock = false;
@@ -74,7 +74,7 @@ namespace MAH_TowerDefense.Screens
 
         protected override void Draw()
         {
-            GraphicsDevice.Clear(Color.Cyan);
+            GraphicsDevice.Clear(Color.Black);
 
             batch.Begin(SpriteSortMode.BackToFront,
                         BlendState.AlphaBlend,

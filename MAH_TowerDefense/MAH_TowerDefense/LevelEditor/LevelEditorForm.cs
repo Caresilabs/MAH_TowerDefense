@@ -27,7 +27,7 @@ namespace MAH_TowerDefense.LevelEditor
             this.insert = insert;
         }
 
-        public LevelEditorForm(int level)
+        public LevelEditorForm(int level = 0)
         {
             InitializeComponent();
 
@@ -58,6 +58,8 @@ namespace MAH_TowerDefense.LevelEditor
 
             this.Activate();
             this.levelEditor1.Focus();
+
+            this.Text += " Level: " + level;
         }
 
         private void AddWave_Click(object sender, EventArgs e)
@@ -137,6 +139,14 @@ namespace MAH_TowerDefense.LevelEditor
 
             this.Close();
             new OpenLevelForm().Show();
+        }
+
+        private void deleteLevelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LevelIO.DeleteLevel(level);
+            this.Close();
+
+            new LevelEditorForm().Show();
         }
     }
 }
