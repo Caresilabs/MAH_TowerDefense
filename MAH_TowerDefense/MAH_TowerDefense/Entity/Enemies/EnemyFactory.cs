@@ -38,7 +38,7 @@ namespace MAH_TowerDefense.Entity.Enemies
                     MaxSpeed = 110,
                     Armor = 200,
                     Gold = 150,
-                    Damage = 5
+                    Damage = 4
                 };
                 Stats = stats;
 
@@ -76,7 +76,7 @@ namespace MAH_TowerDefense.Entity.Enemies
                     MaxSpeed = 230,
                     Armor = 50,
                     Gold = 40,
-                    Damage = 2
+                    Damage = 1
                 };
                 Stats = stats;
 

@@ -14,7 +14,7 @@ namespace MAH_TowerDefense.Entity.Bullets
                 : base(Assets.GetRegion("CannonBullet"), x, y, direction, 700)
             {
                 StatsData data = new StatsData() { 
-                    Damage = 15,
+                    Damage = 20,
                     Radius = 0,
                     MaxSpeed = 0,
                     CritChance = 15,
