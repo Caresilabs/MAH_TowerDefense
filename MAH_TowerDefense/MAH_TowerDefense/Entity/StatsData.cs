@@ -29,19 +29,6 @@ namespace MAH_TowerDefense.Entity
 
         public int Gold { get; set; }
 
-        public static StatsData operator -(StatsData stats1, StatsData stats2)
-        {
-            stats1.Health -= stats2.Health;
-            stats1.MaxHealth -= stats2.MaxHealth;
-            stats1.Damage -= stats2.Damage;
-            stats1.Armor -= stats2.Armor;
-            stats1.CritChance -= stats2.CritChance;
-            stats1.Radius -= stats2.Radius;
-            stats1.Speed -= stats2.Speed;
-            stats1.MaxSpeed -= stats2.MaxSpeed;
-            return stats1;
-        }
-
         public static StatsData operator +(StatsData stats1, StatsData stats2)
         {
             stats1.Health += stats2.Health;

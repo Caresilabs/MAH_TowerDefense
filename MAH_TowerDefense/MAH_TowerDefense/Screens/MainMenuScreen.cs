@@ -12,9 +12,6 @@ using MAH_TowerDefense.LevelEditor;
 
 namespace MAH_TowerDefense.Screens
 {
-    /**
-     * A game screen that manages the world, renderer and input and put them togheter in a convenient way
-     */
     public class MainMenuScreen : Screen, EventListener
     {
         private Scene scene;

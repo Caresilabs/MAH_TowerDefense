@@ -10,7 +10,6 @@ namespace MAH_TowerDefense.Entity.Bullets
     {
         private float interval;
         private float intervalTime;
-
         private float time;
         private float totalTime;
 

@@ -34,7 +34,6 @@ namespace MAH_TowerDefense.Entity.Enemies
                 {
                     if (int.TryParse(enemy.Split('*')[1], out num))
                     {
-                        //num = int.Parse(enemy.Split('*')[1]); // TODO error catching
                         enemy = enemy.Split('*')[0];
                     }
                     else

@@ -75,7 +75,7 @@ namespace MAH_TowerDefense
             // load sound
             if (SOUND)
             {
-                //deathSound = manager.Load<SoundEffect>("Audio/pacman_death");
+                //deathSound = manager.Load<SoundEffect>("Audio/death");
                 //music = manager.Load<Song>("Audio/music");
                 //MediaPlayer.Volume = .8f;
                 //MediaPlayer.IsRepeating = true;

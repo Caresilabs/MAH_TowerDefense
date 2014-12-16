@@ -12,7 +12,7 @@ namespace MAH_TowerDefense.Entity
         /// Inject a object with a hitmodifier
         /// </summary>
         /// <param name="modifier"></param>
-        /// <returns>Whenever it was a valid hit or not</returns>
+        /// <returns>Returns whenever it was a valid hit or not</returns>
         bool Hit(HitModifier modifier);
     }
 }

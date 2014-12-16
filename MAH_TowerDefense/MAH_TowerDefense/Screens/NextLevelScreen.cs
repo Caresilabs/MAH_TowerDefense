@@ -43,8 +43,8 @@ namespace MAH_TowerDefense.Screens
         {
             time += delta;
 
-            if (time > textTime )
-               SetScreen(new GameScreen(nextLevel));
+            if (time > textTime)
+                SetScreen(new GameScreen(nextLevel));
         }
 
         public override void Draw(SpriteBatch batch)

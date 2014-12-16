@@ -62,7 +62,7 @@ namespace MAH_TowerDefense.Screens
                     if (LevelIO.LevelCount() >= level + 1)
                         SetScreen(new NextLevelScreen(level + 1));
                     else
-                        SetScreen(new MainMenuScreen());
+                        SetScreen(new WinScreen());
                     break;
                 case World.GameState.DEAD:
                     SetScreen(new DeathScreen());
@@ -140,7 +140,7 @@ namespace MAH_TowerDefense.Screens
                 if (LevelIO.LevelCount() >= level + 1)
                     SetScreen(new NextLevelScreen(level + 1));
                 else
-                    SetScreen(new MainMenuScreen());
+                    SetScreen(new WinScreen());
             }
         }
 
@@ -152,7 +152,7 @@ namespace MAH_TowerDefense.Screens
         }
 
         /// <summary>
-        /// Return if world space is occupied or not
+        /// Return if world space is occupied or not, Using RenderTarget
         /// </summary>
         /// <param name="wx">World cord X</param>
         /// <param name="wy">World cord X</param>

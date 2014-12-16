@@ -25,10 +25,6 @@ namespace MAH_TowerDefense.Entity.Enemies
             this.walkedDistance = offset;
         }
 
-        public Enemy(float offset)
-            : this(offset, World.TILE_SIZE/2, World.TILE_SIZE/2)
-        {}
-
         public void Spawned()
         {
             Stats *= MathHelper.Clamp(1 + (world.GetWave().Number / 5.1f), 1, 3.0f);
@@ -36,7 +32,7 @@ namespace MAH_TowerDefense.Entity.Enemies
 
         public override void Update(float delta)
         {
-            Stats.Speed += Stats.MaxSpeed * delta;
+            Stats.Speed += Stats.MaxSpeed * delta * .45f;
 
             walkedDistance += Stats.Speed * delta;
             SetPosition(world.GetRoad().GetPos(walkedDistance));
@@ -83,7 +79,6 @@ namespace MAH_TowerDefense.Entity.Enemies
             WorldRenderer.Effects.SpawnBlood(position);
 
             Alive = false;
-            //TODO world.addscore /gold
             world.AddGold(Stats.Gold);
         }
 

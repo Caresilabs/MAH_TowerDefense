@@ -56,9 +56,7 @@ namespace MAH_TowerDefense.Entity.Bullets
             if (!alive) return;
 
             if (enemy.Hit(modifier.Clone()))
-            {
                 alive = false;
-            }
         }
 
         public void SetModifier(HitModifier modifier)

@@ -23,7 +23,7 @@ namespace MAH_TowerDefense.Worlds
         public const int WAVE_COOLDOWN = 15;
 
         public const int START_GOLD = 700;
-        public const int START_LIVES = 20;
+        public const int START_LIVES = 25;
         public const int END_ROUND_GOLD = 350;
 
         public static float TILE_SIZE;

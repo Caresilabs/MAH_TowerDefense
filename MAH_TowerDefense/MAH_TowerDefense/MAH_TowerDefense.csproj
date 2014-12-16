@@ -102,7 +102,7 @@
     <Compile Include="Visuals\IEffect.cs" />
     <Compile Include="Visuals\EffectManager.cs" />
     <Compile Include="Entity\Bullets\Bullet.cs" />
-    <Compile Include="Entity\Bullets\BulletBank.cs" />
+    <Compile Include="Entity\Bullets\BulletFactory.cs" />
     <Compile Include="Entity\Bullets\HitModifier.cs" />
     <Compile Include="Entity\Bullets\IntervalHitModifier.cs" />
     <Compile Include="Entity\Enemies\CreepWave.cs" />
@@ -110,7 +110,6 @@
     <Compile Include="Entity\Enemies\EnemyFactory.cs" />
     <Compile Include="Entity\GameObject.cs" />
     <Compile Include="Entity\IHitable.cs" />
-    <Compile Include="Entity\IPlayerUnit.cs" />
     <Compile Include="Entity\StatsData.cs" />
     <Compile Include="Entity\Towers\Tower.cs" />
     <Compile Include="Entity\Towers\TowerFactory.cs" />

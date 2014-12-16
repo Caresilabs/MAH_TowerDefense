@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MAH_TowerDefense.Entity.Bullets
 {
-    public class BulletBank
+    public class BulletFactory
     {
         public class CannonBullet : Bullet
         {
@@ -33,7 +33,7 @@ namespace MAH_TowerDefense.Entity.Bullets
             {
                 StatsData data = new StatsData() { 
                     Damage = 5,
-                    Radius = 80,
+                    Radius = 50, //80
                     MaxSpeed = 230,
                     CritChance = 5,
                     Armor = 2

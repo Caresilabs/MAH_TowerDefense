@@ -17,9 +17,6 @@ namespace MAH_TowerDefense
 
             LevelModel allLevels = ReadFile();
 
-            // clamp level
-            //level.LevelIndex = 1 + (int)MathHelper.Clamp(level.LevelIndex, 0, allLevels.levels.Count);
-
             if (insert)
             {
                 allLevels.levels.Where(x => x.LevelIndex >= level.LevelIndex).ToList().ForEach(x => x.LevelIndex++);

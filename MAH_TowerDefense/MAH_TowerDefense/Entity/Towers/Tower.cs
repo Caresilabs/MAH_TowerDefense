@@ -14,7 +14,7 @@ using MAH_TowerDefense.Views;
 
 namespace MAH_TowerDefense.Entity.Towers
 {
-    public class Tower : Unit, IPlayerUnit
+    public class Tower : Unit
     {
         private const float UPGRADE_COST_FACTOR = 2.0f;
 
@@ -40,10 +40,7 @@ namespace MAH_TowerDefense.Entity.Towers
             this.sprite.ZIndex = .05f;
         }
 
-        public Tower(Type bullet)
-            : this(bullet, World.TILE_SIZE, World.TILE_SIZE)
-        {
-        }
+        public Tower(Type bullet) : this(bullet, World.TILE_SIZE, World.TILE_SIZE) { }
 
         public override void Update(float delta)
         {
@@ -79,7 +76,7 @@ namespace MAH_TowerDefense.Entity.Towers
 
         public override void Draw(SpriteBatch batch)
         {
-
+            // Draw circle outline
             if (!Placed || Selected)
             {
                 Sprite s = new Sprite(Assets.GetRegion("Circle"), position.X, position.Y, Stats.Radius * 2, Stats.Radius * 2);
@@ -88,6 +85,7 @@ namespace MAH_TowerDefense.Entity.Towers
                 s.Draw(batch);
             }
 
+            // Draw Level
             batch.DrawString(Assets.font, Level.ToString(), GetPosition(), Color.White, 0, new Vector2(-bounds.Width / 2.3f, -bounds.Height / 2.3f), .38f, SpriteEffects.None, 0);
 
             base.Draw(batch);
@@ -97,7 +95,6 @@ namespace MAH_TowerDefense.Entity.Towers
         {
             float angle = (float)(Math.Atan2(Target.GetPosition().X - position.X, Target.GetPosition().Y - position.Y));
             sprite.Rotation = MathUtils.AngleLerp(sprite.Rotation, (float)Math.PI - angle, 8 * delta);
-            // sprite.Rotation = MathHelper.Lerp(sprite.Rotation, (float)Math.PI - angle, 8 * delta);
 
             if (shootTime <= 0)
             {
@@ -118,8 +115,8 @@ namespace MAH_TowerDefense.Entity.Towers
 
         public void Place()
         {
-            this.Placed = true;
             WorldRenderer.Effects.SpawnSmoke(GetPosition());
+            this.Placed = true;
         }
 
         public void Upgrade()

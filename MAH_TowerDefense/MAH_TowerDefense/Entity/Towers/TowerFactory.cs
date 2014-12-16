@@ -13,7 +13,7 @@ namespace MAH_TowerDefense.Entity.Towers
         {
             public static string Description;
 
-            public CannonTower() : base(typeof(BulletBank.CannonBullet))
+            public CannonTower() : base(typeof(BulletFactory.CannonBullet))
             {
                 Description = "Basic DPS, a fast turret that can deal lots of damage";
 
@@ -43,7 +43,7 @@ namespace MAH_TowerDefense.Entity.Towers
             public static string Description;
 
             public FrostTower()
-                : base(typeof(BulletBank.IceBullet))
+                : base(typeof(BulletFactory.IceBullet))
             {
                 Description = "Freeze Man! Slows enemy because its chilly.";
 
@@ -73,7 +73,7 @@ namespace MAH_TowerDefense.Entity.Towers
             public static string Description;
 
             public SunTower()
-                : base(typeof(BulletBank.SunBullet))
+                : base(typeof(BulletFactory.SunBullet))
             {
                 Description = "Burn baby burn! Yeah, they're on fire! Burns Armor";
 
@@ -103,7 +103,7 @@ namespace MAH_TowerDefense.Entity.Towers
             public static string Description;
 
             public NuclearTower()
-                : base(typeof(BulletBank.NuclearBullet))
+                : base(typeof(BulletFactory.NuclearBullet))
             {
                 Description = "Splash and Boom! EXPLOSIONS YEAH!";
 

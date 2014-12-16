@@ -10,15 +10,10 @@ using Simon.Mah.Framework.Scene2D;
 
 namespace MAH_TowerDefense.Screens
 {
-    /**
-     * A game screen that manages the world, renderer and input and put them togheter in a convenient way
-     */
     public class DeathScreen : Screen
     {
 
-        public override void Init()
-        {
-        }
+        public override void Init() { }
 
         public override void Update(float delta)
         {
@@ -31,7 +26,6 @@ namespace MAH_TowerDefense.Screens
             GetGraphics().Clear(Color.Black);
 
             batch.Begin();
-
 
             // Draw title
             DrawCenterString(batch, GetGraphics().Viewport.Width, "You Failed the Kingdom!", 180, Color.YellowGreen, 1.4f);
@@ -53,9 +47,6 @@ namespace MAH_TowerDefense.Screens
             DrawCenterString(batch, width, text, y, Color.White, scale);
         }
 
-        public override void Dispose()
-        {
-
-        }
+        public override void Dispose() { }
     }
 }

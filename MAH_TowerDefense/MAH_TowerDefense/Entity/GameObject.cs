@@ -13,7 +13,6 @@ namespace MAH_TowerDefense.Entity
     public abstract class GameObject
     {
         public readonly Sprite sprite;
-
         public World world;
 
         protected Rectangle bounds;
